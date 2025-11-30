@@ -1,0 +1,80 @@
+images:
+  # Container repository used to retrieve the images
+  repository: "image-registry.openshift-image-registry.svc:5000/openshift"
+  
+  # Image name for each application
+  names:
+    contentComposer: "dx-content-composer"
+    core: "dx-core"
+    damPluginGoogleVision: "dx-dam-plugin-google-vision"
+    digitalAssetManagement: "dx-digital-asset-manager"
+    imageProcessor: "dx-image-processor"
+    openLdap: "dx-openldap"
+    persistenceConnectionPool: "dx-persistence-connection-pool"
+    persistenceNode: "dx-persistence-node"
+    persistenceMetricsExporter: "dx-persistence-metrics-exporter"
+    remoteSearch: "dx-remote-search"
+    ringApi: "dx-ringapi"
+    runtimeController: "dx-runtime-controller"
+    loggingSidecar: "dx-logging-sidecar"
+    haproxy: "dx-haproxy"
+    damPluginKaltura: "dx-dam-plugin-kaltura"
+    licenseManager: "dx-license-manager"
+    prereqsChecker: "dx-prereqs-checker"
+    webEngine: "dx-webengine"
+# Persistent Volume Setup
+volumes:
+  digitalAssetManagement:
+    # Binary storage PVC, shared by all Digital Asset Management Pods - RWX
+    binaries:
+      storageClassName: "dx-deploy-rwx"
+  # Persistent Volumes for Persistence Node
+  persistenceNode:
+    # Database PVC, one per Persistence Node
+    database:
+      storageClassName: "dx-deploy-rwo"
+  # Persistent Volumes for License-Manager Node
+  licenseManager:
+    # Database PVC, one per license-manager Node
+    data:
+      storageClassName: "dx-deploy-rwo"
+  # Persistent Volumes for webEngine
+  webEngine:
+    # Customization PVC one per webEngine pod - RWO
+    customization:
+      storageClassName: "dx-deploy-rwo"
+    # Application Log PVC, one per webEngine pod - RWO
+    log:
+      storageClassName: "dx-deploy-rwo"
+# Controls which application is deployed and configured
+applications:
+  # Deploy Open LDAP
+  # Setting the ldap type in the core application configuration to dx will override this setting with: true
+  openLdap: false
+  # Deploys the Remote Search
+  remoteSearch: false
+  # Do not install Core DX, we will install WebEngine (Compose) instead
+  core: false
+  # Install Compose
+  webEngine: true
+# Networking specific configuration
+networking:
+  # Networking configurations specific to HAProxy
+  haproxy:
+    # Configuration to set the type Service type for the HAProxy Service. Supported values are "ClusterIP", "LoadBalancer" and "NodePort"
+    serviceType: "NodePort"
+    # Configuration to set the port exposed by the HAProxy Service. If this is not set, port 80 will be used if SSL offloading is disabled. If it is enabled port 443 is used
+    servicePort: 30443
+  # TLS Certificate secret used for HAProxy
+  tlsCertSecret: "dx-tls-cert"
+  # Networking configuration specific to webEngine
+  webEngine:
+    # Host of webEngine, must be specified as a FQDN
+    host: "dx.apps.promox.europesip-lab.com"
+# Security related configuration, e.g. default credentials
+security:
+  # Security configuration for webEngine
+  webEngine:
+    webEnginePassword: "Passw0rd"
+configuration:
+  containerTimezone: "Europe/Madrid"

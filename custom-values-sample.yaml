@@ -62,9 +62,7 @@ networking:
   # Networking configurations specific to HAProxy
   haproxy:
     # Configuration to set the type Service type for the HAProxy Service. Supported values are "ClusterIP", "LoadBalancer" and "NodePort"
-    serviceType: "NodePort"
-    # Configuration to set the port exposed by the HAProxy Service. If this is not set, port 80 will be used if SSL offloading is disabled. If it is enabled port 443 is used
-    servicePort: 30443
+    serviceType: "ClusterIP"
   # TLS Certificate secret used for HAProxy
   tlsCertSecret: "dx-tls-cert"
   # Networking configuration specific to webEngine

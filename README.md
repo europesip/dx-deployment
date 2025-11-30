@@ -3,86 +3,63 @@
 
 This document provides a structured and repeatable procedure to:
 
-- Clean and reset previous DX deployments  
 - Prepare the OpenShift environment (as admin)  
 - Install HCL DX using Helm (as dxadmin)  
 - Validate access and configure external routing  
-- Collect logs for troubleshooting  
 
 ---
 
-# A. CLEANUP AND REMOVAL OF PREVIOUS INSTALLATIONS (as kubeadmin)
+# A. PREREQUISITES SETUP (as kubeadmin)
 
-This section removes any previous DX installation so a fresh deployment can be executed.
+Before starting the installation, the OpenShift administrator must ensure that the environment meets all technical prerequisites.  
+This includes preparing storage, image registries, and providing an execution environment for the installer.
 
----
+## A.0 Mandatory prerequisites (administrator responsibility)
 
-## A.1 Login as cluster administrator
+The administrator must complete the following tasks **before** beginning the installation:
 
-```bash
-oc login https://api.promox.europesip-lab.com:6443 -u kubeadmin
-oc project digital-experience
-```
+### ✔ A Linux-based workstation / bastion  
+A machine must be available for running installation commands.  
+Any of the following are valid:
 
----
+- Linux workstation  
+- WSL 2 on Windows  
+- A bastion VM with kubectl, oc, and Helm installed  
 
-## A.2 Remove previous Helm deployment
+This workstation must also have:
 
-```bash
-helm list
-helm uninstall dx-deployment
-```
-
----
-
-## A.3 Remove PVCs and PVs
-
-```bash
-oc get pvc
-oc delete pvc --all -n digital-experience
-```
-
-```bash
-oc get pv
-```
-
-Delete the PVs bound to the previous installation:
-
-```bash
-oc delete pv \
-  pvc-272ca607-3d61-4178-ae6b-c3e680011b0a \
-  pvc-50c04075-f1ca-4b53-bc39-d3d390a2207b \
-  pvc-8edea03b-ded7-42c0-ab0a-de28e5818aed \
-  pvc-db093249-4b07-4b49-96cd-cc24e107d6a2
-```
+- Access to the OpenShift cluster  
+- Access to the internal image registry  
+- Access to the Helm chart package (`hcl-dx-deployment-2.42.1.tgz`) either locally or via shared storage
 
 ---
 
-## A.4 Remove old pods and routes
+### ✔ Required StorageClasses  
+The cluster must already have the necessary StorageClasses:
 
-```bash
-oc get pods
-oc get routes
-oc delete route dx-route
-```
+- **RWX** StorageClass for shared volumes  
+- **RWO** StorageClass for persistent databases and logs  
 
----
-
-## A.5 Remove namespace
-
-```bash
-oc delete project digital-experience
-```
+> **Note:** This guide assumes that all required StorageClasses already exist.
 
 ---
 
-# B. PREREQUISITES SETUP (as kubeadmin)
+### ✔ Images uploaded to the container registry  
+The OpenShift administrator must preload the images required by the HCL DX deployment into the internal registry (or an external registry accessible by the cluster).
 
-Environment preparation prior to DX installation.
+This may involve:
+
+- Pulling images from HCL’s distribution source  
+- Tagging and pushing them into the organization’s registry  
+- Ensuring the registry is accessible from the OpenShift nodes  
+- Creating required ImagePullSecrets (if necessary)
+
+> **Assumption:**  
+> All required DX images are already present in the registry and accessible to the cluster.
 
 ---
 
-## B.1 Login and verify access
+## A.1 Login and verify access
 
 ```bash
 oc login https://api.promox.europesip-lab.com:6443 -u kubeadmin
@@ -91,7 +68,7 @@ oc whoami
 
 ---
 
-## B.2 Validate cluster resources
+## A.2 Validate cluster resources
 
 ```bash
 oc adm top nodes
@@ -104,7 +81,7 @@ Requirements:
 
 ---
 
-## B.3 Create namespace and assign permissions
+## A.3 Create namespace and assign permissions
 
 ```bash
 oc apply -f namespace-setup.yaml
@@ -126,7 +103,7 @@ oc adm policy add-role-to-user dx-installer-extra-perms dxadmin -n digital-exper
 
 ---
 
-## B.4 Check StorageClasses
+## A.4 Check StorageClasses
 
 ```bash
 oc get sc
@@ -134,11 +111,11 @@ oc get sc
 
 ---
 
-# C. INSTALLATION PROCEDURE (as dxadmin)
+# B. INSTALLATION PROCEDURE (as dxadmin)
 
 ---
 
-## C.1 Login as installer
+## B.1 Login as installer
 
 ```bash
 oc login https://api.promox.europesip-lab.com:6443 -u dxadmin
@@ -147,7 +124,7 @@ oc whoami
 
 ---
 
-## C.2 Create TLS key & secret
+## B.2 Create TLS key & secret
 
 ```bash
 openssl genrsa -out my-key.pem 2048
@@ -160,14 +137,14 @@ oc create secret tls dx-tls-cert --cert=my-cert.pem --key=my-key.pem -n digital-
 
 ---
 
-## C.3 (Optional) Create registry PullSecret
+## B.3 (Optional) Create registry PullSecret
 
 Documentation:  
 https://help.hcl-software.com/digital-experience/dx-compose/CF231/deploy_dx/install/kubernetes_deployment/preparation/optional_tasks/optional_imagepullsecrets/
 
 ---
 
-## C.4 Extract and prepare Helm values
+## B.4 Extract and prepare Helm values
 
 ```bash
 helm show values hcl-dx-deployment-2.42.1.tgz > values.yaml
@@ -178,7 +155,7 @@ Modify `custom-values.yaml` as needed.
 
 ---
 
-## C.5 Install DX
+## B.5 Install DX
 
 ```bash
 helm install -n digital-experience \
@@ -191,7 +168,7 @@ helm install -n digital-experience \
 
 ---
 
-## C.6 Validate pod creation
+## B.6 Validate pod creation
 
 ```bash
 oc get pods
@@ -200,7 +177,7 @@ oc logs -f dx-deployment-web-engine-0 -c web-engine -n digital-experience
 
 ---
 
-## C.7 Validate HAProxy access (port-forward)
+## B.7 Validate HAProxy access (port-forward)
 
 ```bash
 oc port-forward svc/dx-deployment-haproxy 8443:30443
@@ -208,33 +185,8 @@ oc port-forward svc/dx-deployment-haproxy 8443:30443
 
 ---
 
-## C.8 Apply external OpenShift Route
+## B.8 Apply external OpenShift Route
 
 ```bash
 oc apply -f dx-haproxy-route.yaml
 ```
-
----
-
-# D. TROUBLESHOOTING – LOG COLLECTION
-
-Collect diagnostics if installation fails:
-
-```bash
-export namespace="digital-experience"
-export releasename="dx-deployment"
-
-kubectl -n $namespace top nodes > topnodes.txt
-kubectl -n $namespace top pods > toppods.txt
-
-kubectl get events -n $namespace > events.txt
-kubectl get pods -n $namespace -o wide > podStatus.txt
-
-kubectl logs -n $namespace -l release=$releasename --all-containers --prefix=true --previous --tail=-1 > previousLogs.txt
-kubectl logs -n $namespace -l release=$releasename --all-containers --prefix=true --tail=-1 > currentLogs.txt
-```
-
----
-
-# ✔ Document Ready for Use
-This README.md is prepared for exporting, publishing to GitHub/GitLab, or importing into documentation systems.

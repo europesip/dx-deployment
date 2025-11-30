@@ -16,9 +16,25 @@ A workstation is required to run all installation commands. Any of the following
 - WSL2 on Windows  
 - A bastion VM with `kubectl`, `oc`, and `helm` installed  
 
-This workstation must also have:
+This workstation must include the following tools:
 
-- Network access to the OpenShift cluster  
+**Required tools:**
+- `openssl` — needed to generate TLS certificates  
+- `git` — required if cloning the lab repository  
+
+**Optional but recommended tools:**
+- `podman` or `docker` — useful for inspecting or manipulating container images  
+- `skopeo` — for copying, inspecting, or syncing images between registries  
+- `curl` or `wget` — for fetching files, endpoints, and testing connectivity  
+- `stern` or `kubetail` — for aggregated log streaming across multiple Kubernetes pods  
+- `jq` — for parsing and inspecting JSON output from Kubernetes/oc commands  
+
+These optional tools are not required for the installation but are highly useful for troubleshooting, debugging, and working efficiently in Kubernetes/OpenShift environments.
+
+In addition, the workstation must have:
+
+- Network access to the OpenShift cluster (which may operate in an air-gapped mode if required)  
+- Optional, but not strictly necessary, access to the Internet  
 - Access to the image registry being used  
 - Access to the DX Helm chart package (`hcl-dx-deployment-2.42.1.tgz`) locally or via shared storage  
 
@@ -43,6 +59,10 @@ In this guide, we will use:
 
 The OpenShift administrator must preload all required HCL DX container images into the container registry used by the environment.
 
+This guide assumes a restrictive scenario in which the OpenShift cluster does **not** have Internet access (air-gapped environment).  
+Therefore, the cluster cannot pull images directly from the HCL Harbor registry.  
+Instead, all images must be retrieved from a local corporate registry where they have been previously mirrored or uploaded by the administrator.
+
 This process may involve:
 
 - Pulling DX images from HCL’s distribution source  
@@ -51,7 +71,7 @@ This process may involve:
 - Creating ImagePullSecrets if authentication is required  
 
 > **Important:**  
-> Because registry configuration varies significantly between customers and deployments — and corporate environments typically maintain a centralized registry with their own internal procedures —  
+> Because registry configuration varies significantly between customers and deployments — and because corporate environments typically maintain their own centralized registries —  
 > **the process of uploading images to the registry is not covered in this guide**.  
 > It is assumed that all required DX images are already present and accessible to the cluster.
 
@@ -73,12 +93,35 @@ This includes:
 
 ---
 
+### ✔ TLS certificates (self-signed or corporate)
+
+This guide uses self-signed TLS certificates generated during the installation process.  
+These certificates are suitable for lab environments and internal testing scenarios.
+
+However, if you prefer to use corporate or pre-existing certificates issued by your organization or a trusted Certificate Authority,  
+the OpenShift administrator must provide the corresponding `*.pem` files **before** beginning the installation.
+
+These files should include:
+
+- The certificate (`.pem` or `.crt`)  
+- The private key (`.key` or `.pem`)  
+- Any required intermediate or CA certificates, when applicable  
+
+During the installation, the `dxadmin` user can load these certificates into OpenShift as a TLS secret instead of generating self-signed ones.
+
+> **Note:**  
+> The process for obtaining or approving corporate certificates varies by organization and is therefore outside the scope of this guide.
+
+---
+
 ### ✔ Installer user (`dxadmin`)
 
 This guide assumes that the `dxadmin` user already exists with the appropriate permissions to deploy DX inside the designated namespace.
 
 Because user creation depends on the identity provider configured in the cluster (Azure AD, Keycloak, LDAP, htpasswd, etc.),  
 **the creation and configuration of the `dxadmin` account are outside the scope of this guide** and must be performed by the OpenShift administrator before starting the installation.
+
+---
 
 ### ✔ Optional: Clone the lab repository (recommended)
 

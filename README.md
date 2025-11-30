@@ -19,6 +19,8 @@ This includes preparing the storage infrastructure, configuring the image regist
 > If you have any doubts regarding these prerequisites, please refer to the **[pre-requisites.md](pre-requisites.md)** document.
 
 Once these foundational requirements are met, an authorized OpenShift administrator will prepare a dedicated namespace with restricted privileges, allowing the `dxadmin` user to perform the DX installation safely.  
+If you need to repeat the lab, you can completely remove the deployment and start over by following the cleanup instructions provided in the **[clean.md](clean.md)** document.
+
 The steps required to prepare the environment are outlined below:
 
 ---
@@ -147,7 +149,7 @@ oc logs -f dx-deployment-web-engine-0 -c web-engine -n digital-experience
 ## B.7 Validate HAProxy access (port-forward)
 
 ```bash
-oc port-forward svc/dx-deployment-haproxy 8443:30443
+oc port-forward svc/dx-deployment-haproxy 8443:8081
 ```
 
 ---
@@ -157,3 +159,10 @@ oc port-forward svc/dx-deployment-haproxy 8443:30443
 ```bash
 oc apply -f dx-haproxy-route.yaml
 ```
+
+You can now log in to your new DX installation by navigating to:  
+<https://dx.apps.promox.europesip-lab.com/wps/myportal/>
+
+If the deployment is incomplete or you encounter any issues, refer to the troubleshooting instructions in the **[logs.md](logs.md)** document.
+
+Additionally, if you wish to repeat the lab, you can completely remove the deployment and start from a clean environment by following the cleanup steps provided in the **[clean.md](clean.md)** document.

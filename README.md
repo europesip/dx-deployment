@@ -11,59 +11,22 @@ This document provides a structured and repeatable procedure to:
 
 # A. PREREQUISITES SETUP (as kubeadmin)
 
-Before starting the installation, the OpenShift administrator must ensure that the environment meets all technical prerequisites.  
-This includes preparing storage, image registries, and providing an execution environment for the installer.
+Before beginning the installation, the OpenShift administrator must ensure that the environment meets all required technical prerequisites.  
+This includes preparing the storage infrastructure, configuring the image registry, and providing a suitable execution environment for the installer.
 
-## A.0 Mandatory prerequisites (administrator responsibility)
+> **Note:**  
+> This guide assumes that all required StorageClasses are already available, and that all necessary DX container images have been uploaded to the registry and are accessible to the cluster.  
+> If you have any doubts regarding these prerequisites, please refer to the **pre-requisites.md** document.
 
-The administrator must complete the following tasks **before** beginning the installation:
-
-### ✔ A Linux-based workstation / bastion  
-A machine must be available for running installation commands.  
-Any of the following are valid:
-
-- Linux workstation  
-- WSL 2 on Windows  
-- A bastion VM with kubectl, oc, and Helm installed  
-
-This workstation must also have:
-
-- Access to the OpenShift cluster  
-- Access to the internal image registry  
-- Access to the Helm chart package (`hcl-dx-deployment-2.42.1.tgz`) either locally or via shared storage
+Once these foundational requirements are met, an authorized OpenShift administrator will prepare a dedicated namespace with restricted privileges, allowing the `dxadmin` user to perform the DX installation safely.  
+The steps required to prepare the environment are outlined below:
 
 ---
 
-### ✔ Required StorageClasses  
-The cluster must already have the necessary StorageClasses:
-
-- **RWX** StorageClass for shared volumes  
-- **RWO** StorageClass for persistent databases and logs  
-
-> **Note:** This guide assumes that all required StorageClasses already exist.
-
----
-
-### ✔ Images uploaded to the container registry  
-The OpenShift administrator must preload the images required by the HCL DX deployment into the internal registry (or an external registry accessible by the cluster).
-
-This may involve:
-
-- Pulling images from HCL’s distribution source  
-- Tagging and pushing them into the organization’s registry  
-- Ensuring the registry is accessible from the OpenShift nodes  
-- Creating required ImagePullSecrets (if necessary)
-
-> **Assumption:**  
-> All required DX images are already present in the registry and accessible to the cluster.
-
----
-
-## A.1 Login and verify access
+## A.1 Login as admin
 
 ```bash
 oc login https://api.promox.europesip-lab.com:6443 -u kubeadmin
-oc whoami
 ```
 
 ---
@@ -85,7 +48,6 @@ Requirements:
 
 ```bash
 oc apply -f namespace-setup.yaml
-oc project digital-experience
 ```
 
 Assign admin rights to dxadmin:
@@ -113,13 +75,15 @@ oc get sc
 
 # B. INSTALLATION PROCEDURE (as dxadmin)
 
+Once the environment has been fully prepared and a namespace has been created where the `dxadmin` user has the required permissions, the installation can proceed.  
+The user responsible for installing and managing the product will perform the following steps using the `dxadmin` account:
+
 ---
 
 ## B.1 Login as installer
 
 ```bash
 oc login https://api.promox.europesip-lab.com:6443 -u dxadmin
-oc whoami
 ```
 
 ---
@@ -139,9 +103,11 @@ oc create secret tls dx-tls-cert --cert=my-cert.pem --key=my-key.pem -n digital-
 
 ## B.3 (Optional) Create registry PullSecret
 
-Documentation:  
-https://help.hcl-software.com/digital-experience/dx-compose/CF231/deploy_dx/install/kubernetes_deployment/preparation/optional_tasks/optional_imagepullsecrets/
+This step is only required when using an image registry that requires authentication.  
+In our environment, we use the OpenShift internal registry, so no additional ImagePullSecrets are needed.
 
+For more details, refer to the official documentation:  
+https://help.hcl-software.com/digital-experience/dx-compose/CF231/deploy_dx/install/kubernetes_deployment/preparation/optional_tasks/optional_imagepullsecrets/
 ---
 
 ## B.4 Extract and prepare Helm values
@@ -152,6 +118,7 @@ cp values.yaml custom-values.yaml
 ```
 
 Modify `custom-values.yaml` as needed.
+Note that a "custom-values-sample.yaml" is provided with the values we have use on this lab.
 
 ---
 

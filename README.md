@@ -1,177 +1,93 @@
-# HCL Digital Experience – OpenShift Installation Guide
-**DX 9.5 CF231 – EuropeSIP Lab Cluster**
+# HCL Digital Experience – OpenShift Labs  
+**DX 9.5 CF231 – EuropeSIP Lab Repository**
 
-This document provides a structured and repeatable procedure to:
+This repository contains a collection of hands-on laboratories designed to guide administrators and engineers through the installation, configuration, and operation of **HCL Digital Experience (DX) Compose** on **Red Hat OpenShift**.
 
-- Prepare the OpenShift environment (as admin)  
-- Install HCL DX using Helm (as dxadmin)  
-- Validate access and configure external routing  
-
----
-
-# IMPORTANT
-
-Before beginning the installation, the OpenShift administrator must ensure that the environment meets all required technical prerequisites.  
-This includes preparing the storage infrastructure, configuring the image registry, and providing a suitable execution environment for the installer.
-
-> **Note:**  
-> This guide assumes that all required StorageClasses are already available, and that all necessary DX container images have been uploaded to the registry and are accessible to the cluster.  
-> If you have any doubts regarding these prerequisites, please refer to **[pre-requisites.md](pre-requisites.md)**.
-
-Once these foundational requirements are met, an authorized OpenShift administrator will prepare a dedicated namespace with restricted privileges, allowing the `dxadmin` user to safely perform the DX installation.  
-If you need to repeat the lab, you can remove the deployment and start from a clean state by following the instructions in **[clean.md](clean.md)**.
-
-This guide works with **two distinct roles**:
-
-- The **OpenShift/Kubernetes cluster administrator**, typically associated with the `kubeadmin` user. This role is described in **Section A**.
-- The **restricted installer user (`dxadmin`)**, responsible solely for deploying and managing HCL DX within the designated namespace. This role is covered in **Section B**.
-
-You may assign these roles to two separate user accounts — a common practice in environments with strict security requirements — or use a single account for both, depending on your organization’s policies.
-
-The steps required to prepare the environment are outlined below:
+Each lab focuses on a specific stage of the deployment lifecycle — from initial environment preparation to installation, routing, authentication, troubleshooting, log collection, and development workflows.  
+The objective is to provide a **clear, repeatable, and practical learning experience**, closely aligned with real-world OpenShift environments.
 
 ---
 
-# A. PREREQUISITES SETUP (as kubeadmin - Cluster Admin privileges)
+## 📘 Repository Structure
 
-## A.1 Login as admin
+The repository is organized into multiple lab modules.  
+Each lab includes:
 
-```bash
-oc login https://api.promox.europesip-lab.com:6443 -u kubeadmin
-```
-
----
-
-## A.2 Validate cluster resources
-
-```bash
-oc adm top nodes
-```
-
-Requirements:
-
-- **CPU:** ≥ 2 cores available  
-- **Memory:** ≥ 8 GB free  
+- Detailed step-by-step instructions  
+- Required YAML manifests  
+- Utility scripts for automation  
+- Sample configuration files  
+- Troubleshooting and diagnostic helpers  
 
 ---
 
-## A.3 Create namespace and assign permissions
+## 🧪 Lab 1 – DX Base Setup  
+⏱ **Estimated time: 15 minutes**  
+📂 **Directory:** `lab1-dxsetup/`
 
-```bash
-oc apply -f namespace-setup.yaml
-```
+Lab 1 covers the essential steps required to perform a **base installation of HCL DX Compose** on OpenShift.  
+Topics include:
 
-Assign admin rights to dxadmin:
+- Verifying environment prerequisites  
+- Preparing required StorageClasses  
+- Preparing or validating the image registry  
+- Creating TLS certificates (self-signed or corporate)  
+- Creating the DX namespace  
+- Assigning RBAC roles (`kubeadmin` and `dxadmin`)  
+- Installing DX using Helm  
+- Creating an OpenShift Route for external access  
 
-```bash
-oc adm policy add-role-to-user admin dxadmin -n digital-experience
-```
+This lab is the **foundation** for all subsequent modules.
 
-Apply extended RBAC:
-
-```bash
-oc apply -f rbac-extended.yaml
-oc adm policy add-role-to-user dx-installer-extra-perms dxadmin -n digital-experience
-```
-
----
-
-## A.4 Check StorageClasses
-
-```bash
-oc get sc
-```
+➡️ Start by following the instructions in:  
+**[lab-guide1.md](lab1-dxsetup/lab-guide1.md)**
 
 ---
 
-# B. INSTALLATION PROCEDURE (as dxadmin, restricted namespace privileges)
+## 🧪 Lab 2 – DX Advanced Authentication  
+⏱ Estimated time: **10 minutes**  
+📂 **Directory:** `lab2-authentication/`
 
-Once the environment has been fully prepared and a namespace has been created where the `dxadmin` user has the required permissions, the installation can proceed.  
-The user responsible for installing and managing the product will perform the following steps using the `dxadmin` account:
+This lab (coming soon) will cover:
 
----
-
-## B.1 Login as installer
-
-```bash
-oc login https://api.promox.europesip-lab.com:6443 -u dxadmin
-```
+- Integration with corporate identity providers  
+- SSO and OIDC configurations  
+- External authentication workflows
 
 ---
 
-## B.2 Create TLS key & secret
+## 🧪 Lab 3 – DX Corporate Database Integration  
+⏱ Estimated time: **10 minutes**  
+📂 **Directory:** `lab3-dbase/`
 
-```bash
-openssl genrsa -out my-key.pem 2048
-openssl req -x509 -key my-key.pem -out my-cert.pem -days 365 -subj '/CN=EuropeSIP'
-```
+This lab (under construction) will demonstrate:
 
-```bash
-oc create secret tls dx-tls-cert --cert=my-cert.pem --key=my-key.pem -n digital-experience
-```
-
----
-
-## B.3 (Optional) Create registry PullSecret
-
-This step is only required when using an image registry that requires authentication.  
-In our environment, we use the OpenShift internal registry, so no additional ImagePullSecrets are needed.
-
-For more details, refer to the official documentation:  
-https://help.hcl-software.com/digital-experience/dx-compose/CF231/deploy_dx/install/kubernetes_deployment/preparation/optional_tasks/optional_imagepullsecrets/
----
-
-## B.4 Extract and prepare Helm values
-
-```bash
-helm show values hcl-dx-deployment-2.42.1.tgz > values.yaml
-cp values.yaml custom-values.yaml
-```
-
-Modify `custom-values.yaml` as needed.
-Note that a "custom-values-sample.yaml" is provided with the values we have use on this lab.
+- Integration with corporate databases  
+- Configuration of secure connections  
+- Credential and secret management
 
 ---
 
-## B.5 Install DX
+## 🧪 Lab 4 – DX Advanced Search with OpenSearch  
+⏱ Estimated time: **15 minutes**  
+📂 **Directory:** `lab4-opensearch/`
 
-```bash
-helm install -n digital-experience \
-  -f custom-values.yaml \
-  dx-deployment \
-  ./hcl-dx-deployment-2.42.1.tgz \
-  --timeout 20m \
-  --wait
-```
+This lab (under construction) will focus on:
 
----
-
-## B.6 Validate pod creation
-
-```bash
-oc get pods
-oc logs -f dx-deployment-web-engine-0 -c web-engine -n digital-experience
-```
+- Connecting DX Compose to OpenSearch  
+- Indexing and search configuration  
+- Advanced content discovery scenarios
 
 ---
 
-## B.7 Validate HAProxy access (port-forward)
+## 🧪 Lab 5 – DX Development Environment  
+⏱ Estimated time: **20 minutes**  
+📂 **Directory:** `lab5-development/`
 
-```bash
-oc port-forward svc/dx-deployment-haproxy 8443:8081
-```
+This lab (under construction) will cover:
+
+- Setting up **OpenShift Dev Spaces** for DX developers  
+- Working with Git-based workflows  
+- Using DX client tooling inside Dev Spaces
 
 ---
-
-## B.8 Apply external OpenShift Route
-
-```bash
-oc apply -f dx-haproxy-route.yaml
-```
-
-You can now log in to your new DX installation by navigating to:  
-<https://dx.apps.promox.europesip-lab.com/wps/myportal/>
-
-If the deployment is incomplete or you encounter any issues, refer to the troubleshooting instructions in the **[logs.md](logs.md)** document.
-
-Additionally, if you wish to repeat the lab, you can completely remove the deployment and start from a clean environment by following the cleanup steps provided in the **[clean.md](clean.md)** document.

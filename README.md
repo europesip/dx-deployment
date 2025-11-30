@@ -3,8 +3,27 @@
 
 This repository contains a collection of hands-on laboratories designed to guide administrators and engineers through the installation, configuration, and operation of **HCL Digital Experience (DX) Compose** on **Red Hat OpenShift**.
 
-Each lab focuses on a specific stage of the deployment lifecycle — from initial environment preparation to installation, routing, authentication, troubleshooting, log collection, and development workflows.  
-The objective is to provide a **clear, repeatable, and practical learning experience**, closely aligned with real-world OpenShift environments.
+Each lab focuses on a specific stage of the deployment lifecycle — from initial environment preparation to installation, routing, authentication, troubleshooting, log collection, and developer workflows.  
+The objective is to provide a **clear, repeatable, and practical learning experience**, closely aligned with real-world OpenShift deployments.
+
+These labs are publicly available to the community in this GitHub repository:
+
+➡️ **https://github.com/europesip/dx-deployment**
+
+You may clone the repository on your workstation using:
+
+```bash
+git clone https://github.com/europesip/dx-deployment.git
+cd dx-deployment
+```
+
+Cloning the repository is highly recommended, as it allows you to:
+
+- Run lab commands without manually copying them from a website
+- Work with all YAML manifests locally and consistently
+- Access the latest updates to guides, scripts, and sample configurations
+- Use ready-to-run scripts (such as log collectors) without downloading them individually
+- Avoid formatting or copy/paste errors during installation steps
 
 ---
 
@@ -37,10 +56,10 @@ Topics include:
 - Installing DX using Helm  
 - Creating an OpenShift Route for external access  
 
-This lab is the **foundation** for all subsequent modules.
+This lab serves as the foundation for all subsequent modules.
+Upon completion, you will have a fully functional HCL DX Compose environment running on OpenShift and ready for use.
 
-➡️ Start by following the instructions in:  
-**[lab1-guide.md](lab1-dxsetup/lab1-guide.md)**
+➡️ Start by following the instructions in: **[lab1-guide.md](lab1-dxsetup/lab1-guide.md)**
 
 ---
 
@@ -88,6 +107,6 @@ This lab (under construction) will cover:
 
 - Setting up **OpenShift Dev Spaces** for DX developers  
 - Working with Git-based workflows  
-- Using DX client tooling inside Dev Spaces
+- Using DX client tooling & Visual Studio Components inside Dev Spaces
 
 ---

@@ -9,21 +9,30 @@ This document provides a structured and repeatable procedure to:
 
 ---
 
-# A. PREREQUISITES SETUP (as kubeadmin)
+# IMPORTANT
 
 Before beginning the installation, the OpenShift administrator must ensure that the environment meets all required technical prerequisites.  
 This includes preparing the storage infrastructure, configuring the image registry, and providing a suitable execution environment for the installer.
 
 > **Note:**  
 > This guide assumes that all required StorageClasses are already available, and that all necessary DX container images have been uploaded to the registry and are accessible to the cluster.  
-> If you have any doubts regarding these prerequisites, please refer to the **[pre-requisites.md](pre-requisites.md)** document.
+> If you have any doubts regarding these prerequisites, please refer to **[pre-requisites.md](pre-requisites.md)**.
 
-Once these foundational requirements are met, an authorized OpenShift administrator will prepare a dedicated namespace with restricted privileges, allowing the `dxadmin` user to perform the DX installation safely.  
-If you need to repeat the lab, you can completely remove the deployment and start over by following the cleanup instructions provided in the **[clean.md](clean.md)** document.
+Once these foundational requirements are met, an authorized OpenShift administrator will prepare a dedicated namespace with restricted privileges, allowing the `dxadmin` user to safely perform the DX installation.  
+If you need to repeat the lab, you can remove the deployment and start from a clean state by following the instructions in **[clean.md](clean.md)**.
+
+This guide works with **two distinct roles**:
+
+- The **OpenShift/Kubernetes cluster administrator**, typically associated with the `kubeadmin` user. This role is described in **Section A**.
+- The **restricted installer user (`dxadmin`)**, responsible solely for deploying and managing HCL DX within the designated namespace. This role is covered in **Section B**.
+
+You may assign these roles to two separate user accounts — a common practice in environments with strict security requirements — or use a single account for both, depending on your organization’s policies.
 
 The steps required to prepare the environment are outlined below:
 
 ---
+
+# A. PREREQUISITES SETUP (as kubeadmin - Cluster Admin privileges)
 
 ## A.1 Login as admin
 
@@ -75,7 +84,7 @@ oc get sc
 
 ---
 
-# B. INSTALLATION PROCEDURE (as dxadmin)
+# B. INSTALLATION PROCEDURE (as dxadmin, restricted namespace privileges)
 
 Once the environment has been fully prepared and a namespace has been created where the `dxadmin` user has the required permissions, the installation can proceed.  
 The user responsible for installing and managing the product will perform the following steps using the `dxadmin` account:

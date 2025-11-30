@@ -79,3 +79,26 @@ This guide assumes that the `dxadmin` user already exists with the appropriate p
 
 Because user creation depends on the identity provider configured in the cluster (Azure AD, Keycloak, LDAP, htpasswd, etc.),  
 **the creation and configuration of the `dxadmin` account are outside the scope of this guide** and must be performed by the OpenShift administrator before starting the installation.
+
+### ✔ Optional: Clone the lab repository (recommended)
+
+To simplify the installation process, you may optionally clone the public GitHub repository that contains:
+
+- Updated installation instructions  
+- Example configuration files  
+- Sample `custom-values-sample.yaml`  
+- Route definitions  
+- Utility scripts used throughout the lab  
+- Troubleshooting helpers  
+
+Clone the repository with:
+
+```bash
+git clone https://github.com/europesip/dx-deployment.git
+cd dx-deployment
+```
+
+After cloning the repository, you may also copy or download the Helm chart required for the installation  
+(`hcl-dx-deployment-2.42.1.tgz`, as referenced at the beginning of this document).  
+The Helm deployment package is available through HCL Software Downloads at:  
+https://my.hcltechsw.com/downloads

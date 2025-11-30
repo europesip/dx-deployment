@@ -16,30 +16,12 @@ This includes preparing the storage infrastructure, configuring the image regist
 
 > **Note:**  
 > This guide assumes that all required StorageClasses are already available, and that all necessary DX container images have been uploaded to the registry and are accessible to the cluster.  
-> If you have any doubts regarding these prerequisites, please refer to the **pre-requisites.md** document.
+> If you have any doubts regarding these prerequisites, please refer to the **[pre-requisites.md](pre-requisites.md)** document.
 
 Once these foundational requirements are met, an authorized OpenShift administrator will prepare a dedicated namespace with restricted privileges, allowing the `dxadmin` user to perform the DX installation safely.  
 The steps required to prepare the environment are outlined below:
 
 ---
-
-### ✔ Optional: Clone the lab repository (recommended)
-
-To simplify the installation process, you may optionally clone the public GitHub repository that contains:
-
-- Updated installation instructions  
-- Example configuration files  
-- Sample `custom-values-sample.yaml`  
-- Route definitions  
-- Utility scripts used throughout the lab  
-- Troubleshooting helpers  
-
-Clone the repository with:
-
-```bash
-git clone https://github.com/europesip/dx-deployment.git
-cd dx-deployment
-```
 
 ## A.1 Login as admin
 

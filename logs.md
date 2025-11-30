@@ -7,7 +7,7 @@ These logs are essential for providing HCL Support with accurate system informat
 ---
 
 
-# A. TROUBLESHOOTING – LOG COLLECTION
+# TROUBLESHOOTING – LOG COLLECTION
 
 Collect diagnostics if installation fails:
 
@@ -27,5 +27,8 @@ kubectl logs -n $namespace -l release=$releasename --all-containers --prefix=tru
 
 ---
 
-# ✔ Document Ready for Use
-This README.md is prepared for exporting, publishing to GitHub/GitLab, or importing into documentation systems.
+As an alternative to running each command manually, this repository includes a helper script named collect_logs.sh.
+This script automates the entire log-collection workflow and generates a timestamped folder containing all relevant diagnostics, allowing you to gather complete support information with a single command:
+```bash
+./collect_logs.sh digital-experience dx-deployment
+```

@@ -23,6 +23,24 @@ The steps required to prepare the environment are outlined below:
 
 ---
 
+### ✔ Optional: Clone the lab repository (recommended)
+
+To simplify the installation process, you may optionally clone the public GitHub repository that contains:
+
+- Updated installation instructions  
+- Example configuration files  
+- Sample `custom-values-sample.yaml`  
+- Route definitions  
+- Utility scripts used throughout the lab  
+- Troubleshooting helpers  
+
+Clone the repository with:
+
+```bash
+git clone https://github.com/europesip/dx-deployment.git
+cd dx-deployment
+```
+
 ## A.1 Login as admin
 
 ```bash

@@ -57,6 +57,22 @@ This process may involve:
 
 ---
 
+### ✔ DNS hostname prepared
+
+Before installing DX, the DNS administrator must configure the hostname that will be used to access the DX environment.
+
+This includes:
+
+- Creating the appropriate DNS record (typically an A or CNAME record)  
+- Pointing it to the OpenShift ingress endpoint or load balancer  
+- Ensuring that the hostname resolves correctly from the installer workstation and user networks  
+
+> **Note:**  
+> DNS configuration procedures vary across environments (internal DNS, cloud DNS, external providers, etc.),  
+> therefore **the steps to create DNS entries are outside the scope of this guide**.
+
+---
+
 ### ✔ Installer user (`dxadmin`)
 
 This guide assumes that the `dxadmin` user already exists with the appropriate permissions to deploy DX inside the designated namespace.

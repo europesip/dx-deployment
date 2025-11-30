@@ -2,7 +2,7 @@
 **DX 9.5 CF231 – EuropeSIP Lab Cluster**
 
 Before starting the installation, the OpenShift administrator must ensure that the environment meets all required technical prerequisites.  
-This involves preparing the necessary storage, configuring the container registry, and providing an appropriate workstation from which the installation will be performed.
+This involves preparing the necessary storage, configuring the container registry, setting up DNS entries, and providing an appropriate workstation from which the installation will be performed.
 
 The administrator must complete the following tasks **before** beginning the installation:
 

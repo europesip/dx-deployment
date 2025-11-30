@@ -40,7 +40,7 @@ Topics include:
 This lab is the **foundation** for all subsequent modules.
 
 ➡️ Start by following the instructions in:  
-**[lab1-guide.md](lab1-dxsetup/lab-guide.md)**
+**[lab1-guide.md](lab1-dxsetup/lab1-guide.md)**
 
 ---
 

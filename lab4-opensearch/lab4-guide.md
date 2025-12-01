@@ -50,14 +50,14 @@ oc get pods
 ```bash
 # Root CA for certificates
 openssl genrsa -out root-ca-key.pem 2048
-openssl req -new -x509 -sha256 -key root-ca-key.pem -subj "/C=US/O=ORG/OU=UNIT/CN=opensearch" -out root-ca.pem -days 730
+openssl req -new -x509 -sha256 -key root-ca-key.pem -subj "/C=ES/O=EUROPESIP/OU=LAB/CN=opensearch" -out root-ca.pem -days 730
 ```
 
 ```bash
 # Admin cert for OpenSearch configuration
 openssl genrsa -out admin-key-temp.pem 2048
 openssl pkcs8 -inform PEM -outform PEM -in admin-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out admin-key.pem
-openssl req -new -key admin-key.pem -subj "/C=US/O=ORG/OU=UNIT/CN=A" -out admin.csr
+openssl req -new -key admin-key.pem -subj "/C=ES/O=EUROPESIP/OU=LAB/CN=Admin" -out admin.csr
 openssl x509 -req -in admin.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out admin.pem -days 730
 ```
 
@@ -65,7 +65,7 @@ openssl x509 -req -in admin.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreate
 # Node cert for inter node communication
 openssl genrsa -out node-key-temp.pem 2048
 openssl pkcs8 -inform PEM -outform PEM -in node-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out node-key.pem
-openssl req -new -key node-key.pem -subj "/C=US/O=ORG/OU=UNIT/CN=opensearch-node" -out node.csr
+openssl req -new -key node-key.pem -subj "/C=ES/O=EUROPESIP/OU=LAB/CN=opensearch-node" -out node.csr
 openssl x509 -req -in node.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out node.pem -days 730
 ```
 
@@ -73,23 +73,23 @@ openssl x509 -req -in node.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreates
 # Client cert for application authentication
 openssl genrsa -out client-key-temp.pem 2048
 openssl pkcs8 -inform PEM -outform PEM -in client-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out client-key.pem
-openssl req -new -key client-key.pem -subj "/C=US/O=ORG/OU=UNIT/CN=opensearch-client" -out client.csr
+openssl req -new -key client-key.pem -subj "/C=ES/O=EUROPESIP/OU=LAB/CN=opensearch-client" -out client.csr
 openssl x509 -req -in client.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out client.pem -days 730
 ```
 
 ```bash
 # Create kubernetes secrets
-kubectl create secret generic search-admin-cert --from-file=admin.pem --from-file=admin-key.pem --from-file=root-ca.pem -n digital-experience
-kubectl create secret generic search-node-cert --from-file=node.pem --from-file=node-key.pem --from-file=root-ca.pem -n digital-experience
-kubectl create secret generic search-client-cert --from-file=client.pem --from-file=client-key.pem --from-file=root-ca.pem -n digital-experience
+oc create secret generic search-admin-cert --from-file=admin.pem --from-file=admin-key.pem --from-file=root-ca.pem -n digital-experience
+oc create secret generic search-node-cert --from-file=node.pem --from-file=node-key.pem --from-file=root-ca.pem -n digital-experience
+oc create secret generic search-client-cert --from-file=client.pem --from-file=client-key.pem --from-file=root-ca.pem -n digital-experience
 ```
 
 ## 4 Extract and prepare Helm values
 
 ```bash
 # Command to extract values.yaml from Helm Chart
-helm show values hcl-dx-search.tar.gz > values.yaml
-cp values.yaml custom-search-values.yaml
+helm show values hcl-dx-search-v2.29.0_20251027-1916.tgz > search-values.yaml
+cp search-values.yaml custom-search-values.yaml
 ```
 
 Modify `custom-search-values.yaml` as needed.
@@ -103,7 +103,7 @@ Note that a "custom-search-values-sample.yaml" is provided with the values we ha
 helm install -n digital-experience \
   -f custom-search-values.yaml \
   dx-search-deployment \
-  ./hcl-dx-search-vX.X.X_XXXXXXXX-XXXX.tar.gz \
+  ./hcl-dx-search-v2.29.0_20251027-1916.tgz \
   --timeout 20m \
   --wait
 ```

@@ -1,0 +1,2656 @@
+#********************************************************************
+#* Licensed Materials - Property of HCL                             *
+#*                                                                  *
+#* Copyright HCL Technologies Ltd. 2021, 2025. All Rights Reserved. *
+#*                                                                  *
+#* Note to US Government Users Restricted Rights:                   *
+#*                                                                  *
+#* Use, duplication or disclosure restricted by GSA ADP Schedule    *
+#********************************************************************
+
+# Default values for hcl-dx-deployment.
+
+# Image related configuration
+images:
+  # Image pulling behavior, accepts: Always, Never, IfNotPresent
+  pullPolicy: "IfNotPresent"
+  # Image pull secrets used for accessing the repository
+  # Secret must be annotated: - name: <SECRETNAME>
+  imagePullSecrets:
+  # Container repository used to retrieve the images
+  repository: ""
+  # Image tag for each application
+  tags:
+    contentComposer: "v1.44.0_20251024-1345"
+    core: "v95_CF231_20251024-1409"
+    damPluginGoogleVision: "v1.0.0_20251024-1346"
+    digitalAssetManagement: "v1.43.0_20251024-1357"
+    imageProcessor: "v1.44.0_20251024-1405"
+    openLdap: "v2.6.8_20251024-1348"
+    persistenceConnectionPool: "v1.41.0_20251024-1356"
+    persistenceNode: "v1.31_20251024-1354"
+    persistenceMetricsExporter: "v1.39.0_20251024-1357"
+    remoteSearch: "v95_CF231_20251024-1409"
+    ringApi: "v1.44.0_20251024-1347"
+    runtimeController: "v95_CF231_20251024-1351"
+    loggingSidecar: "v1.0.0_20251024-1349"
+    haproxy: "v1.27.0_20251024-1338"
+    damPluginKaltura: "v1.0.0_20251024-1346"
+    licenseManager: "v95_CF231_20251024-1349"
+    prereqsChecker: "v1.0.0_20251024-1353"
+    webEngine: "CF231_20251025-2351"
+  # Image name for each application
+  names:
+    contentComposer: "dx/content-composer"
+    core: "dx/core"
+    damPluginGoogleVision: "dx/dam-plugin-google-vision"
+    digitalAssetManagement: "dx/digital-asset-manager"
+    imageProcessor: "dx/image-processor"
+    openLdap: "dx/openldap"
+    persistenceConnectionPool: "dx/persistence-connection-pool"
+    persistenceNode: "dx/persistence-node"
+    persistenceMetricsExporter: "dx/persistence-metrics-exporter"
+    remoteSearch: "dx/remote-search"
+    ringApi: "dx/ringapi"
+    runtimeController: "dx/runtime-controller"
+    loggingSidecar: "dx/logging-sidecar"
+    haproxy: "dx/haproxy"
+    damPluginKaltura: "dx/dam-plugin-kaltura"
+    licenseManager: "dx/license-manager"
+    prereqsChecker: "dx/prereqs-checker"
+    webEngine: "dx/webengine"
+# Resource allocation settings, definition per pod
+# Use number + unit, e.g. 1500m for CPU or 1500M for Memory
+# The limits can be set to null explicitly to not limit the resources. Cluster and namespace level resource limits will still apply.
+resources:
+  # Content composer resource allocation
+  contentComposer:
+    requests:
+      cpu: "100m"
+      memory: "192Mi"
+    limits:
+      cpu: "100m"
+      memory: "192Mi"
+  # Core resource allocation
+  core:
+    requests:
+      cpu: "2000m"
+      memory: "4096Mi"
+    limits:
+      cpu: "4000m"
+      memory: "6144Mi"
+  # DAM Plugin Google Vision resource allocation
+  damPluginGoogleVision:
+    requests:
+      cpu: "100m"
+      memory: "384Mi"
+    limits:
+      cpu: "100m"
+      memory: "384Mi"
+  # Digital asset management resource allocation
+  digitalAssetManagement:
+    requests:
+      cpu: "500m"
+      memory: "1536Mi"
+    limits:
+      cpu: "500m"
+      memory: "1536Mi"
+  # Image processor resource allocation
+  imageProcessor:
+    requests:
+      cpu: "200m"
+      memory: "2048Mi"
+    limits:
+      cpu: "200m"
+      memory: "2048Mi"
+  # Open LDAP resource allocation
+  openLdap:
+    requests:
+      cpu: "200m"
+      memory: "768Mi"
+    limits:
+      cpu: "200m"
+      memory: "768Mi"
+      # Persistence Connection Pool resource allocation
+  persistenceConnectionPool:
+    requests:
+      cpu: "500m"
+      memory: "512Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+  # PG Repmanager resource allocation
+  persistenceNode:
+    requests:
+      cpu: "500m"
+      memory: "1024Mi"
+    limits:
+      cpu: "500m"
+      memory: "1024Mi"
+  # Remote Search resource allocation
+  remoteSearch:
+    requests:
+      cpu: "500m"
+      memory: "2048Mi"
+    limits:
+      cpu: "500m"
+      memory: "2048Mi"
+  # Ring API resource allocation
+  ringApi:
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
+    limits:
+      cpu: "100m"
+      memory: "256Mi"
+  # Runtime Controller resource allocation
+  runtimeController:
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
+    limits:
+      cpu: "100m"
+      memory: "256Mi"
+  # Persistence metrics exporter resource allocation
+  persistenceMetricsExporter:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "100m"
+      memory: "128Mi"
+  # Logging Sidecar resource allocation
+  loggingSidecar:
+    requests:
+      cpu: "100m"
+      memory: "64Mi"
+    limits:
+      cpu: "100m"
+      memory: "64Mi"
+  # HAProxy resource allocation
+  haproxy:
+    requests:
+      cpu: "200m"
+      memory: "300Mi"
+    limits:
+      cpu: "200m"
+      memory: "300Mi"
+  # License Manager resource allocation
+  licenseManager:
+    requests:
+      cpu: "100m"
+      memory: "300Mi"
+    limits:
+      cpu: "100m"
+      memory: "300Mi"
+  # DAM Kaltura Plugin resource allocation
+  damPluginKaltura:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "100m"
+      memory: "128Mi"
+  # Prereqs Checker resource allocation
+  prereqsChecker:
+    requests:
+      cpu: "100m"
+      memory: "64Mi"
+    limits:
+      cpu: "100m"
+      memory: "64Mi"
+  # webEngine resource allocation
+  webEngine:
+    requests:
+      cpu: "2000m"
+      memory: "4096Mi"
+    limits:
+      cpu: "4000m"
+      memory: "6144Mi"
+# Annotations for different DX Resources.
+# Type: Array of objects
+# Sample "annotations" configuration:
+#   annotations:
+#     service:
+#       core:
+#         - key: KEY1
+#           value: VALUE1
+#         - key: KEY2
+#           value: VALUE2
+annotations:
+  # Service annotations for DX Resources
+  service:
+    contentComposer: []
+    core: []
+    damPluginGoogleVision: []
+    digitalAssetManagement: []
+    imageProcessor: []
+    openLdap: []
+    persistenceNode: []
+    persistenceConnectionPool: []
+    remoteSearch: []
+    ringApi: []
+    runtimeController: []
+    haproxy: []
+    licenseManager: []
+    damPluginKaltura: []
+    webEngine: []
+  # Pod annotations for DX Resources
+  pod:
+    contentComposer: []
+    core: []
+    damPluginGoogleVision: []
+    digitalAssetManagement: []
+    imageProcessor: []
+    openLdap: []
+    persistenceNode: []
+    persistenceConnectionPool: []
+    remoteSearch: []
+    ringApi: []
+    runtimeController: []
+    haproxy: []
+    licenseManager: []
+    damPluginKaltura: []
+    webEngine: []
+# Labels for different DX Resources.
+# Type: Array of objects
+# Sample "labels" configuration:
+#   labels:
+#     service:
+#       haproxy:
+#         - key: KEY1
+#           value: VALUE1
+#         - key: KEY2
+#           value: VALUE2
+labels:
+  # Service labels for DX Resources
+  service:
+    contentComposer: []
+    core: []
+    damPluginGoogleVision: []
+    digitalAssetManagement: []
+    imageProcessor: []
+    openLdap: []
+    persistenceNode: []
+    persistenceConnectionPool: []
+    remoteSearch: []
+    ringApi: []
+    runtimeController: []
+    haproxy: []
+    licenseManager: []
+    damPluginKaltura: []
+    webEngine: []
+  # Pod labels for DX Resources
+  pod:
+    contentComposer: []
+    core: []
+    damPluginGoogleVision: []
+    digitalAssetManagement: []
+    imageProcessor: []
+    openLdap: []
+    persistenceNode: []
+    persistenceConnectionPool: []
+    remoteSearch: []
+    ringApi: []
+    runtimeController: []
+    haproxy: []
+    licenseManager: []
+    damPluginKaltura: []
+    webEngine: []
+# Host aliases for DX Pods.
+# Sample "hostAliases" configuration:
+#   hostAliases:
+#     core:
+#       - ip: "127.0.0.1"
+#         hostnames:
+#           - "localhost"
+hostAliases:
+  contentComposer: []
+  core: []
+  damPluginGoogleVision: []
+  digitalAssetManagement: []
+  imageProcessor: []
+  openLdap: []
+  persistenceNode: []
+  persistenceConnectionPool: []
+  remoteSearch: []
+  ringApi: []
+  runtimeController: []
+  haproxy: []
+  licenseManager: []
+  damPluginKaltura: []
+  webEngine: []
+# Scaling settings for deployed applications
+scaling:
+  # The default amount of replicas per application
+  replicas:
+    contentComposer: 1
+    core: 1
+    damPluginGoogleVision: 1
+    digitalAssetManagement: 1
+    imageProcessor: 1
+    ringApi: 1
+    persistenceConnectionPool: 1
+    runtimeController: 1
+    # you should not increase the number of persistence node to more than 5
+    persistenceNode: 1
+    haproxy: 1
+    licenseManager: 1
+    damPluginKaltura: 1
+    webEngine: 1
+  # Automated scaling using HorizontalPodAutoScaler
+  horizontalPodAutoScaler:
+    # Autoscaling settings for Content Composer
+    contentComposer:
+      # Enable or disable autoscaling
+      enabled: false
+      # Minimum and maximum Pod count
+      minReplicas: 1
+      maxReplicas: 3
+      # Target CPU utilization scaling threshold
+      targetCPUUtilizationPercentage: 75
+      # Target Memory utilization scaling threshold
+      targetMemoryUtilizationPercentage: 80
+    # Autoscaling settings for Core
+    core:
+      # Enable or disable autoscaling
+      enabled: false
+      # Minimum and maximum Pod count
+      minReplicas: 1
+      maxReplicas: 3
+      # Target CPU utilization scaling threshold
+      targetCPUUtilizationPercentage: 75
+      # Target Memory utilization scaling threshold
+      targetMemoryUtilizationPercentage: 80
+    # Autoscaling settings for DAM Plugin Google Vision
+    damPluginGoogleVision:
+      # Enable or disable autoscaling
+      enabled: false
+      # Minimum and maximum Pod count
+      minReplicas: 1
+      maxReplicas: 3
+      # Target CPU utilization scaling threshold
+      targetCPUUtilizationPercentage: 75
+      # Target Memory utilization scaling threshold
+      targetMemoryUtilizationPercentage: 80
+    # Autoscaling settings for Digital Asset Management
+    digitalAssetManagement:
+      # Enable or disable autoscaling
+      enabled: false
+      # Minimum and maximum Pod count
+      minReplicas: 1
+      maxReplicas: 3
+      # Target CPU utilization scaling threshold
+      targetCPUUtilizationPercentage: 75
+      # Target Memory utilization scaling threshold
+      targetMemoryUtilizationPercentage: 80
+    # Autoscaling settings for Image Processor
+    imageProcessor:
+      # Enable or disable autoscaling
+      enabled: false
+      # Minimum and maximum Pod count
+      minReplicas: 1
+      maxReplicas: 3
+      # Target CPU utilization scaling threshold
+      targetCPUUtilizationPercentage: 75
+      # Target Memory utilization scaling threshold
+      targetMemoryUtilizationPercentage: 80
+    # Autoscaling settings for Ring API
+    ringApi:
+      # Enable or disable autoscaling
+      enabled: false
+      # Minimum and maximum Pod count
+      minReplicas: 1
+      maxReplicas: 3
+      # Target CPU utilization scaling threshold
+      targetCPUUtilizationPercentage: 75
+      # Target Memory utilization scaling threshold
+      targetMemoryUtilizationPercentage: 80
+    # Autoscaling settings for HAproxy
+    haproxy:
+      # Enable or disable autoscaling
+      enabled: false
+      # Minimum and maximum Pod count
+      minReplicas: 1
+      maxReplicas: 3
+      # Target CPU utilization scaling threshold
+      targetCPUUtilizationPercentage: 75
+      # Target Memory utilization scaling threshold
+      targetMemoryUtilizationPercentage: 80
+    # Autoscaling settings for DAM Kaltura Plugin
+    damPluginKaltura:
+      # Enable or disable autoscaling
+      enabled: false
+      # Minimum and maximum Pod count
+      minReplicas: 1
+      maxReplicas: 3
+      # Target CPU utilization scaling threshold
+      targetCPUUtilizationPercentage: 75
+      # Target Memory utilization scaling threshold
+      targetMemoryUtilizationPercentage: 80
+    # Autoscaling settings for WebEngine
+    webEngine:
+      # Enable or disable autoscaling
+      enabled: false
+      # Minimum and maximum Pod count
+      minReplicas: 1
+      maxReplicas: 3
+      # Target CPU utilization scaling threshold
+      targetCPUUtilizationPercentage: 75
+      # Target Memory utilization scaling threshold
+      targetMemoryUtilizationPercentage: 80
+# Application specific node selector
+# nodeSelector uses following notation: <NODE_LABEL_KEY>: <NODE_LABEL_VALUE>
+# e.g. nodeSelector
+# nodeSelector:
+#   contentComposer:
+#     diskType: ssd
+nodeSelector:
+  contentComposer:
+  core:
+  damPluginGoogleVision:
+  digitalAssetManagement:
+  imageProcessor:
+  openLdap:
+  persistenceConnectionPool:
+  persistenceNode:
+  remoteSearch:
+  ringApi:
+  runtimeController:
+  haproxy:
+  licenseManager:
+  damPluginKaltura:
+  webEngine:
+# Affinity and anti-affinity expands the types of constraints you can define
+# e.g affinity
+# affinity:
+#   contentComposer:
+#     nodeAffinity:
+#       requiredDuringSchedulingIgnoredDuringExecution:
+#         nodeSelectorTerms:
+#           - matchExpressions:
+#               - key: topology.kubernetes.io/zone
+#                 operator: In
+#                 values:
+#                   - antarctica-east1
+#                   - antarctica-west1
+#       preferredDuringSchedulingIgnoredDuringExecution:
+#         - weight: 1
+#           preference:
+#             matchExpressions:
+#               - key: another-node-label-key
+#                 operator: In
+#                 values:
+#                   - another-node-label-value
+#     podAffinity:
+#       requiredDuringSchedulingIgnoredDuringExecution:
+#         - labelSelector:
+#             matchExpressions:
+#               - key: security
+#                 operator: In
+#                 values:
+#                   - S1
+#           topologyKey: topology.kubernetes.io/zone
+#     podAntiAffinity:
+#       preferredDuringSchedulingIgnoredDuringExecution:
+#         - weight: 100
+#           podAffinityTerm:
+#             labelSelector:
+#               matchExpressions:
+#                 - key: security
+#                   operator: In
+#                   values:
+#                     - S2
+#             topologyKey: topology.kubernetes.io/zone
+affinity:
+  contentComposer:
+  core:
+  damPluginGoogleVision:
+  digitalAssetManagement:
+  imageProcessor:
+  openLdap:
+  persistenceConnectionPool:
+  persistenceNode:
+  remoteSearch:
+  ringApi:
+  runtimeController:
+  haproxy:
+  licenseManager:
+  damPluginKaltura:
+  webEngine:
+# nodeName is a field in the Pod spec. If the nodeName field is not empty, the scheduler ignores the Pod and the kubelet on the named node tries to place the Pod on that node.
+# e.g nodeName
+# nodeName:
+#   contentComposer: "node-0"
+nodeName:
+  contentComposer: ""
+  core: ""
+  damPluginGoogleVision: ""
+  digitalAssetManagement: ""
+  imageProcessor: ""
+  openLdap: ""
+  persistenceConnectionPool: ""
+  persistenceNode: ""
+  remoteSearch: ""
+  ringApi: ""
+  runtimeController: ""
+  haproxy: ""
+  licenseManager: ""
+  damPluginKaltura: ""
+  webEngine: ""
+# Tolerations are applied to pods. Tolerations allow the scheduler to schedule pods with matching taints.
+# e.g tolerations
+# tolerations:
+#   contentComposer:
+#   - key: "key1"
+#     operator: "Equal"
+#     value: "value1"
+#     effect: "NoSchedule"
+tolerations:
+  contentComposer:
+  core:
+  damPluginGoogleVision:
+  digitalAssetManagement:
+  imageProcessor:
+  openLdap:
+  persistenceConnectionPool:
+  persistenceNode:
+  remoteSearch:
+  ringApi:
+  runtimeController:
+  haproxy:
+  licenseManager:
+  damPluginKaltura:
+  webEngine:
+# You can use topology spread constraints to control how Pods are spread across your cluster among failure-domains such as regions, zones, nodes, or among any other topology domains that you define.
+# e.g topologySpreadConstraints:
+# topologySpreadConstraints:
+#   contentComposer:
+#   - maxSkew: 1
+#     topologyKey: zone
+#     whenUnsatisfiable: DoNotSchedule #ScheduleAnyway
+#     labelSelector:
+#       matchLabels:
+#         app: dx-deployment-content-composer
+topologySpreadConstraints:
+  contentComposer:
+  core:
+  damPluginGoogleVision:
+  digitalAssetManagement:
+  imageProcessor:
+  openLdap:
+  persistenceConnectionPool:
+  persistenceNode:
+  remoteSearch:
+  ringApi:
+  runtimeController:
+  haproxy:
+  licenseManager:
+  damPluginKaltura:
+  webEngine:
+# Persistent Volume Setup
+volumes:
+  # Persistent Volumes for Core
+  core:
+    # Shared profile PVC shared by all Core pods - RWX
+    profile:
+      storageClassName: "manual"
+      requests:
+        storage: "10Gi"
+      # Optional label selector to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim.
+      selector:
+      # Optional volume name to specifically map to
+      volumeName:
+    # Transaction Log PVC, one per Core pod - RWO
+    tranlog:
+      storageClassName: "manual"
+      requests:
+        storage: "50Mi"
+      # Optional label selector to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim.
+      selector:
+      # Optional volume name to specifically map to
+      volumeName:
+    # Application Log PVC, one per Core pod - RWO
+    log:
+      storageClassName: "manual"
+      requests:
+        storage: "250Mi"
+      # Optional label selector to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim.
+      selector:
+      # Optional volume name to specifically map to
+      volumeName:
+    # List of optional additional Core PVCs for customer applications
+    # Each list element must include a unique "name", one or more "accessModes"
+    # from the options ReadWriteOnce, ReadOnlyMany or ReadWriteMany, a "mountPath" specifying where in the
+    # core container it should be mounted, a "storageClassName" and a size in "requests/storage".
+    # It may also optionally include a "selector" section to select specific PVs based on their labels.
+    # It may also optionally include a "volumeName" to select a specific PV.
+    # Example:
+    # customPVCs:
+    #   - name: "test1"
+    #     accessModes:
+    #       - "ReadWriteMany"
+    #     mountPath: "/opt/HCL/test1"
+    #     storageClassName: "manual"
+    #     requests:
+    #       storage: "20Gi"
+    #     selector:
+    #       matchLabels:
+    #         label: test
+    #       matchExpressions:
+    #         - key: name
+    #           operator: In
+    #           values:
+    #             - test1
+    #             - test2
+    #     volumeName: "test-pv"
+    customPVCs: []
+  # Persistent Volumes for Digital Asset Management
+  digitalAssetManagement:
+    # Binary storage PVC, shared by all Digital Asset Management Pods - RWX
+    binaries:
+      storageClassName: "manual"
+      requests:
+        storage: "2Gi"
+      # Optional label selector to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim.
+      selector:
+      # Optional volume name to specifically map to
+      volumeName:
+  # Persistent Volumes for Persistence Node
+  persistenceNode:
+    # Database PVC, one per Persistence Node
+    database:
+      storageClassName: "manual"
+      requests:
+        storage: "2Gi"
+      # Optional label selector to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim.
+      selector:
+      # Optional volume name to specifically map to.
+      volumeName:
+  # Persistent Volumes for License-Manager Node
+  licenseManager:
+    # Database PVC, one per license-manager Node
+    data:
+      storageClassName: "manual"
+      requests:
+        storage: "2Gi"
+      # Optional label selector to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim.
+      selector:
+      # Optional volume name to specifically map to.
+      volumeName:
+  # Persistent Volumes for Open LDAP
+  openLdap:
+    # slapd directory PVC, one per Open LDAP pod - RWO
+    slapd:
+      storageClassName: "manual"
+      requests:
+        storage: "100Mi"
+      # Optional label selector to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim.
+      selector:
+      # Optional volume name to specifically map to
+      volumeName:
+    # certificate directory, on per Open LDAP pod - RWO
+    certificate:
+      storageClassName: "manual"
+      requests:
+        storage: "100Mi"
+      # Optional label selector to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim.
+      selector:
+      # Optional volume name to specifically map to
+      volumeName:
+    # ldap directory PVC, one per Open LDAP pod - RWO
+    ldap:
+      storageClassName: "manual"
+      requests:
+        storage: "10Gi"
+      # Optional label selector to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim.
+      selector:
+      # Optional volume name to specifically map to
+      volumeName:
+  # Persistent Volumes for Remote Search
+  remoteSearch:
+    # Remote Search profile PVC, one per Remote Search pod - RWO
+    prsprofile:
+      storageClassName: "manual"
+      requests:
+        storage: "10Gi"
+      # Optional label selector to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim.
+      selector:
+      # Optional volume name to specifically map to
+      volumeName:
+  # Persistent Volumes for webEngine
+  webEngine:
+    # Customization PVC one per webEngine pod - RWO
+    customization:
+      storageClassName: "manual"
+      requests:
+        storage: "500Mi"
+      # Optional label selector to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim.
+      selector:
+      # Optional volume name to specifically map to
+      volumeName:
+    # Application Log PVC, one per webEngine pod - RWO
+    log:
+      storageClassName: "manual"
+      requests:
+        storage: "250Mi"
+      # Optional label selector to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim.
+      selector:
+      # Optional volume name to specifically map to
+      volumeName:
+    # List of optional additional WebEngine PVCs one per webEngine pod - RWO for customer applications
+    # Each list element must include a unique "name", one or more "accessModes"
+    # Only supported option is ReadWriteOnce, a "mountPath" specifying where in the
+    # WebEngine container it should be mounted, a "storageClassName" and a size in "requests/storage".
+    # It may also optionally include a "selector" section to select specific PVs based on their labels.
+    # It may also optionally include a "volumeName" to select a specific PV.
+    # Example:
+    # customPVCs:
+    #   - name: "test1"
+    #     accessModes:
+    #       - "ReadWriteOnce"
+    #     mountPath: "/opt/openliberty/test1"
+    #     storageClassName: "manual"
+    #     requests:
+    #       storage: "20Gi"
+    #     selector:
+    #       matchLabels:
+    #         label: test
+    #       matchExpressions:
+    #         - key: name
+    #           operator: In
+    #           values:
+    #             - test1
+    #             - test2
+    #     volumeName: "test-pv"
+    customPVCs: []
+# Controls which application is deployed and configured
+applications:
+  # Deploys Content Composer
+  contentComposer: true
+  # Deploys Core
+  core: true
+  # Deploys the DAM Plugin Google Vision
+  damPluginGoogleVision: false
+  # Deploys Digital Asset Management
+  # Enabling dxPicker will override this setting with: true
+  digitalAssetManagement: true
+  # Deploys the Image Processor
+  # Enabling digitalAssetManagement will override this setting with: true
+  imageProcessor: true
+  # Deploy Open LDAP
+  # Setting the ldap type in the core application configuration to dx will override this setting with: true
+  openLdap: true
+  # Deploys the Persistence Layer
+  # Enabling digitalAssetManagement and leaving the configuration.persistence.host setting empty will override the persistence setting to: true
+  persistence: true
+  # Deploys the Remote Search
+  remoteSearch: true
+  # Deploys the Ring API
+  # Enabling either digitalAssetManagement or contentComposer will override this setting with: true
+  ringApi: true
+  # Deploys the Runtime Controller
+  runtimeController: true
+  # Deploy HAProxy
+  haproxy: true
+  # If using the cloud native licensing you are required to set this to true.
+  # The License Manager service manages the license requirements for your DX deployment.
+  licenseManager: false
+  # Deploys the DAM kaltura plugin
+  damPluginKaltura: false
+  # Deploys DX Picker
+  dxPicker: true
+  # Deploys webEngine
+  webEngine: false
+# Networking specific configuration
+networking:
+  # Networking configuration specific to Core
+  core:
+    # Host of Core, must be specified as a FQDN
+    # If you are running hybrid, you need to specify the FQDN of the on-premise Core host
+    # If left blank, a later helm upgrade will pull it from HAproxy's load balancer IP.
+    host: ""
+    # Port of Core
+    # If you are running hybrid, you can specify a port
+    # If left empty, no specific port will be added to the host
+    port:
+    # Setting if SSL is enabled for Core
+    # If you are running hybrid, make sure to set this accordingly to the on-premise Core host configuration
+    # Will default to true if not set
+    ssl: true
+    # Core Context root, only alter if your deployment already uses a non default context route
+    contextRoot: "wps"
+    # Core personalized home, only alter if your deployment already uses a non default personalized home
+    personalizedHome: "myportal"
+    # Core home, only alter if your deployment already uses a non default home
+    home: "portal"
+    # None, Lax, Strict, or empty string
+    # Setting this to an empty string would not add the SameSite attribute for WASReqURL cookie
+    # Note: This should only be set in an HTTPS environment to prevent unwanted behaviours
+    cookieSameSiteAttribute: ""
+    # Enables/Disables CSP frame-ancestor header
+    # Note: 'self' is always added when this is enabled to enable DX internal features
+    # see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors
+    cspFrameAncestorsEnabled: false
+    # Add list of allowed source URLS to the the CSP frame-ancestor header this will only reflect if cspFrameAncestorsEnabled is set to true
+    # Example:
+    # cspFrameAncestorsAllowedSourceURLs:
+    #   - 'https://example.com'
+    # This would result to the following response header:
+    # content-security-policy: frame-ancestors 'self' https://example.com
+    cspFrameAncestorsAllowedSourceURLs: []
+  # Networking configurations specific to all addon applications
+  addon:
+    # Host of the addon applications
+    # If you are not running hybrid, you can leave this value empty to use relative hostnames 
+    # If you are running hybrid, you need to specify the FQDN of the Kubernetes deployment
+    host: ""
+    # Port of the addon applications
+    # If you are running hybrid, you can specify a port
+    # If left empty, no specific port will be added to the host
+    port:
+    # Setting if SSL is enabled for addon applications
+    # If you are running hybrid, make sure to set this accordingly to the Kubernetes deployment configuration
+    # Will default to true if not set
+    ssl: true
+    # Setting if internal routing from Ring API, Digital Asset Management, and Content Composer should go through HAProxy.
+    # Set to true if more than one core pod is deployed and the application is configured to use transient users or anything else that requires session affinity.
+    # Will default to false if not set
+    internalCallsUseHaproxy: false
+    contentComposer:
+      # CORS Origin configuration for Content Composer, array of elements
+      corsOrigin: []
+      # Enables/Disables CSP frame-ancestor header
+      # Note: 'self' is always added when this is enabled to enable DX internal features
+      # see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors
+      cspFrameAncestorsEnabled: false
+      # Add list of allowed source URLS to the the CSP frame-ancestor header this will only reflect if cspFrameAncestorsEnabled is set to true
+      # Example:
+      # cspFrameAncestorsAllowedSourceURLs:
+      #   - 'https://example.com'
+      # This would result to the following response header:
+      # content-security-policy: frame-ancestors 'self' https://example.com
+      cspFrameAncestorsAllowedSourceURLs: []
+    damPluginGoogleVision:
+      # CORS Origin configuration for DAM Plugin Google Vision, array of elements
+      corsOrigin: []
+    digitalAssetManagement:
+      # Staging related network configurations
+      staging:
+        # Host of the DAM Staging environment
+        # If you are not running hybrid, you can leave this value empty and the Core host will be used
+        # If you are running hybrid, you need to specify the FQDN of the Kubernetes deployment
+        host: ""
+        # Port of the DAM Staging environment
+        # If you are running hybrid, you can specify a port
+        # If left empty, no specific port will be added to the host
+        port:
+        # Setting if SSL is enabled for DAM Staging environment
+        # If you are running hybrid, make sure to set this accordingly to the Kubernetes deployment configuration
+        # Will default to true if not set
+        ssl: true
+      # CORS Origin configuration for Digital Asset Management, array of elements
+      corsOrigin: []
+      # Enables/Disables CSP frame-ancestor header
+      # Note: 'self' is always added when this is enabled to enable DX internal features
+      # see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors
+      cspFrameAncestorsEnabled: false
+      # Add list of allowed source URLS to the the CSP frame-ancestor header this will only reflect if cspFrameAncestorsEnabled is set to true
+      # Example:
+      # cspFrameAncestorsAllowedSourceURLs:
+      #   - 'https://example.com'
+      # This would result to the following response header:
+      # content-security-policy: frame-ancestors 'self' https://example.com
+      cspFrameAncestorsAllowedSourceURLs: []
+      caTrustSecret: ""
+    imageProcessor:
+      # CORS Origin configuration for Image Processor, array of elements
+      corsOrigin: []
+      # Enables/Disables CSP frame-ancestor header
+      # Note: 'self' is always added when this is enabled to enable DX internal features
+      # see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors
+      cspFrameAncestorsEnabled: false
+      # Add list of allowed source URLS to the the CSP frame-ancestor header this will only reflect if cspFrameAncestorsEnabled is set to true
+      # Example:
+      # cspFrameAncestorsAllowedSourceURLs:
+      #   - 'https://example.com'
+      # This would result to the following response header:
+      # content-security-policy: frame-ancestors 'self' https://example.com
+      cspFrameAncestorsAllowedSourceURLs: []
+    ringApi:
+      # CORS Origin configuration for Ring API, array of elements
+      corsOrigin: []
+      # Enables/Disables CSP frame-ancestor header
+      # Note: 'self' is always added when this is enabled to enable DX internal features
+      # see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors
+      cspFrameAncestorsEnabled: false
+      # Add list of allowed source URLS to the the CSP frame-ancestor header this will only reflect if cspFrameAncestorsEnabled is set to true
+      # Example:
+      # cspFrameAncestorsAllowedSourceURLs:
+      #   - 'https://example.com'
+      # This would result to the following response header:
+      # content-security-policy: frame-ancestors 'self' https://example.com
+      cspFrameAncestorsAllowedSourceURLs: []
+    damPluginKaltura:
+      # CORS Origin configuration for DAM Kaltura Plugin, array of elements
+      corsOrigin: []
+  # Networking configurations specific to HAProxy
+  haproxy:
+    # Configuration to enable/disable ssl offloading in HAProxy
+    ssl: true
+    # Configuration to set the type Service type for the HAProxy Service. Supported values are "ClusterIP", "LoadBalancer" and "NodePort"
+    serviceType: "LoadBalancer"
+    # Configuration to set the port exposed by the HAProxy Service. If this is not set, port 80 will be used if SSL offloading is disabled. If it is enabled port 443 is used
+    servicePort:
+    # Only applied for serviceType "NodePort". Configuration to set the NodePort exposed by the HAProxy Service. If this is not set, a port will automatically be selected by Kubernetes
+    serviceNodePort:
+    # HTTP Strict Transport Security (HSTS) requires the use of SSL in DX or any proxy in front of it when enabled.
+    strictTransportSecurity:
+      enabled: true
+      maxAge: 31536000
+      includeSubDomains: false
+      preload: false
+    # Set cookie value for session affinity in HAProxy configuration for DX applications that require session affinity (e.g. Core)
+    sessionCookieName: "JSESSIONID"
+    # Set the "SameSite" attribute for the HAProxy DxSessionAffinity cookie to the values: None, Lax, Strict, or empty string
+    # Setting this to an empty string will not add the SameSite attribute to the DxSessionAffinity cookie.
+    # Note: This should only be set in an HTTPS environment to prevent unwanted behaviours
+    affinityCookieSameSiteAttribute: ""
+    # Set alwaysEnableSessionAffinity to ensure any session, even unauthenticated sessions, receive a DxSessionAffinity token and route to a single
+    # core pod for the lifetime of the session. Defaults to false.
+    alwaysEnableSessionAffinity: false
+    # Optionally set the "domain" attribute for the DxSessionAffinity cookie. This is necessary if multiple subdomains can 
+    # access this deployment. To set a domain that allows for multiple subdomains, set [".domain.com"]
+    # Supported values are an array of strings. Example: ["domain1", "domain2"]. Note completely different primary domains are 
+    # not supported by most browsers, but subdomains are supported.
+    # If left empty, this reverts to the host.
+    affinityCookieDomain: []
+    # Set custom headers to be added to the HAProxy configuration. These will be added to all responses from HAProxy and overwrite existing headers.
+    # Example:
+    # customHeader:
+    #   - name: X-Permitted-Cross-Domain-Policies
+    #     value: none
+    customHeader: []
+    # Set custom headers to be removed from all responses that pass through HAProxy.
+    # Example:
+    # deleteHeader:
+    #   - X-Powered-By
+    deleteHeader: []
+  # TLS Certificate secret used for HAProxy
+  tlsCertSecret: "dx-tls-cert"
+  # Search middleware service name, needs to match the query service if you have deployed
+  # OpenSearch and the search middleware
+  searchMiddlewareService: ""
+  # Networking configuration specific to webEngine
+  webEngine:
+    # Host of webEngine, must be specified as a FQDN
+    host: ""
+    # Port of webEngine
+    port:
+    # Setting if SSL is enabled for webEngine
+    ssl: true
+    # webEngine Context root, only alter if your deployment already uses a non default context route
+    contextRoot: "wps"
+    # webEngine personalized home, only alter if your deployment already uses a non default personalized home
+    personalizedHome: "myportal"
+    # webEngine home, only alter if your deployment already uses a non default home
+    home: "portal"
+    # None, Lax, Strict, or empty string
+    # Setting this to an empty string would not add the SameSite attribute for WASReqURL cookie
+    # Note: This should only be set in an HTTPS environment to prevent unwanted behaviours
+    cookieSameSiteAttribute: ""
+    # Enables/Disables CSP frame-ancestor header
+    # Note: 'self' is always added when this is enabled to enable DX internal features
+    # see: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors
+    cspFrameAncestorsEnabled: false
+    # Add list of allowed source URLS to the the CSP frame-ancestor header this will only reflect if cspFrameAncestorsEnabled is set to true
+    # Example:
+    # cspFrameAncestorsAllowedSourceURLs:
+    #   - 'https://example.com'
+    # This would result to the following response header:
+    # content-security-policy: frame-ancestors 'self' https://example.com
+    cspFrameAncestorsAllowedSourceURLs: []
+# Security related configuration, e.g. default credentials
+security:
+  # Security configuration for Core
+  core:
+    # Credentials used for IBM WebSphere Application Server administrative access.
+    # The credentials defined in these values define the WebSphere Application Server primary administrative user. The user gets created if necessary and/or the password is set to the current value.
+    # - If the WAS admin credentials were changed by any other means than through the helm values, the currently active credentials need to be entered as the values for wasUser and wasPassword.
+    # - If LDAP is configured as the user repository, the WebSphere Application Server admin user won't be applied automatically and LDAP has the authority over the credentials. Whenever the credentials are changed in LDAP, the values for wasUser and wasPassword need to be manually updated accordingly.
+    # If wasUser and/or wasPassword is not empty, the customWasSecret below should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    wasUser: "wpsadmin"
+    wasPassword: ""
+    # Provide a secret name that will be used to set credentials for WAS
+    # Required attributes:
+    #   - username
+    #   - password
+    # If customWasSecret is not empty, wasUser and wasPassword should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    customWasSecret: ""
+    # Credentials used for HCL Digital Experience Core administrative access.
+    # The credentials defined in these values define the HCL Digital Experience Core administrative user. The user gets created if necessary and/or the password is set to the current value.
+    # - If LDAP is configured as the user repository, the WebSphere Application Server admin user won't be applied automatically and LDAP has the authority over the credentials. Whenever the credentials are changed in LDAP, the values for wpsUser and wpsPassword need to be manually updated accordingly.
+    # If wpsUser and/or wpsPassword is not empty, the customWpsSecret below should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    wpsUser: "wpsadmin"
+    wpsPassword: ""
+    # Provide a secret name that will be used to set credentials for WPS
+    # Required attributes:
+    #   - username
+    #   - password
+    # If customWpsSecret is not empty, wpsUser and wpsPassword should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    customWpsSecret: ""
+    # Credentials used for Config Wizard administrative access. This only takes effect when "configuration.core.tuning.configWizard" is enabled.
+    # The credentials defined in these values define the WebSphere Application Server primary administrative user. The user gets created if necessary and/or the password is set to the current value.
+    # This will also map the user as the user for Config Wizard and dxconnect (for dxclient)
+    # - If the Config Wizard admin credentials were changed by any other means than through the helm values, the currently active credentials need to be entered as the values for configWizardUser and configWizardPassword.
+    # - If LDAP is configured as the user repository, the WebSphere Application Server admin user won't be applied automatically and LDAP has the authority over the credentials. Whenever the credentials are changed in LDAP, the values for configWizardUser and configWizardPassword need to be manually updated accordingly.
+    # If configWizardUser and/or configWizardPassword is not empty, the customConfigWizardSecret below should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    configWizardUser: "wpsadmin"
+    configWizardPassword: ""
+    # Provide a secret name that will be used to set credentials for Config Wizard
+    # Required attributes:
+    #   - username
+    #   - password
+    # If customConfigWizardSecret is not empty, configWizardUser and configWizardPassword should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    customConfigWizardSecret: ""
+    # Security configuration for AI APIs: 
+    # API key for AI Provider
+    contentAIProviderAPIKey: ""
+    # Provide a secret name that will be used to set AI API Keys
+    customContentAISecret: ""
+  # Security configuration for dam-plugin-google-vision
+  damPluginGoogleVision:
+    # If authenticationKey and/or apiKey is not empty, the customDamGoogleVisionSecret below should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    # Authentication key for Plugin API
+    authenticationKey: "PluginSecretAuthKey"
+    # API key for Google vision
+    apiKey: ""
+    # Provide a secret name that will be used to set DAM Google Vision Authentication and API Keys
+    # Required attributes:
+    #   - authenticationKey
+    #   - apiKey
+    # If customDamGoogleVisionSecret is not empty, authenticationKey and apiKey should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    customDamGoogleVisionSecret: ""
+  # Security configuration for Digital Asset Management
+  digitalAssetManagement:
+    # Credentials used by the Digital Asset Management to access the persistence database.
+    # If dbUser and/or dbPassword is not empty, the customDBSecret below should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    dbUser: "dxuser"
+    dbPassword: "d1gitalExperience"
+    # Provide a secret name that will be used to set credentials used by the Digital Asset Management to access the persistence database.
+    # Required attributes:
+    #   - username
+    #   - password
+    # If customDBSecret is not empty, dbUser and dbPassword should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    customDBSecret: ""
+    # Credentials used by the persistence database to perform replication between database nodes.
+    # If replicationUser and/or replicationPassword is not empty, the customReplicationSecret below should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    replicationUser: "repdxuser"
+    replicationPassword: "d1gitalExperience"
+    # Provide a secret name that will be used to set credentials used by the persistence database to perform replication between database nodes.
+    # Required attributes:
+    #   - username
+    #   - password
+    # If customReplicationSecret is not empty, replicationUser and replicationPassword should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    customReplicationSecret: ""
+    # Credentials used by the Digital Asset Management to manage the release to release migration. The user name can begin with lowercase alphabets or underscore and can contain only lowercase alphabets, numbers, underscore or dollar sign with max length of 63 characters, and allows empty values if customDamSecret is specified. 
+    # If damUser and/or damPassword is not empty, the customDamSecret below should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    damUser: "damuser"
+    damPassword: "1234"
+    # Provide a secret name that will be used to set credentials used by the Digital Asset Management to manage the release to release migration.
+    # Required attributes:
+    #   - username. The user name can begin with lowercase alphabets or underscore and can contain only lowercase alphabets, numbers, underscore or dollar sign with max length of 63 characters
+    #   - password
+    # If customDamSecret is not empty, damUser and damPassword should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    customDamSecret: ""
+  # Security configuration for Persistence.
+  persistence:
+    # If connectionPoolAdmin and/or connectionPoolPassword is not empty, the customConnectionPoolSecret below should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    connectionPoolAdmin: "admin"
+    connectionPoolPassword: "adminpassword"
+    # Provide a secret name that will be used for Persistence Security configuration
+    # Required attributes:
+    #   - username
+    #   - password
+    # If customConnectionPoolSecret is not empty, connectionPoolAdmin and connectionPoolPassword should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    customConnectionPoolSecret: ""
+  # Security configuration for Open LDAP
+  openLdap:
+    # If ldapUser and/or ldapPassword is not empty, the customLdapSecret below should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    # Admin user for Open LDAP, can not be adjusted currently.
+    ldapUser: "dx_user"
+    # Admin password for Open LDAP
+    ldapPassword: "p0rtal4u"
+    # Provide a secret name that will be used to set Open LDAP credentials
+    # Required attributes:
+    #   - username
+    #   - password
+    # If customLdapSecret is not empty, ldapUser and ldapPassword should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    customLdapSecret: ""
+  # Security configuration for Image processor
+  imageProcessor:
+    # If authenticationKey is not empty, the customImageProcessorSecret below should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    # Authentication key for Plugin API
+    authenticationKey: "PluginSecretAuthKey"
+    # Provide a secret name that will be used to set Image Processor Authentication
+    # Required attributes:
+    #   - authenticationKey
+    # If customImageProcessorSecret is not empty, authenticationKey should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    customImageProcessorSecret: ""
+  damPluginKaltura:
+    # If authenticationKey and/or secretKey is not empty, the customDamKalturaSecret below should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    # Authentication key for Kaltura Plugin API
+    authenticationKey: "kalturaPluginSecretAuthKey"
+    # Authentication key for Kaltura external service
+    secretKey: ""
+    # Provide a secret name that will be used to set DAM Kaltura Authentication and Secret Keys
+    # Required attributes:
+    #   - authenticationKey
+    #   - secretKey
+    # If customDamKalturaSecret is not empty, authenticationKey and secretKey should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    customDamKalturaSecret: ""
+  # Security configuration for License-manager
+  remoteSearch:
+    # Credentials used for IBM WebSphere Application Server administrative access.
+    # The credentials defined in these values define the WebSphere Application Server primary administrative user. The user gets created if necessary and/or the password is set to the current value.
+    # - If the WAS admin credentials were changed by any other means than through the helm values, the currently active credentials need to be entered as the values for wasUser and wasPassword.
+    # - If LDAP is configured as the user repository, the WebSphere Application Server admin user won't be applied automatically and LDAP has the authority over the credentials. Whenever the credentials are changed in LDAP, the values for wasUser and wasPassword need to be manually updated accordingly.
+    # If wasUser and/or wasPassword is not empty, the customWasSecret below should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    wasUser: "wpsadmin"
+    wasPassword: ""
+    # Provide a secret name that will be used to set credentials for Remote Search WAS
+    # Required attributes:
+    #   - username
+    #   - password
+    # If customWasSecret is not empty, wasUser and wasPassword should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    customWasSecret: ""
+  # Security configuration for webEngine
+  webEngine:
+    # Credentials used for WebEngine Server administrative access.
+    # The credentials defined in these values define the WebEngine primary administrative user. The user gets created if necessary and/or the password is set to the current value.
+    # - If LDAP is configured as the user repository, the WebSphere Application Server admin user won't be applied automatically and LDAP has the authority over the credentials. Whenever the credentials are changed in LDAP, the values for wpsUser and wpsPassword need to be manually updated accordingly.
+    # Current Limitation: It is currently not possible to change the webEngineUser from wpsadmin. However, the webEnginePassword can be updated.
+    # If webEngineUser and/or webEnginePassword is not empty, the customWebEngineSecret below should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    webEngineUser: "wpsadmin"
+    webEnginePassword: ""
+    # Provide a secret name that will be used to set credentials for WPS
+    # Required attributes:
+    #   - username
+    #   - password
+    # If customWebEngineSecret is not empty, webEngineUser and webEnginePassword should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    customWebEngineSecret: ""
+    # Security configuration for AI APIs: 
+    # API key for AI Provider
+    # If webEngineContentAIProviderAPIKey is not empty, the customWebEngineContentAISecret below should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    webEngineContentAIProviderAPIKey: ""
+    # Provide a secret name that will be used to set AI API Keys
+    # If customWebEngineContentAISecret is not empty, webEngineContentAIProviderAPIKey should be an empty string. If both default credential and secret name are filled it will block the chart from being deployed.
+    customWebEngineContentAISecret: ""
+# Kubernetes probe configuration for application Pods
+probes:
+  # Content Composer probe configuration
+  contentComposer:
+    # Liveness probe using the applications HTTP probe endpoint
+    livenessProbe:
+      failureThreshold: 4
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 30
+    # Readiness probe using the applications HTTP probe endpoint
+    readinessProbe:
+      failureThreshold: 2
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 30
+  # Core probe configuration
+  core:
+    # Liveness probe using the application shell based probe
+    livenessProbe:
+      failureThreshold: 6
+      initialDelaySeconds: 0
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 10
+      # You may add a custom URL, e.g., "/sample/url". The leading slash is required. The URL defaults to "/ibm/console" when this is empty. 
+      customProbeURL: ""
+    # Readiness probe using the application shell based probe
+    readinessProbe:
+      failureThreshold: 1
+      initialDelaySeconds: 0
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 10
+    # Startup probe using the application shell based probe
+    startupProbe:
+      failureThreshold: 4320
+      initialDelaySeconds: 0
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 10
+  # DAM Plugin Google Vision probe configuration
+  damPluginGoogleVision:
+    # Liveness probe using the applications HTTP probe endpoint
+    livenessProbe:
+      failureThreshold: 4
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 30
+    # Readiness probe using the applications HTTP probe endpoint
+    readinessProbe:
+      failureThreshold: 2
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 30
+  # Digital Asset Management probe configuration
+  digitalAssetManagement:
+    # Liveness probe using the applications HTTP probe endpoint
+    livenessProbe:
+      failureThreshold: 4
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 30
+    # Readiness probe using the applications HTTP probe endpoint
+    readinessProbe:
+      failureThreshold: 2
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 30
+  # HAProxy probe configuration
+  haproxy:
+    # Liveness probe using the applications HTTP probe endpoint
+    livenessProbe:
+      failureThreshold: 4
+      initialDelaySeconds: 0
+      periodSeconds: 5
+      successThreshold: 1
+      timeoutSeconds: 5
+    # Readiness probe using the applications HTTP probe endpoint
+    readinessProbe:
+      failureThreshold: 2
+      initialDelaySeconds: 0
+      periodSeconds: 5
+      successThreshold: 1
+      timeoutSeconds: 5
+  # Image Processor probe configuration
+  imageProcessor:
+    # Liveness probe using the applications HTTP probe endpoint
+    livenessProbe:
+      failureThreshold: 4
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 30
+    # Readiness probe using the applications HTTP probe endpoint
+    readinessProbe:
+      failureThreshold: 2
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 30
+  # Open LDAP probe configuration
+  openLdap:
+    # Liveness probe using the application shell based probe
+    livenessProbe:
+      failureThreshold: 4
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 30
+    # Readiness probe using the application shell based probe
+    readinessProbe:
+      failureThreshold: 2
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 30
+  # Persistence Connection Pool probe configuration
+  persistenceConnectionPool:
+    # Liveness probe using the application shell based probe
+    livenessProbe:
+      failureThreshold: 4
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 30
+    # Readiness probe using the application shell based probe
+    readinessProbe:
+      failureThreshold: 4
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 30
+  # Persistence Node probe configuration
+  persistenceNode:
+    # Liveness probe using the application shell based probe
+    livenessProbe:
+      failureThreshold: 4
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 30
+    # Readiness probe using the application shell based probe
+    readinessProbe:
+      failureThreshold: 2
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 30
+  # Remote Search probe configuration
+  remoteSearch:
+    # Liveness probe using the applications HTTP probe endpoint
+    livenessProbe:
+      failureThreshold: 120
+      initialDelaySeconds: 60
+      periodSeconds: 60
+      successThreshold: 1
+      timeoutSeconds: 240
+    # Readiness probe using the applications HTTP probe endpoint
+    readinessProbe:
+      failureThreshold: 2
+      initialDelaySeconds: 60
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 240
+  # Ring API probe configuration
+  ringApi:
+    # Liveness probe using the applications HTTP probe endpoint
+    livenessProbe:
+      failureThreshold: 4
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 30
+    # Readiness probe using the applications HTTP probe endpoint
+    readinessProbe:
+      failureThreshold: 2
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 30
+  # Runtime Controller probe configuration
+  runtimeController:
+    # Liveness probe using the applications HTTP probe endpoint
+    livenessProbe:
+      failureThreshold: 4
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 30
+    # Readiness probe using the applications HTTP probe endpoint
+    readinessProbe:
+      failureThreshold: 2
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 30
+  # DAM Kaltura Plugin probe configuration
+  damPluginKaltura:
+    # Liveness probe using the applications HTTP probe endpoint
+    livenessProbe:
+      failureThreshold: 4
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 30
+    # Readiness probe using the applications HTTP probe endpoint
+    readinessProbe:
+      failureThreshold: 2
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 30
+  # License manager probe configuration
+  licenseManager:
+    # Liveness probe using the applications HTTP probe endpoint
+    livenessProbe:
+      failureThreshold: 4
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 30
+    # Readiness probe using the applications HTTP probe endpoint
+    readinessProbe:
+      failureThreshold: 2
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      successThreshold: 1
+      timeoutSeconds: 30
+  # WebEngine probe configuration
+  webEngine:
+    # Liveness probe using the application shell based probe
+    livenessProbe:
+      failureThreshold: 6
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 10
+    # Readiness probe using the application shell based probe
+    readinessProbe:
+      failureThreshold: 1
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 30
+    # Startup probe using the application shell based probe
+    startupProbe:
+      failureThreshold: 360
+      initialDelaySeconds: 30
+      periodSeconds: 20
+      successThreshold: 1
+      timeoutSeconds: 10
+# Logging configuration
+logging:
+  # Core specific logging configuration
+  core:
+    level: []
+    # List of sidecar containers mapping a container name to a file path for a log file to be exposed
+    # Each element must consist of a `containerName` and a `logFilePath`, the latter must be located in one of the mounted volumes.
+    # The mounted volumes include the path `/opt/HCL/logs` and any custom PVC mountPaths specified in `volumes.core.customPVCs`
+    # `logFilePath` can be a file name pattern, use `*` in file path to make generic value. For example `/opt/HCL/logs/*/test.log` or `/opt/HCL/logs/verbosegc.*`
+    # Example:
+    # customLogSidecarContainers:
+    #   - containerName: "trace"
+    #     logFilePath: "/opt/HCL/logs/WebSphere_Portal/trace.log"
+    customLogSidecarContainers: []
+  # Content Composer specific logging configuration
+  contentComposer:
+    level:
+      - "api:server-v1:*=info"
+  # DAM Plugin Google Vision specific logging configuration
+  damPluginGoogleVision:
+    level:
+      - "api:server-v1:*=info"
+  # Digital Asset Management specific logging configuration
+  digitalAssetManagement:
+    level:
+      - "api:server-v1:*=info"
+      - "worker:server-v1:*=info"
+  # Image Processor specific logging configuration
+  imageProcessor:
+    level:
+      - "api:server-v1:*=info"
+  # Open LDAP specific logging configuration
+  openLdap:
+    level: []
+  # Persistence Pool specific logging configuration
+  persistenceConnectionPool:
+    level:
+      - "pgpool:=info"
+  # Persistence Node specific logging configuration
+  persistenceNode:
+    level:
+      - "psql:=info,repmgr:=info"
+  # Remote Search specific logging configuration
+  remoteSearch:
+    level: []
+    # List of sidecar containers mapping a container name to a file path for a log file to be exposed
+    # Each element must consist of a `containerName` and a `logFilePath`, the latter must be located in /var/profile.
+    # `logFilePath` can be a file name pattern, use `*` in file path to make generic value. For example `/var/profile/logs/server1/*/test.log` or `/var/profile/logs/server1/verbosegc.*`
+    # Example:
+    # customLogSidecarContainers:
+    #   - containerName: "trace"
+    #     logFilePath: "/var/profile/logs/server1/trace.log"
+    customLogSidecarContainers: []
+  # Ring API specific logging configuration
+  ringApi:
+    level:
+      - "api:server-v1:*=info"
+  # Runtime Controller specific logging configuration
+  runtimeController:
+    level:
+      - "controller:.*=INFO"
+      - "controller:com.hcl.dx.*=INFO"
+  # License Manager specific logging configuration
+  licenseManager:
+    level:
+      - "license-check:.*=INFO"
+      - "license-check:com.hcl.dx.*=INFO"
+  # DAM Kaltura Plugin specific logging configuration
+  damPluginKaltura:
+    level:
+      - "api:server-v1:*=info"
+  # HAProxy specific logging configuration
+  haproxy:
+    level:
+      - "haproxy:=info"
+  # WebEngine specific logging configuration
+  webEngine:
+    # Valid log levels for all entries: off, fatal, severe, warning, audit, info, config, detail, fine, finer, finest, all
+    # 
+    # Define log levels for each logger. The following entries specify the logger and the desired level:
+    # - "*=info" sets the default log level for all components.
+    # - "com.ibm.wps.logging.ExceptionLogger=all" sets the log level for ExceptionLogger. This can be changed to any valid log level.
+    # 
+    # Example entries for additional loggers (add them below the active ones if needed):
+    # - "com.ibm.websphere=finest"
+    # - "com.ibm.ejs=warning"
+    # - "com.ibm.trace=audit"
+    level:
+      - "*=info" # Global default log level
+      - "com.ibm.wps.logging.ExceptionLogger=all" # ExceptionLogger default level
+    # List of sidecar containers mapping a container name to a file path for a log file to be exposed
+    # Each element must consist of a `containerName` and a `logFilePath`, the latter must be located in one of the mounted volumes.
+    # The mounted volumes include the path `/opt/openliberty/wlp/usr/servers/defaultServer/logs` and any custom PVC mountPaths specified in `volumes.webEngine.customPVCs`
+    # `logFilePath` can be a file name pattern, use `*` in file path to make generic value. For example `/opt/openliberty/wlp/usr/servers/defaultServer/logs/*/test.log` or `/opt/openliberty/wlp/usr/servers/defaultServer/logs/verbosegc.*`
+    # Example:
+    # customLogSidecarContainers:
+    #   - containerName: "console-log"
+    #     logFilePath: "/opt/openliberty/wlp/usr/servers/defaultServer/logs/console.log"
+    customLogSidecarContainers: []
+# Application specific metrics
+metrics:
+  # Metrics for Content Composer
+  contentComposer:
+    # Determine if the Content Composer metrics are scraped by prometheus
+    scrape: true
+    # Determines the way Prometheus discovers the metrics of a service
+    # Accepts: "annotation" or "serviceMonitor"
+    #   "annotation" - adds the Prometheus annotation to the deployment that can be discovered by Prometheus
+    #   "serviceMonitor" - creates a ServiceMonitor custom resource that can be discovered by Prometheus Operator
+    # The "serviceMonitor" setting requires the ServiceMonitor CRD to be installed in the cluster which comes with Prometheus Operator
+    prometheusDiscoveryType: "annotation"
+  # Metrics for Core
+  core:
+    # Determine if the Core metrics are scraped by prometheus
+    scrape: true
+    # Determines the way Prometheus discovers the metrics of a service
+    # Accepts: "annotation" or "serviceMonitor"
+    #   "annotation" - adds the Prometheus annotation to the deployment that can be discovered by Prometheus
+    #   "serviceMonitor" - creates a ServiceMonitor custom resource that can be discovered by Prometheus Operator
+    # The "serviceMonitor" setting requires the ServiceMonitor CRD to be installed in the cluster which comes with Prometheus Operator
+    prometheusDiscoveryType: "annotation"
+  # Metrics for dam-plugin-google-vision
+  damPluginGoogleVision:
+    # Determines if the dam-plugin-google-vision metrics are scraped by prometheus
+    scrape: true
+    # Determines the way Prometheus discovers the metrics of a service
+    # Accepts: "annotation" or "serviceMonitor"
+    #   "annotation" - adds the Prometheus annotation to the deployment that can be discovered by Prometheus
+    #   "serviceMonitor" - creates a ServiceMonitor custom resource that can be discovered by Prometheus Operator
+    # The "serviceMonitor" setting requires the ServiceMonitor CRD to be installed in the cluster which comes with Prometheus Operator
+    prometheusDiscoveryType: "annotation"
+  # Metrics for Digital Asset Management
+  digitalAssetManagement:
+    # Determines if the Digital Asset Management metrics are scraped by prometheus
+    scrape: true
+    # Determines the way Prometheus discovers the metrics of a service
+    # Accepts: "annotation" or "serviceMonitor"
+    #   "annotation" - adds the Prometheus annotation to the deployment that can be discovered by Prometheus
+    #   "serviceMonitor" - creates a ServiceMonitor custom resource that can be discovered by Prometheus Operator
+    # The "serviceMonitor" setting requires the ServiceMonitor CRD to be installed in the cluster which comes with Prometheus Operator
+    prometheusDiscoveryType: "annotation"
+  # Metrics for Image processor
+  imageProcessor:
+    # Determines if the Image processor metrics are scraped by prometheus
+    scrape: true
+    # Determines the way Prometheus discovers the metrics of a service
+    # Accepts: "annotation" or "serviceMonitor"
+    #   "annotation" - adds the Prometheus annotation to the deployment that can be discovered by Prometheus
+    #   "serviceMonitor" - creates a ServiceMonitor custom resource that can be discovered by Prometheus Operator
+    # The "serviceMonitor" setting requires the ServiceMonitor CRD to be installed in the cluster which comes with Prometheus Operator
+    prometheusDiscoveryType: "annotation"
+  # Metrics for Ring API
+  ringApi:
+    # Determines if the Ring API metrics are scraped by prometheus
+    scrape: true
+    # Determines the way Prometheus discovers the metrics of a service
+    # Accepts: "annotation" or "serviceMonitor"
+    #   "annotation" - adds the Prometheus annotation to the deployment that can be discovered by Prometheus
+    #   "serviceMonitor" - creates a ServiceMonitor custom resource that can be discovered by Prometheus Operator
+    # The "serviceMonitor" setting requires the ServiceMonitor CRD to be installed in the cluster which comes with Prometheus Operator
+    prometheusDiscoveryType: "annotation"
+  # Metrics for Persistence
+  persistence:
+    # Determines if the Persistence metrics are scraped by prometheus
+    scrape: true
+    # Determines the way Prometheus discovers the metrics of a service
+    # Accepts: "annotation" or "serviceMonitor"
+    #   "annotation" - adds the Prometheus annotation to the deployment that can be discovered by Prometheus
+    #   "serviceMonitor" - creates a ServiceMonitor custom resource that can be discovered by Prometheus Operator
+    # The "serviceMonitor" setting requires the ServiceMonitor CRD to be installed in the cluster which comes with Prometheus Operator
+    prometheusDiscoveryType: "annotation"
+  remoteSearch:
+    # Determines whether the Remote Search metrics are scraped by Prometheus
+    scrape: true
+    # Determines the way Prometheus discovers the metrics of a service
+    # Accepts: "annotation" or "serviceMonitor"
+    #   "annotation" - adds the Prometheus annotation to the deployment that can be discovered by Prometheus
+    #   "serviceMonitor" - creates a ServiceMonitor custom resource that can be discovered by Prometheus Operator
+    # The "serviceMonitor" setting requires the ServiceMonitor CRD to be installed in the cluster which comes with Prometheus Operator
+    prometheusDiscoveryType: "annotation"
+  haproxy:
+    # Determines whether the HAProxy metrics are scraped by Prometheus
+    scrape: true
+    # Determines the way Prometheus discovers the metrics of a service
+    # Accepts: "annotation" or "serviceMonitor"
+    #   "annotation" - adds the Prometheus annotation to the deployment that can be discovered by Prometheus
+    #   "serviceMonitor" - creates a ServiceMonitor custom resource that can be discovered by Prometheus Operator
+    # The "serviceMonitor" setting requires the ServiceMonitor CRD to be installed in the cluster which comes with Prometheus Operator
+    prometheusDiscoveryType: "annotation"
+  # Metrics for DAM Kaltura Plugin
+  damPluginKaltura:
+    # Determines if the DAM Kaltura Plugin metrics are scraped by prometheus
+    scrape: true
+    # Determines the way Prometheus discovers the metrics of a service
+    # Accepts: "annotation" or "serviceMonitor"
+    #   "annotation" - adds the Prometheus annotation to the deployment that can be discovered by Prometheus
+    #   "serviceMonitor" - creates a ServiceMonitor custom resource that can be discovered by Prometheus Operator
+    # The "serviceMonitor" setting requires the ServiceMonitor CRD to be installed in the cluster which comes with Prometheus Operator
+    prometheusDiscoveryType: "annotation"
+  # Metrics for webEngine
+  webEngine:
+    # Determine if the webEngine Core metrics are scraped by prometheus
+    scrape: true
+    # Determines the way Prometheus discovers the metrics of a service
+    # Accepts: "annotation" or "serviceMonitor"
+    #   "annotation" - adds the Prometheus annotation to the deployment that can be discovered by Prometheus
+    #   "serviceMonitor" - creates a ServiceMonitor custom resource that can be discovered by Prometheus Operator
+    # The "serviceMonitor" setting requires the ServiceMonitor CRD to be installed in the cluster which comes with Prometheus Operator
+    prometheusDiscoveryType: "annotation"
+# Application configuration
+configuration:
+  # Application specific configuration for Core
+  core:
+    # Settings for LDAP configuration
+    ldap:
+      # Determines which type of LDAP to use
+      # Accepts: "none", "dx" or "other"
+      # "none" - no LDAP configuration
+      # "dx" - use DX openLDAP and configure it
+      # "other" - use provided configuration for other LDAP
+      type: "none"
+      # User used to connect to LDAP, only used if ldap type is "other"
+      bindUser: ""
+      # Password used to connect to LDAP, only used if ldap type is "other"
+      bindPassword: ""
+      # Provide secret name to be used for LDAP bind credentials
+      # Required attributes:
+      #   - bindUser
+      #   - bindPassword
+      customLdapSecret: ""
+      # Suffix in LDAP, only used if ldap type is "other"
+      suffix: ""
+      # Host of LDAP, only used if ldap type is "other"
+      host: ""
+      # Port of LDAP, only used if ldap type is "other"
+      port:
+      # Supported LDAP Server types - CUSTOM
+      serverType: "CUSTOM"
+      # LDAP configuration id
+      id: "dx_ldap"
+      # Mapping attributes between LDAP and DX, LDAP attribute names (array of elements)
+      attributeMappingLdap:
+        - "mail"
+        - "title"
+        - "userPassword"
+      # Mapping attributes between LDAP and DX, DX attribute names (array of elements)
+      attributeMappingPortal:
+        - "ibm-primaryEmail"
+        - "ibm-jobTitle"
+        - "password"
+      # Non-supported LDAP attributes (array of elements)
+      attributeNonSupported:
+        - "certificate"
+        - "members"
+    # Settings for tuning
+    tuning:
+      # Configures if the environment should be configured for authoring or not
+      authoring: true
+      # Configures if the server for configWizard and dxconnect is started.
+      # If this is set to true, the WAS console for configWizard and dxconnect is also exposed on port 10203 at the path /ibm/console
+      configWizard: true
+    ltpa:
+      # Configures if LTPA is enabled
+      enabled: false
+      # DX password
+      password: ""
+      # LTPA version
+      version: ""
+      # Realm
+      realm: ""
+      # 3DES key
+      desKey: ""
+      # Private LTPA key
+      privateKey: ""
+      # Public LTPA key
+      publicKey: ""
+      # Provide a secret name that will be used for LTPA configuration
+      # Required attributes:
+      #  -ltpa.version
+      #  -ltpa.realm
+      #  -ltpa.desKey
+      #  -ltpa.privateKey
+      #  -ltpa.publicKey
+      #  -ltpa.password
+      customLtpaSecret: ""
+    # Defines if the configuration console for the IBM WebSphere Application Server of Core is exposed to the network
+    exposeConfigurationConsole: true
+    # Settings for enabling/disabling Tika
+    configureTika: true
+    # Settings for enabling/disabling Stellent
+    disableStellentDCS: true
+    # Settings for content AI 
+    contentAI:
+      # Configures if content AI is enabled/disabled
+      enabled: false
+      # Settings for checking content AI provider. When contentAI.enabled is true, provider will be used.
+      provider: "OPEN_AI"
+      # Provide the custom AI class which implements com.hcl.workplace.wcm.restv2.ai.IAIGeneration interface in WCM
+      # For e.g. className: "com.ai.sample.CustomerAI"
+      className: ""
+    # Settings for SearchV2 UI configuration
+    search:
+      # Determines if search ui v2 is enabled or not
+      uiV2Enabled: false
+      # Determines to which search center any input box redirects by default
+      inputRedirectVersion: "v1"
+      # Determines which search is used in wcm authoring
+      wcmVersion: "v1"
+  # Application specific configuration for Open LDAP
+  openLdap:
+    # Country configuration for Open LDAP
+    country: "US"
+    # Org configuration for Open LDAP
+    org: "DX"
+    # Suffix configuration for Open LDAP
+    suffix: "dc=dx,dc=com"
+  # Application specific configuration for Remote Search
+  remoteSearch:
+    # Defines if the configuration console for the IBM WebSphere Application Server of Remote Search is exposed to the network
+    exposeConfigurationConsole: true
+    # Enables automated Remote Search configuration, only applicable if both Core and Remote Search are enabled
+    autoConfigure: false
+    # Define Maximum time that DX Core will wait for the Remote Search Pod to run its configuration tasks
+    coreWaitTime: 5400
+    # Define Maximum time that DX Remote Search will wait for the Core Pod to run its configuration tasks
+    remoteSearchWaitTime: 5400
+    # Limit of retries that DX Remote Search will perform if DX Core is not reachable during the configuration task
+    remoteSearchConfigTries: 10
+  # DAM Plugin Google Vision configurations
+  damPluginGoogleVision:
+    # Specifying 10 in maxResults will exactly return the same number of results, even though the Vision API might generate more than that
+    maxResults: 25
+    # The plugin would send back only the results which has confidence score more than or equal to the provided value
+    confidencePercentage: 60
+  # Digital asset management configurations
+  digitalAssetManagement:
+    renditionsConfiguration:
+      image/svg+xml:
+        rendition:
+          - name: Original
+            transformationStack: []
+            thumbnailStack: []
+            supplementalStack: []
+            keywordStack: []
+      image/png:
+        rendition:
+          - name: Original
+            transformationStack: []
+            thumbnailStack:
+              - plugin: image-processor
+                operation:
+                  crop:
+                    region: CENTER
+              - plugin: image-processor
+                operation:
+                  resize:
+                    height: 192
+                    width: 192
+            supplementalStack:
+              - plugin: image-processor
+                operation:
+                  metadata: {}
+            keywordStack:
+              - plugin: google-vision
+                operation:
+                  annotation: {}
+          - name: Desktop
+            transformationStack:
+              - plugin: image-processor
+                operation:
+                  resize:
+                    height: 1080
+                    width: 1920
+            thumbnailStack:
+              - plugin: image-processor
+                operation:
+                  crop:
+                    region: CENTER
+              - plugin: image-processor
+                operation:
+                  resize:
+                    height: 192
+                    width: 192
+            supplementalStack:
+              - plugin: image-processor
+                operation:
+                  metadata: {}
+            keywordStack: []
+          - name: Tablet
+            transformationStack:
+              - plugin: image-processor
+                operation:
+                  resize:
+                    height: 768
+                    width: 1024
+            thumbnailStack:
+              - plugin: image-processor
+                operation:
+                  crop:
+                    region: CENTER
+              - plugin: image-processor
+                operation:
+                  resize:
+                    height: 192
+                    width: 192
+            supplementalStack:
+              - plugin: image-processor
+                operation:
+                  metadata: {}
+            keywordStack: []
+          - name: Smartphone
+            transformationStack:
+              - plugin: image-processor
+                operation:
+                  resize:
+                    height: 760
+                    width: 360
+            thumbnailStack:
+              - plugin: image-processor
+                operation:
+                  crop:
+                    region: CENTER
+              - plugin: image-processor
+                operation:
+                  resize:
+                    height: 192
+                    width: 192
+            supplementalStack:
+              - plugin: image-processor
+                operation:
+                  metadata: {}
+            keywordStack: []
+      image/jpeg:
+        rendition:
+          - name: Original
+            transformationStack: []
+            thumbnailStack:
+              - plugin: image-processor
+                operation:
+                  crop:
+                    region: CENTER
+              - plugin: image-processor
+                operation:
+                  resize:
+                    height: 192
+                    width: 192
+            supplementalStack:
+              - plugin: image-processor
+                operation:
+                  metadata: {}
+            keywordStack:
+              - plugin: google-vision
+                operation:
+                  annotation: {}
+          - name: Desktop
+            transformationStack:
+              - plugin: image-processor
+                operation:
+                  resize:
+                    height: 1080
+                    width: 1920
+            thumbnailStack:
+              - plugin: image-processor
+                operation:
+                  crop:
+                    region: CENTER
+              - plugin: image-processor
+                operation:
+                  resize:
+                    height: 192
+                    width: 192
+            supplementalStack:
+              - plugin: image-processor
+                operation:
+                  metadata: {}
+            keywordStack: []
+          - name: Tablet
+            transformationStack:
+              - plugin: image-processor
+                operation:
+                  resize:
+                    height: 768
+                    width: 1024
+            thumbnailStack:
+              - plugin: image-processor
+                operation:
+                  crop:
+                    region: CENTER
+              - plugin: image-processor
+                operation:
+                  resize:
+                    height: 192
+                    width: 192
+            supplementalStack:
+              - plugin: image-processor
+                operation:
+                  metadata: {}
+            keywordStack: []
+          - name: Smartphone
+            transformationStack:
+              - plugin: image-processor
+                operation:
+                  resize:
+                    height: 760
+                    width: 360
+            thumbnailStack:
+              - plugin: image-processor
+                operation:
+                  crop:
+                    region: CENTER
+              - plugin: image-processor
+                operation:
+                  resize:
+                    height: 192
+                    width: 192
+            supplementalStack:
+              - plugin: image-processor
+                operation:
+                  metadata: {}
+            keywordStack: []
+      image/gif:
+        rendition:
+          - name: Original
+            transformationStack: []
+            thumbnailStack: []
+            supplementalStack: []
+            keywordStack:
+              - plugin: google-vision
+                operation:
+                  annotation: {}
+      image/tiff:
+        rendition:
+          - name: Original
+            transformationStack: []
+            thumbnailStack: []
+            supplementalStack: []
+            keywordStack: []
+      video/mp4:
+        rendition:
+          - name: Original
+            transformationStack:
+              - plugin: kaltura-plugin
+                operation:
+                  upload:
+                    mediaId: ''
+            thumbnailStack:
+              - plugin: kaltura-plugin
+                operation:
+                  resize:
+                    height: 192
+                    width: 192
+                    entryId: ''
+            supplementalStack:
+              - plugin: kaltura-plugin
+                operation:
+                  status:
+                    entryId: ''
+            keywordStack: []
+      video/ogg:
+        rendition:
+          - name: Original
+            transformationStack:
+              - plugin: kaltura-plugin
+                operation:
+                  upload:
+                    mediaId: ''
+            thumbnailStack:
+              - plugin: kaltura-plugin
+                operation:
+                  resize:
+                    height: 192
+                    width: 192
+                    entryId: ''
+            supplementalStack:
+              - plugin: kaltura-plugin
+                operation:
+                  status:
+                    entryId: ''
+            keywordStack: []
+      video/webm:
+        rendition:
+          - name: Original
+            transformationStack:
+              - plugin: kaltura-plugin
+                operation:
+                  upload:
+                    mediaId: ''
+            thumbnailStack:
+              - plugin: kaltura-plugin
+                operation:
+                  resize:
+                    height: 192
+                    width: 192
+                    entryId: ''
+            supplementalStack:
+              - plugin: kaltura-plugin
+                operation:
+                  status:
+                    entryId: ''
+            keywordStack: []
+    pluginsConfiguration:
+      image-processor:
+        url: http://RELEASE_NAME-image-processor:DAM_HTTP_PORT/dx/api/image-processor/v1/plugin
+        callBackHost: http://RELEASE_NAME-digital-asset-management:DAM_HTTP_PORT
+        authKey: PluginSecretAuthKey
+        enable: true
+        actions:
+          crop:
+            params: {}
+            url: "/crop"
+          resize:
+            params: {}
+            url: "/resize"
+          rotate:
+            params: {}
+            url: "/rotate"
+          metadata:
+            params: {}
+            url: "/metadata"
+      kaltura-plugin:
+        url: http://RELEASE_NAME-dam-plugin-kaltura:DAM_HTTP_PORT/dx/api/kaltura/v1/plugin
+        callBackHost: http://RELEASE_NAME-digital-asset-management:DAM_HTTP_PORT
+        authKey: kalturaPluginSecretAuthKey
+        enable: false
+        playerid: kalturaPluginPlayerId
+        dataUrlPattern: https://cdnapisec.kaltura.com/p/{PARTNERID}/sp/{PARTNERID}00/playManifest/entryId/{ENTRYID}/format/url/protocol/https
+        playerLibraryUrlPattern: https://cdnapisec.kaltura.com/p/{PARTNERID}/sp/{PARTNERID}00/embedIframeJs/uiconf_id/{PLAYERID}/partner_id/{PARTNERID}
+        actions:
+          upload:
+            params: {}
+            url: "/upload"
+          status:
+            params: {}
+            url: "/status"
+          resize:
+            params: {}
+            url: "/resize"
+          delete:
+            params: {}
+            url: "/delete"
+      google-vision:
+        url: http://RELEASE_NAME-dam-plugin-google-vision:DAM_HTTP_PORT/dx/api/google-vision/v1/googleVisionAI
+        callBackHost: http://RELEASE_NAME-digital-asset-management:DAM_HTTP_PORT
+        authKey: PluginSecretAuthKey
+        enable: false
+        actions:
+          annotation:
+            params: {}
+            url: "/annotation"
+            # The below determines dam schema migration expired time. Expired time is allotted time to complete the schema migration.
+    damSchemaMigrationExpiredTimeInMinutes: 10
+    # Optional custom path definition to access the DAM resources.
+    # This will add a rewrite to HAProxy and make the assets accessible at the custom path. If no path is set, the rewrite is disabled
+    # The following optional query parameters can be used with the custom path:
+    #   "binary": true/false - retrieves the asset file as a binary if true or the metadata if false
+    #   "rendition": "Original"/"Desktop"/"Tablet"/"Smartphone"/"{custom rendition}" - retrieves the specified rendition of the asset
+    #   "version": (Version number or id) - retrieves the specified version of the asset
+    # Example:
+    #   friendlyUrlContextRoot: "/assets"
+    # will make the assets accessible at:
+    #   "/assets/{collection name/unique id}/{asset name/unique id}?binary={true/false}&rendition={rendition type}&version={version id}"
+    friendlyUrlContextRoot: ""
+    # The threshold limit to keeping failed operation jobs in the operation table in DAM.
+    failedOperationThresholdLimitRecords: 20000
+    # Threshold time to keeping failed operation jobs in the operation table in DAM.
+    failedOperationThresholdTimeHours: 24
+    # The below DAM operation worker limit count determines the number of workers used to the process the pending operation entries
+    operationWorkerLimit: 10
+    # The below DAM operation timeout determines the time in minutes to wait for the operation to complete
+    operationTimeout: 30
+    # max-age for cache header
+    maxAge: 600
+    # max-age for static cache header
+    staticMaxAge: 86400
+    # LTPA Token refresh time and the value should be less than LTPA Token Expiry 
+    ltpaTokenRefreshTimeInMinutes: 5
+    # Crop aspect ratio to crop an image in edit page in DAM
+    cropAspectRatio:
+      - "1:1"
+      - "4:3"
+      - "3:2"
+      - "16:9"
+      - "9:16"
+    # This configurations allows users to access all the collections irrespective of Access control but protecting viewing/editing/deleting assets based on Access control.
+    aclTraversal: false
+    # Time-to-live (TTL) value (in seconds) for caching access control (ACL) data
+    aclCacheTtl: 10
+    # Time-to-live (TTL) value (in seconds) for caching authentication data
+    authCacheTtl: 600
+    # Enables or disables collection creation for editor roles in DAM.
+    allowEditorToCreateCollections: true
+    # Specifies the maximum time (in minutes) to wait for a response before timing out.
+    nodeRequestTimeoutInMinutes: 15
+    # Enable or disable the heartbeats (validationHeartbeat, renditionOrVersionHeartbeat, cleanUpHeartbeat, orphanDataAndFileCleanupHeartbeat)
+    enableCleanUpOrRenditionVersionHeartbeats: false
+    # Interval to run Validation heartbeat
+    validationHeartbeatIntervalTimeInMinutes: 10
+    # Interval to run Rendition or Version generation heartbeat
+    renditionOrVersionHeartbeatIntervalTimeInMinutes: 60
+    # Interval to run clean up heartbeat
+    cleanUpHeartbeatIntervalTimeInMinutes: 1440
+    # Interval to run orphan data and file cleanup heartbeat
+    orphanDataAndFileCleanupHeartbeatIntervalTimeInMinutes: 1440
+    # A time period based on creation time, after which asset can be validated
+    mediaCreationThresholdTimeInMinutes: 1440
+    # A time period based on last scan time, after which a valid asset can be re-validated
+    lastScanThresholdTimeInMinutes: 360
+    # A time period based on creation time, after which orphan directory can be cleaned up
+    orphanDirectoryModificationThresholdTimeInMinutes: 1440
+    # A time period based on creation time, after which orphan data in database can be cleaned up
+    orphanMediaStorageCreationThresholdTimeInMinutes: 1440
+    # Maximum number of items to be scanned on each validation heartbeat
+    maxValidationProcessingLimit: 100
+    # Maximum number of records while checking the hash in staging failure heartbeat
+    maxRecordsToCompare: 10000
+    # Maximum number of change records to be send to subscriber per request
+    eventListLength: 200
+    # Specifies the maximum permissible number of files and folders for a bulk upload, triggering a warning message if exceeded.
+    maxBulkUploadWithoutWarning: 100
+    # Enabling this will manage the DAM database using the RTC, follow switching procedure when changing this value.
+    # WARNING: Changing this value on an existing installation can cause data loss, follow switching procedure  
+    newDbManagement: false
+  # License Manager Configuration
+  licenseManager:
+    # Configures if this environment is a production environment.
+    # For non production environments sessions are not counted but the license
+    # is still validated.
+    productionEnvironment: true
+    # License Server URI. Ex: for MHS: https://api.hcltechsw.com
+    licenseServerUri: "https://api.hcltechsw.com"
+    # Source Identity for Manual session usage report
+    licenseManualReportUniqueIdentifier: ""
+    # AWS Service Account Name for EKS deployments
+    serviceAccountName: ""
+    # AWS License Config Secret for Self Managed Clusters
+    licenseConfigSecret: ""
+    # Custom Deployment key secret for MHS deployment instance
+    customMhsDeploymentKeySecret: ""
+    # Deployment key for MHS deployment instance
+    mhsDeploymentKey: ""
+  # DAM Kaltura Plugin configurations
+  damPluginKaltura:
+    # kaltura plugin configuration for thumbnail URL.
+    thumbnailUrlPattern: https://cfvod.kaltura.com/p/{PARTNERID}/sp/{PARTNERID}00/thumbnail/entry_id/{ENTRYID}/width/{width}/height/{height}/type/3
+    # kaltura plugin configuration for partnerId.
+    partnerId: partnerId
+  # Prereqs Checker configurations
+  prereqsChecker:
+    # For changing the state enable/disable
+    enabled: true
+    # Cronjob expression to run the checks periodically
+    checkSchedule: "0 8 * * *"
+  # Runtime Controller configurations
+  runtimeController:
+    # For AWS Marketplace deployments Runtime Controller will try to lookup the pull secret from the ServiceAccount specified in configuration.licenseManager.serviceAccountName.
+    # The awsMpPullSecret can be used to override the pull secret and not use the lookup. 
+    awsMpPullSecret: ""
+    # Leader election configuration
+    leaderElection:
+      # Time before leader leases expire
+      leaseExpiryTime: 15
+      # Time for polling the existing lease for renewal and validation
+      leasePollingTime: 5
+  # To change the timezone of all the containers. This value should be a valid timezone format (i.e. Australia/Melbourne, Europe/London, America/Phoenix).
+  # WARNING: If you are using DAM Staging and/or WCM syndication, then all the deployments must be in same timezone, to prevent issues during synchronisation.
+  containerTimezone: ""
+  # Search Middleware configurations
+  searchMiddleware:
+    # Enable/Disable Search Middleware
+    enabled: false
+    # Host of Search Middleware
+    host: ""
+    # Port of Search Middleware
+    port:
+    # Setting if SSL is enabled for Search Middleware
+    ssl: false
+    # Username of the push administrator
+    pushAdminUser: "pushadmin"
+    # Password of the push administrator
+    pushAdminPassword: "adminpush"
+    # Provide a custom secret that will be used to set credentials for push administration
+    # If customPushAdminSecret is provided then pushAdminUser & pushAdminPassword values are ignored
+    customPushAdminSecret: ""
+    # Content Source ID of DAM
+    damContentSourceId: ""
+  # persistenceNode configuration
+  persistence:
+    # The database name for DAM
+    databaseName: "dxmediadb"
+    # The external Database host name. This should be left blank if the internal persistenceNode database is used.
+    host: ""
+    # The external Database ssl configuration. This should be set to false for internal persistenceNode database.
+    ssl: false
+    # The interval at which the health of the persistenceNode cluster is checked
+    validationSleepTimer: 120
+  # Application specific configuration for webEngine
+  webEngine:
+    # The configOverrideFiles parameter can be used to pass Web Engine server configuration snippets to the DX server.
+    # The snippets will be merged into the default server.xml according to https://openliberty.io/docs/latest/reference/config/server-configuration-overview.html
+    # Changes are picked up by Web Engine Server and applied at runtime. They don't require a Pod restart.
+    # Example configuration:
+    #
+    # configuration:
+    #   webEngine:
+    #     configOverrideFiles:
+    #       myCustomOverride.xml: |
+    #         <server description="dxServer">
+    #           <.../>
+    #         </server>
+    #
+    configOverrideFiles: {}
+    # Enable or disable debug option for the Web Engine
+    # Enabling debug option requires a server restart for the changes to take effect.
+    # Disabling debug option does not require a server restart.
+    # Once debug option is enabled, you can connect using Eclipse or a similar tool to attach the debugger on port 7777.
+    # WARNING: Enabling debug option may impact performance and expose sensitive information. It is recommended to enable it only in development or controlled environments.
+    debug: false
+    # The propertiesFilesOverrides parameter can be used to add or update properties in specific properties files stored on the webEngine server.
+    # After updating the values, you need to restart the server to apply the changes.
+    # Limitation: only changes the properties stored in the services folder.
+    # Example propertiesFilesOverrides:
+    #
+    # configuration:
+    #   webEngine:
+    #     propertiesFilesOverrides:
+    #       FeedbackService.properties: // FeedbackService.properties is the properties file name need to be updated
+    #          feedbackRecordCachePriority: "1" // property to be updated in the FeedbackService.properties
+    #          newProperty: "test"
+    #          logBufferSize: "5001"
+    #
+    propertiesFilesOverrides: {}
+    # The propertiesDisable parameter can be used to disable properties from specific properties files in the webEngine server. It is equivalent to commenting a setting.
+    # After updating the values, you need to restart the server to apply the changes.
+    # Example propertiesDisable:
+    #
+    #
+    # configuration:
+    #   webEngine:
+    #     propertiesDisable:
+    #       FeedbackService.properties: 
+    #         feedbackRecordCachePriority: ""
+    #         logBufferSize: ""
+    propertiesDisable: {}
+    # If set to true, the external database specified in dbDomainProperties will be used for the WebEngine database.
+    # On the first startup of the WebEngine, the database will be transferred automatically from Derby to the external database.
+    useExternalDatabase: false
+    # If set to true, existing WebEngine database tables will be dropped and re-created whenever database transfer is run.
+    dropDatabaseTables: false
+    # Provide a custom secret that will be used to set the DB Domain properties.
+    # Please make sure that the secret uses the following key: dx_dbdomain.properties
+    # If customDbDomainPropertiesSecret is provided then all dbDomainProperties values are ignored
+    customDbDomainPropertiesSecret: ""
+    dbDomainProperties:
+      InitializeFeedbackDB: "true"
+      feedback.DbType: "db2"
+      feedback.DbName: "WPFDBK"
+      feedback.DbSchema: "feedback"
+      feedback.DataSourceName: "wpfdbkdbDS"
+      feedback.DbUrl: "jdbc:db2://<replace-db-host>:<replace-db-port>/WPFDBK:returnAlias=0;"
+      feedback.DbUser: "<replace-db-user>"
+      feedback.DbPassword: "<replace-db-password>"
+      feedback.DbRuntimeUser: "<replace-db-user>"
+      feedback.DbRuntimePassword: "<replace-db-password>"
+      feedback.DBA.DbUser: "<replace-db-user>"
+      feedback.DBA.DbPassword: "<replace-db-password>"
+      feedback.DbConfigRoleName: "WP_PZN_CONFIG_USERS"
+      feedback.DbRuntimeRoleName: "WP_PZN_RUNTIME_USERS"
+      feedback.XDbName: "WPFDBK"
+      feedback.DbNode: "pznNode"
+      likeminds.DbType: "db2"
+      likeminds.DbName: "WPLM"
+      likeminds.DbSchema: "likeminds"
+      likeminds.DataSourceName: "wplmdbDS"
+      likeminds.DbUrl: "jdbc:db2://<replace-db-host>:<replace-db-port>/WPLM:returnAlias=0;"
+      likeminds.DbUser: "<replace-db-user>"
+      likeminds.DbPassword: "<replace-db-password>"
+      likeminds.DbRuntimeUser: "<replace-db-user>"
+      likeminds.DbRuntimePassword: "<replace-db-password>"
+      likeminds.DBA.DbUser: "<replace-db-user>"
+      likeminds.DBA.DbPassword: "<replace-db-password>"
+      likeminds.DbConfigRoleName: "WP_PZN_CONFIG_USERS"
+      likeminds.DbRuntimeRoleName: "WP_PZN_RUNTIME_USERS"
+      likeminds.XDbName: "WPLM"
+      likeminds.DbNode: "pznNode"
+      release.DbType: "db2"
+      release.DbName: "WPREL"
+      release.DbSchema: "release"
+      release.DataSourceName: "wpreldbDS"
+      release.DbUrl: "jdbc:db2://<replace-db-host>:<replace-db-port>/WPREL:returnAlias=0;"
+      release.DbUser: "<replace-db-user>"
+      release.DbPassword: "<replace-db-password>"
+      release.DbRuntimeUser: "<replace-db-user>"
+      release.DbRuntimePassword: "<replace-db-password>"
+      release.DBA.DbUser: "<replace-db-user>"
+      release.DBA.DbPassword: "<replace-db-password>"
+      release.DbConfigRoleName: "WP_BASE_CONFIG_USERS"
+      release.DbRuntimeRoleName: "WP_BASE_RUNTIME_USERS"
+      release.XDbName: "WPREL"
+      release.DbNode: "wpsNode"
+      community.DbType: "db2"
+      community.DbName: "WPCOMM"
+      community.DbSchema: "community"
+      community.DataSourceName: "wpcommdbDS"
+      community.DbUrl: "jdbc:db2://<replace-db-host>:<replace-db-port>/WPCOMM:returnAlias=0;"
+      community.DbUser: "<replace-db-user>"
+      community.DbPassword: "<replace-db-password>"
+      community.DbRuntimeUser: "<replace-db-user>"
+      community.DbRuntimePassword: "<replace-db-password>"
+      community.DBA.DbUser: "<replace-db-user>"
+      community.DBA.DbPassword: "<replace-db-password>"
+      community.DbConfigRoleName: "WP_BASE_CONFIG_USERS"
+      community.DbRuntimeRoleName: "WP_BASE_RUNTIME_USERS"
+      community.XDbName: "WPCOMM"
+      community.DbNode: "wpsNode"
+      customization.DbType: "db2"
+      customization.DbName: "WPCUST"
+      customization.DbSchema: "customization"
+      customization.DataSourceName: "wpcustdbDS"
+      customization.DbUrl: "jdbc:db2://<replace-db-host>:<replace-db-port>/WPCUST:returnAlias=0;"
+      customization.DbUser: "<replace-db-user>"
+      customization.DbPassword: "<replace-db-password>"
+      customization.DbRuntimeUser: "<replace-db-user>"
+      customization.DbRuntimePassword: "<replace-db-password>"
+      customization.DBA.DbUser: "<replace-db-user>"
+      customization.DBA.DbPassword: "<replace-db-password>"
+      customization.DbConfigRoleName: "WP_BASE_CONFIG_USERS"
+      customization.DbRuntimeRoleName: "WP_BASE_RUNTIME_USERS"
+      customization.XDbName: "WPCUST"
+      customization.DbNode: "wpsNode"
+      jcr.DbType: "db2"
+      jcr.DbName: "WPJCR"
+      jcr.DbSchema: "jcr"
+      jcr.DataSourceName: "wpjcrdbDS"
+      jcr.DbUrl: "jdbc:db2://<replace-db-host>:<replace-db-port>/WPJCR:returnAlias=0;"
+      jcr.DbUser: "<replace-db-user>"
+      jcr.DbPassword: "<replace-db-password>"
+      jcr.DbRuntimeUser: "<replace-db-user>"
+      jcr.DbRuntimePassword: "<replace-db-password>"
+      jcr.DBA.DbUser: "<replace-db-user>"
+      jcr.DBA.DbPassword: "<replace-db-password>"
+      jcr.DbConfigRoleName: "WP_JCR_CONFIG_USERS"
+      jcr.DbRuntimeRoleName: "WP_JCR_RUNTIME_USERS"
+      jcr.XDbName: "WPJCR"
+      jcr.DbNode: "wpsNode"
+    # Provide a custom secret that will be used to set the DB Type properties
+    # Please make sure that the secret uses the following key: dx_dbtype.properties
+    # If customDbTypePropertiesSecret is provided then all dbTypeProperties values are ignored
+    customDbTypePropertiesSecret: ""
+    dbTypeProperties:
+      derby.DbDriver: "org.apache.derby.jdbc.EmbeddedDriver"
+      derby.DbLibrary: "/opt/HCL/AppServer/derby/lib/derby.jar"
+      derby.JdbcProviderName: "wpdbJDBC_derby"
+      db2.DbDriver: "com.ibm.db2.jcc.DB2Driver"
+      db2.DbLibrary: "/opt/openliberty/wlp/usr/svrcfg/templates/jars/db2/db2jcc4.jar"
+      db2.JdbcProviderName: "wpdbJDBC_db2"
+    # Settings for LDAP configuration
+    ldap:
+      # Determines which type of LDAP to use
+      # Accepts: "none", "dx" or "other"
+      # "none" - no LDAP configuration
+      # "dx" - use DX openLDAP and configure it
+      # "other" - use provided configuration for other LDAP
+      type: "none"
+      # User used to connect to LDAP, only used if ldap type is "other"
+      bindUser: ""
+      # Password used to connect to LDAP, only used if ldap type is "other"
+      bindPassword: ""
+      # Provide secret name to be used for LDAP bind credentials
+      # Required attributes:
+      #   - bindUser
+      #   - bindPassword
+      customLdapSecret: ""
+      # Suffix in LDAP, only used if ldap type is "other"
+      suffix: ""
+      # Host of LDAP, only used if ldap type is "other"
+      host: ""
+      # Port of LDAP, only used if ldap type is "other"
+      port:
+      # Supported LDAP Server types - "Custom", "IBM Lotus Domino", "IBM SecureWay Directory Server", "IBM Tivoli Directory Server", "Microsoft Active Directory", "Netscape Directory Server", "Novell eDirectory", "Sun Java System Directory Server"
+      serverType: "Custom"
+      # LDAP configuration id
+      id: "dx_ldap"
+      # Mapping attributes between LDAP and DX, LDAP attribute names (array of elements)
+      attributeMappingLdap:
+        - "mail"
+        - "title"
+        - "userPassword"
+      # Mapping attributes between LDAP and DX, DX attribute names (array of elements)
+      attributeMappingPortal:
+        - "ibm-primaryEmail"
+        - "ibm-jobTitle"
+        - "password"
+      # Non-supported LDAP attributes (array of elements)
+      attributeNonSupported:
+        - "certificate"
+        - "members"
+    # Settings for Transient Users configuration
+    transientUserRegistry:
+      # Indicates if the transient user registry feature is enabled
+      enabled: false
+    # Settings for tuning
+    tuning:
+      # Configures if the environment should be configured for authoring or not
+      authoring: true
+    ltpa:
+      # Pass the name of the LTPA secret to be used for LTPA configuration. The secret should contain the following keys:
+      # - ltpa.keys
+      # - password
+      customLtpaSecret: ""
+    # Defines if the configuration console for the IBM WebSphere Application Server of Core is exposed to the network
+    exposeConfigurationConsole: true
+    # Settings for content AI 
+    contentAI:
+      # Configures if content AI is enabled/disabled
+      enabled: false
+      # Settings for checking content AI provider. When contentAI.enabled is true, provider will be used.
+      provider: "OPEN_AI"
+      # Provide the custom AI class which implements com.hcl.workplace.wcm.restv2.ai.IAIGeneration interface in WCM
+      # For e.g. className: "com.ai.sample.CustomerAI"
+      className: ""
+    # Settings for SearchV2 UI configuration
+    search:
+      # Determines if search ui v2 is enabled or not
+      uiV2Enabled: true
+      # Determines to which search center any input box redirects by default
+      inputRedirectVersion: "v2"
+      # Determines which search is used in wcm authoring
+      wcmVersion: "v2"
+    # The keys and values specified in "customSecrets"  must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character (e.g. 'my-name', or '123-abc')
+    # Secrets will be injected as environment variables and mounted as files under /mnt/customSecrets 
+    # From there they can be referenced in the server configuration.
+    # All key-value pairs in the specified secrets are injected into the Pod as environment variables
+    # For reference https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables
+    # Example secret data:
+    #   DB_USERNAME: "myUser"
+    #   DB_PASSWORD: "myPassword"
+    # 
+    # Example configuration:
+    #
+    # configuration:
+    #   webEngine:
+    #     customSecrets:
+    #       db-credentials: my-custom-db-credentials
+    #
+    # This will make the environment variables DB_USERNAME and DB_PASSWORD available in the Pod.
+    # This will also mount two files in /mnt/customSecrets/db-credentials named "DB_USERNAME" and "DB_PASSWORD"
+    customSecrets: {}
+    # Secrets that include either certificate (.crt) and key (.key) or only a CA certificate.
+    # During startup, the container will populate the keystore with the ID "defaultKeyStore".
+    # 
+    # To create a secret with a key and certificate:
+    # kubectl -n <namespace> create secret tls tls-secret --key="certificate.key" --cert="certificate.crt"
+    #
+    # To create a secret with only a certificate:
+    # kubectl -n <namespace> create secret generic ca-secret --from-file=certificate.ca
+    #
+    # Example configuration:
+    #
+    # configuration:
+    #   webEngine:
+    #     customKeystoreSecrets:
+    #       tls-secret-1: tls-secret-1  # Contains first .crt + .key
+    #       tls-secret-2: tls-secret-2  # Contains second .crt + .key
+    #     customTruststoreSecrets:
+    #       ca-secret-1: ca-secret-1    # Contains .crt, .pem, .ca
+    #       ca-secret-2: ca-secret-2    # Contains another set of CA certs
+    #
+    # The secrets defined in customKeystoreSecrets will be processed into the defaultKeyStore.
+    # The secrets defined in customTruststoreSecrets will be processed into the defaultTruststore.
+    # WARNING: Changes to the keystores and truststores require a restart of the Pod.
+    customKeystoreSecrets: {}
+    customTruststoreSecrets: {}
+    # Web Application Bridge (WAB) configuration
+    # Configures whether WAB is enabled/disabled
+    wabEnabled: false
+incubator:
+  # Enable or disable configuration sharing between DX applications
+  enableConfigurationSharing: false
+  configuration:
+    damPluginGoogleVision:
+      # DAM Plugin Google Vision Stub Mode returns dummy keywords. It remains false in production
+      stubMode: false
+    # Digital asset management configurations
+    digitalAssetManagement:
+      # The renderNewUI configuration below allows users to enable or disable the new UI in DAM.
+      renderNewUI: true
+      # This configuration allows users to enable or disable the collection sorting dropDown at DAM Landing page
+      enableRootCollectionSort: true
+    dxPicker:
+      # The renderPickerSearch configuration below allows users to switch to search-based DXPicker if set to true.
+      renderPickerSearch: false
+    persistence:
+      # This flag determines, if the database and user creation would be performed by DAM during startup. If the host value is set, then DAM would not consider this flag and skip it.
+      dbInitByDam: true
+    searchMiddleware:
+      contextRoot:
+        # Context root of Search Middleware
+        api: "/dx/api/search"
+        # Context root of Picker UI
+        pickerUI: "/dx/ui/search/picker"
+      # Version of Search Middleware
+      version: "v2"
+# Environment variables for different DX Resources.
+# Type: Array of objects
+# Sample "environment" configuration:
+#   environment:
+#     pod:
+#       haproxy:
+#         - name: KEY1
+#           value: VALUE1
+#         - name: KEY2
+#           value: VALUE2
+environment:
+  # Pod environment variables for DX Resources
+  # WARNING: This environment variable only applies to Pod's main container and will not apply to other containers of the Pod (i.e., logging sidecar, prereqs checker).
+  pod:
+    contentComposer: []
+    core: []
+    damPluginGoogleVision: []
+    digitalAssetManagement: []
+    imageProcessor: []
+    openLdap: []
+    persistenceConnectionPool: []
+    persistenceNode: []
+    remoteSearch: []
+    ringApi: []
+    runtimeController: []
+    haproxy: []
+    licenseManager: []
+    damPluginKaltura: []
+    webEngine: []
+# Allows to start a Pod and its containers in maintenance mode.
+# Pods will not perform a regular execute of the application but will remain idle
+# This allows for debugging inside the containers if required, e.g. if configuration fixes are required
+maintenanceMode:
+  contentComposer: false
+  core: false
+  damPluginGoogleVision: false
+  digitalAssetManagement: false
+  imageProcessor: false
+  openLdap: false
+  persistenceConnectionPool: false
+  persistenceNode: false
+  remoteSearch: false
+  ringApi: false
+  runtimeController: false
+  haproxy: false
+  licenseManager: false
+  damPluginKaltura: false
+  webEngine: false
+# Configuration for the peopleservice sub-chart.
+# Set `enabled` to `true` to enable the peopleservice sub-chart, or `false` to disable it.
+peopleservice:
+  enabled: false
+  # Application configuration
+  configuration:
+    # Specifies whether you are running in production mode or not
+    production: true
+    # Authentication strategy. Accepted values are `OIDC`, `DX`, and `none`
+    authStrategy: "DX"
+    # Integration configuration
+    integration:
+      # Indicates if DX integration is enabled
+      dx: true
+    # Integration specific configuration for DX
+    dx:
+      # Authetnication session cookie name
+      sessionCookieName: "JSESSIONID"
+      # User validation endpoint that confirms if the user is still authenticated
+      userValidationEndpoint: "/auth/validate"
+      # Current user access endpoint that identifies the current user's access level information. 
+      # This information is used to determine the user's role. 
+      # Accepted values are `Privileged`, `Authenticated`, or `Unauthenticated`
+      currentUserAccessEndpoint: "/dxmyrest/access/current-user?resourceId=wps.USERS"
+      # List of privileged roles separated by commas
+      userAccessPrivilegedRoles: "Administrator,Privileged User,Editor"
+      # Context root for the People Service portlet page
+      portletPageContextRoot: "/wps/myportal/Practitioner/PeopleService"
+    # Search configuration
+    search:
+      # Search middleware configuration. This configuration is ignore in case People Service is running in DX integration mode. In DX integration mode, the configuration is picked from DX Core/Webengine configmaps.
+      middleware:
+        # Enable/Disable Search Middleware.
+        enabled: false
+      # Open search middleware content source Id for People Service.
+      contentSourceId: ""
+  # Networking configuration
+  networking:
+    # SSL configuration for the application
+    ssl:
+      # Indicates if the application is accessible on http or https
+      enabled: true
+    # Public qualified host name. For example: "example.com". If `networking.ssl.enabled` is `true`, this key will be prefixed with `https://`, and `http://` if `false`
+    host: ""
+    # Context root for the API and UI
+    contextRoot:
+      # Context root for the API
+      api: "/dx/api/people/v1"
+      # Context root for the UI
+      # @section -- Networking configuration
+      ui: "/dx/ui/people"
+# Global configurations
+# This configuration is only relevant for the SoFy deployments.
+global:
+  serviceAccountName: ""
+  hclImagePullSecret:
+  hclImageRegistry: "hclcr.io/sofy"
+  persistence:
+    rwxStorageClassV3:
+

@@ -161,7 +161,7 @@ oc logs -f dx-deployment-web-engine-0 -c web-engine -n digital-experience
 ## B.7 Validate HAProxy access (port-forward)
 
 ```bash
-oc port-forward svc/dx-deployment-haproxy 8443:8081
+oc port-forward svc/dx-deployment-haproxy 8443:443
 ```
 
 ---

@@ -41,7 +41,7 @@ Each lab includes:
 ---
 
 ## 🧪 Lab 1 – DX Base Setup  
-⏱ **Estimated time: 15 minutes**  
+⏱ **Estimated time: 30 minutes**  
 📂 **Directory:** `lab1-dxsetup/`
 
 Lab 1 covers the essential steps required to perform a **base installation of HCL DX Compose** on OpenShift.  

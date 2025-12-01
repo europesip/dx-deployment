@@ -107,3 +107,22 @@ helm install -n digital-experience \
   --timeout 20m \
   --wait
 ```
+
+## 6 Upgrade DX Compose helm deployment to use SearchMiddleware
+
+Modificamos ahora el deployment de DX-Compose, haciendo un update con las referencias al SearchMidelware
+para ello editamos el custom-values.yaml
+Note that a "custom-search-values-sample.yaml" is provided with the values we have use on this lab.
+
+```bash
+cp custom-values-sample.yaml custom-values.yaml
+```
+
+
+##
+```bash
+helm upgrade dx-deployment \
+  -n digital-experience \
+  -f custom-values.yaml \
+  ./hcl-dx-deployment-2.42.1.tgz
+```

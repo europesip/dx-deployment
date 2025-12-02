@@ -77,6 +77,12 @@ security:
   # Security configuration for webEngine
   webEngine:
     webEnginePassword: "Passw0rd"
+# Application configuration
 configuration:
   containerTimezone: "Europe/Madrid"
+  # Search Middleware configuration
+  searchMiddleware:
+    # Enable/Disable Search Middleware
+    enabled: true
+
 

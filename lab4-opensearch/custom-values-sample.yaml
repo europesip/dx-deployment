@@ -67,10 +67,8 @@ networking:
   tlsCertSecret: "dx-tls-cert"
   # Search middleware service name, needs to match the query service if you have deployed
   # OpenSearch and the search middleware
-  searchMiddleware:
-    openSearch:
-      host: "dx-search-deployment-open-search-manager"
-      port: 9200
+  searchMiddlewareService: "dx-search-deployment-open-search-manager"
+  # Networking configuration specific to webEngine
   webEngine:
     # Host of webEngine, must be specified as a FQDN
     host: "dx.apps.promox.europesip-lab.com"
@@ -79,6 +77,12 @@ security:
   # Security configuration for webEngine
   webEngine:
     webEnginePassword: "Passw0rd"
+# Application configuration
 configuration:
   containerTimezone: "Europe/Madrid"
+  # Search Middleware configuration
+  searchMiddleware:
+    # Enable/Disable Search Middleware
+    enabled: true
+
 

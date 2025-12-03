@@ -1,42 +1,47 @@
-# HCL DX Compose – New Search Engine Setup (OpenShift)
+# HCL DX Compose – Installing the New Search Engine on OpenShift  
+## Lab Guide (DX 9.5 CF231)
 
-**DX 9.5 CF231 – Optional Search Engine Installation Lab**
+> ⚠️ **DRAFT – Content Under Development**  
+> This lab guide is not yet finalized. Instructions may change as the content evolves.
 
-This guide summarizes the essential steps required to deploy and enable the **new Search Engine** for HCL Digital Experience (DX) Compose on OpenShift.
+This lab explains the operational steps required to deploy and enable the **New Search Engine** for **HCL Digital Experience (DX) Compose** running on **OpenShift**.
 
-Please note that this lab is not yet available, and is under DRAFT CONTENT  
-The content is currently under development and will be released shortly.
+---
 
-Thank you for your patience.
-
-For the full official documentation, please refer to:
-
-➡️ **HCL DX Documentation – Install New Search Engine**  
+## 📚 Official Documentation  
+➡️ **HCL DX Documentation – Install the New Search Engine**  
 https://help.hcl-software.com/digital-experience/9.5/CF231/deployment/install/container/helm_deployment/preparation/optional_tasks/optional_install_new_search/
 
 ---
 
-## 📘 Overview
+# 📘 1. Objective
 
-The new Search Engine replaces the legacy search service in HCL DX and is deployed as an additional component within your DX Compose environment.  
-This lab assumes:
+This guide provides the required steps to:
 
-- You already have a working DX Compose installation.  
-- You have permissions as `dxadmin` or equivalent to update the deployment.  
-- You will **not** customize Helm values here — any configuration tuning must be performed separately in `custom-values.yaml`.
+- Deploy the **DX Search Engine** as an additional component in DX Compose.
+- Generate certificates and configure OpenSearch security.
+- Integrate the new Search Engine into the existing DX Compose deployment.
 
-This document covers only the **operational steps** required to deploy and enable the new search service.
+### Prerequisites
+- A fully functional **DX Compose** installation (→ complete Lab 1 first).  
+- Permissions as `dxadmin` (or equivalent) on the OpenShift cluster.  
+- Helm installed and configured on your workstation.  
+- Storage available for the Search Engine deployment.  
+
+> **Important:**  
+This lab covers *operational setup only*.  
+Any tuning or custom configuration must be applied via your own `custom-values.yaml`.
 
 ---
 
-## 1. Login as installer
+## 2. Login as installer
 
 ```bash
 oc login https://api.promox.europesip-lab.com:6443 -u dxadmin
 ```
 
 
-## 2. Confirm DX Installation Is Running
+## 3. Confirm DX Installation Is Running
 
 Before deploying Search, ensure the platform is fully operational:
 
@@ -45,7 +50,7 @@ oc project digital-experience
 oc get pods
 ```
 
-## 3. Create Secrets
+## 4. Create Secrets
 
 ```bash
 # Root CA for certificates
@@ -84,20 +89,24 @@ oc create secret generic search-node-cert --from-file=node.pem --from-file=node-
 oc create secret generic search-client-cert --from-file=client.pem --from-file=client-key.pem --from-file=root-ca.pem -n digital-experience
 ```
 
-## 4 Extract and prepare Helm values
+## 5 Extract and prepare Helm values
 
 ```bash
 # Command to extract values.yaml from Helm Chart
 helm show values hcl-dx-search-v2.29.0_20251027-1916.tgz > search-values.yaml
-cp search-values.yaml custom-search-values.yaml
+cp search-values.yaml custom-search-values.yaml 
 ```
 
-Modify `custom-search-values.yaml` as needed.
+Modify `custom-search-values.yaml` as needed. 
 Note that a "custom-search-values-sample.yaml" is provided with the values we have use on this lab.
+Optionally, you can overwrite the custom-search-values with that sample.
+```bash
+cp custom-search-values-sample.yaml custom-search-values.yaml 
+```
 
 ---
 
-## 5 Install DX Search
+## 6 Install DX Search
 
 ```bash
 helm install -n digital-experience \
@@ -108,15 +117,26 @@ helm install -n digital-experience \
   --wait
 ```
 
-## 6 Upgrade DX Compose helm deployment to use SearchMiddleware
-
-Modificamos ahora el deployment de DX-Compose, haciendo un update con las referencias al SearchMidelware
-para ello editamos el custom-values.yaml
-Note that a "custom-search-values-sample.yaml" is provided with the values we have use on this lab.
-
+## 7 Check that the pods of the helm install are running correctly
 ```bash
-cp custom-values-sample.yaml custom-values.yaml
+oc get pods
+oc get pv
 ```
+
+
+
+## 8 Upgrade DX Compose helm deployment to use SearchMiddleware
+
+If DX search was installed and is running correctly (as we can observe checking the pods), we can now upgrade DX to
+add the SearchMiddleware integration.   To do so, we will update DX-Compose deployment, updating the corresponding references to search deployment 
+Note that a "custom-values-sample.yaml" is provided with the values we have use on this lab.
+
+Optionally, you can overwrite the custom-values with that sample.
+```bash
+cp custom-values-sample.yaml custom-values.yaml 
+```
+---
+Once we have the custom-values.yaml  we need for DX Compose & DX Search integration, we may proceed doint the DX Upgrade
 
 
 ##

@@ -34,12 +34,16 @@ This guide provides the required steps to:
 > **Important:**
 > This lab covers *operational setup only*. Any tuning or custom configuration must be applied via your own `custom-values.yaml`.
 
+### 1.2 🧑‍💻 Educational Scope Disclaimer
+
+> The DX Search Engine is highly configurable and offers numerous advanced features. This guide is designed for **didactic and learning purposes** only, demonstrating the **basic functional setup**. For large-scale, corporate environments, high-volume indexing, or advanced search requirements, specialized **advanced tuning** and configuration (including resource allocation, sharding, and specific performance parameters) are strongly advised to achieve maximum performance and product capability.
+
 ---
 
 ## 2. Login as Installer
 
 ```bash
-oc login [https://api.promox.europesip-lab.com:6443](https://api.promox.europesip-lab.com:6443) -u dxadmin
+oc login https://api.promox.europesip-lab.com:6443 -u dxadmin
 ```
 
 
@@ -53,6 +57,8 @@ oc get pods
 
 # All DX pods should be in Running state before continuing.
 ```
+
+Check also you can login to DX compose at 
 
 ## 4. Generate Certificates and Create Secrets
 
@@ -153,6 +159,7 @@ oc get pods -n digital-experience
 # Check persistent volumes were bound correctly
 oc get pv -n digital-experience
 ```
+Check you can http the search API service <https://dx.apps.promox.europesip-lab.com/dx/api/search/v2/explorer>
 
 Expected results:
 

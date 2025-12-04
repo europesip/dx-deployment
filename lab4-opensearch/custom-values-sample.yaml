@@ -67,7 +67,7 @@ networking:
   tlsCertSecret: "dx-tls-cert"
   # Search middleware service name, needs to match the query service if you have deployed
   # OpenSearch and the search middleware
-  searchMiddlewareService: "dx-search-deployment-open-search-manager"
+  searchMiddlewareService: "dx-search-deployment-search-middleware-query"
   # Networking configuration specific to webEngine
   webEngine:
     # Host of webEngine, must be specified as a FQDN
@@ -79,10 +79,24 @@ security:
     webEnginePassword: "Passw0rd"
 # Application configuration
 configuration:
+  # To change the timezone of all the containers. This value should be a valid timezone format (i.e. Australia/Melbourne, Europe/London, America/Phoenix).
+  # WARNING: If you are using DAM Staging and/or WCM syndication, then all the deployments must be in same timezone, to prevent issues during synchronisation.
   containerTimezone: "Europe/Madrid"
-  # Search Middleware configuration
   searchMiddleware:
     # Enable/Disable Search Middleware
     enabled: true
+    # Security related configuration, e.g. default credentials
+    pushAdminUser: "pushadmin"
+    # Password of the push administrator
+    pushAdminPassword: "adminpush"  
+  webEngine:
+    search:
+      # Determines if search ui v2 is enabled or not
+      uiV2Enabled: true
+      # Determines to which search center any input box redirects by default
+      inputRedirectVersion: "v2"
+      # Determines which search is used in wcm authoring
+      wcmVersion: "v2"
+
 
 

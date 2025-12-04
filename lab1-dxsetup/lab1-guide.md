@@ -164,6 +164,7 @@ oc logs -f dx-deployment-web-engine-0 -c web-engine -n digital-experience
 oc port-forward svc/dx-deployment-haproxy 8443:443
 ```
 
+Now that you have done a "proxy" you can login trhough it  and check everyhing is running at <https://localhost:8443/wps/portal>
 ---
 
 ## B.8 Apply external OpenShift Route

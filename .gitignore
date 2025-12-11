@@ -1,12 +1,58 @@
+#######################################################
+# PROJECT-SPECIFIC RULES
+#######################################################
+
+# Sensitive Configuration and Internal Scripts (hcl-dx-deployment*)
+# Ignores any file starting with 'hcl-dx-deployment', protecting internal scripts.
 hcl-dx-deployment*
+
+# Ignores default or temporary configuration value files.
 values.yaml
+
+# Ignores any file with the .NOUSAR extension
+# This files are used for testing and temporary actions and are not needed for the labs
 *NOUSAR
+
+#######################################################
+# SECURITY RULES (Certificates and Keys)
+#######################################################
+
+# Ignores security certificates and keys, preventing the accidental upload of sensitive material.
 *.pem
-*.xml
 *.crt
-log*
-*.tgz
-*.tar
-*.ldif
 *.csr
 *.srl
+
+#######################################################
+# LARGE ARTIFACTS AND BINARIES (Images/Charts)
+#######################################################
+
+# Ignores compressed files (tgz, tar) which typically contain container images,
+# Helm Charts, or other large installation binaries (licensed material).
+*.tgz
+*.tar
+
+#######################################################
+# TEMPORARY CONFIGURATION AND LOGS
+#######################################################
+
+# Ignores configuration files (xml, ldif) or generated log files, 
+# as they are not part of the source code base.
+*.xml
+*.ldif
+log*
+
+#######################################################
+# KEY RULE: required-assets DIRECTORY
+#######################################################
+
+# This directory is used as a placeholer for binaries, images and charts
+# Each users must download and use his own files here, so do not commit them
+
+# 1. Explicitly ignore the entire directory and all its contents.
+#    (This prevents anything from being uploaded by default).
+required-assets/
+
+# 2. Exception: Force tracking of the README.md file inside that directory.
+#    The exclamation mark (!) overrides the previous ignore rule.
+!required-assets/README.md

@@ -1,0 +1,217 @@
+images:
+  # Container repository used to retrieve the images
+  repository: "image-registry.openshift-image-registry.svc:5000/openshift"
+  
+  # Image name for each application
+  names:
+    contentComposer: "dx-content-composer"
+    core: "dx-core"
+    damPluginGoogleVision: "dx-dam-plugin-google-vision"
+    digitalAssetManagement: "dx-digital-asset-manager"
+    imageProcessor: "dx-image-processor"
+    openLdap: "dx-openldap"
+    persistenceConnectionPool: "dx-persistence-connection-pool"
+    persistenceNode: "dx-persistence-node"
+    persistenceMetricsExporter: "dx-persistence-metrics-exporter"
+    remoteSearch: "dx-remote-search"
+    ringApi: "dx-ringapi"
+    runtimeController: "dx-runtime-controller"
+    loggingSidecar: "dx-logging-sidecar"
+    haproxy: "dx-haproxy"
+    damPluginKaltura: "dx-dam-plugin-kaltura"
+    licenseManager: "dx-license-manager"
+    prereqsChecker: "dx-prereqs-checker"
+    webEngine: "dx-webengine"
+
+# Persistent Volume Setup
+volumes:
+  digitalAssetManagement:
+    # Binary storage PVC, shared by all Digital Asset Management Pods - RWX
+    binaries:
+      storageClassName: "dx-deploy-rwx"
+  # Persistent Volumes for Persistence Node
+  persistenceNode:
+    # Database PVC, one per Persistence Node
+    database:
+      storageClassName: "dx-deploy-rwo"
+  # Persistent Volumes for License-Manager Node
+  licenseManager:
+    # Database PVC, one per license-manager Node
+    data:
+      storageClassName: "dx-deploy-rwo"
+  # Persistent Volumes for webEngine
+  webEngine:
+    # Customization PVC one per webEngine pod - RWO
+    customization:
+      storageClassName: "dx-deploy-rwo"
+    # Application Log PVC, one per webEngine pod - RWO
+    log:
+      storageClassName: "dx-deploy-rwo"
+
+# Controls which application is deployed and configured
+applications:
+  # Deploy Open LDAP (set to false for external LDAP)
+  openLdap: false
+  # Deploys the Remote Search
+  remoteSearch: false
+  # Do not install Core DX, install WebEngine (Compose) instead
+  core: false
+  # Install Compose
+  webEngine: true
+
+# Configuration for the peopleservice sub-chart.
+# Set `enabled` to `true` to enable the peopleservice sub-chart, or `false` to disable it.
+peopleservice:
+  enabled: false 
+  
+# Networking specific configuration
+networking:
+  # Networking configurations specific to HAProxy
+  haproxy:
+    # Configuration to set the type Service type for the HAProxy Service
+    serviceType: "ClusterIP"
+  # TLS Certificate secret used for HAProxy
+  tlsCertSecret: "dx-tls-cert"
+  # Networking configuration specific to webEngine
+  webEngine:
+    # Host of webEngine, must be specified as a FQDN
+    host: "dx.apps.promox.europesip-lab.com"
+# Security related configuration, e.g. default credentials
+security:
+  # Security configuration for webEngine
+  webEngine:
+    # Credentials for the WebEngine Server administrative user
+    # Note: Be aware of the out-of-the-box additional "admin1" adminsitrative user
+    webEngineUser: "wpsadmin"
+    webEnginePassword: "Passw0rd" # Simple password for wpsadmin
+
+configuration:
+  containerTimezone: "Europe/Madrid"
+  webEngine:
+    # ------------------------------------------------
+    # EXTERNAL LDAP CONNECTION CONFIGURATION
+    # ------------------------------------------------
+    ldap:
+      # Set type to "other" to use provided external configuration
+      # Be aware that "custom internal registry" is not deactivated and is still working for users authentication
+      # so previous users (ie, admin1) will still work.
+      type: "other"
+      
+      # Bind DN used for connecting and searching (Service Account: wpsbind)
+      bindUser: "uid=wpsbind,ou=People,dc=europesip,dc=com"
+      # Password used for the Bind user
+      bindPassword: "Passw0rd"
+      
+      # Suffix in LDAP (The Base DN)
+      suffix: "dc=europesip,dc=com"
+      # Host of LDAP server
+      host: "ldap.europesip-lab.com"
+      # Port of LDAP server
+      port: 389
+      
+      # Supported LDAP Server type
+      serverType: "Custom"
+      # LDAP configuration ID
+      id: "dx_ldap"
+
+    # ------------------------------------------------
+    # EXTERNAL DB CONNECTION CONFIGURATION
+    # ------------------------------------------------
+    
+    dbDomainProperties:
+      InitializeFeedbackDB: "true"
+      feedback.DbType: "db2"
+      feedback.DbName: "WPFDBK"
+      feedback.DbSchema: "feedback"
+      feedback.DataSourceName: "wpfdbkdbDS"
+      feedback.DbUrl: "jdbc:db2://db2.europesip-lab.com:50000/WPFDBK:returnAlias=0;"
+      feedback.DbUser: "db2inst1"
+      feedback.DbPassword: "Passw0rd"
+      feedback.DbRuntimeUser: "db2inst1"
+      feedback.DbRuntimePassword: "Passw0rd"
+      feedback.DBA.DbUser: "db2inst1"
+      feedback.DBA.DbPassword: "Passw0rd"
+      feedback.DbConfigRoleName: "WP_PZN_CONFIG_USERS"
+      feedback.DbRuntimeRoleName: "WP_PZN_RUNTIME_USERS"
+      feedback.XDbName: "WPFDBK"
+      feedback.DbNode: "pznNode"
+      likeminds.DbType: "db2"
+      likeminds.DbName: "WPLM"
+      likeminds.DbSchema: "likeminds"
+      likeminds.DataSourceName: "wplmdbDS"
+      likeminds.DbUrl: "jdbc:db2://db2.europesip-lab.com:50000/WPLM:returnAlias=0;"
+      likeminds.DbUser: "db2inst1"
+      likeminds.DbPassword: "Passw0rd"
+      likeminds.DbRuntimeUser: "db2inst1"
+      likeminds.DbRuntimePassword: "Passw0rd"
+      likeminds.DBA.DbUser: "db2inst1"
+      likeminds.DBA.DbPassword: "Passw0rd"
+      likeminds.DbConfigRoleName: "WP_PZN_CONFIG_USERS"
+      likeminds.DbRuntimeRoleName: "WP_PZN_RUNTIME_USERS"
+      likeminds.XDbName: "WPLM"
+      likeminds.DbNode: "pznNode"
+      release.DbType: "db2"
+      release.DbName: "WPREL"
+      release.DbSchema: "release"
+      release.DataSourceName: "wpreldbDS"
+      release.DbUrl: "jdbc:db2://db2.europesip-lab.com:50000/WPREL:returnAlias=0;"
+      release.DbUser: "db2inst1"
+      release.DbPassword: "Passw0rd"
+      release.DbRuntimeUser: "db2inst1"
+      release.DbRuntimePassword: "Passw0rd"
+      release.DBA.DbUser: "db2inst1"
+      release.DBA.DbPassword: "Passw0rd"
+      release.DbConfigRoleName: "WP_BASE_CONFIG_USERS"
+      release.DbRuntimeRoleName: "WP_BASE_RUNTIME_USERS"
+      release.XDbName: "WPREL"
+      release.DbNode: "wpsNode"
+      community.DbType: "db2"
+      community.DbName: "WPCOMM"
+      community.DbSchema: "community"
+      community.DataSourceName: "wpcommdbDS"
+      community.DbUrl: "jdbc:db2://db2.europesip-lab.com:50000/WPCOMM:returnAlias=0;"
+      community.DbUser: "db2inst1"
+      community.DbPassword: "Passw0rd"
+      community.DbRuntimeUser: "db2inst1"
+      community.DbRuntimePassword: "Passw0rd"
+      community.DBA.DbUser: "db2inst1"
+      community.DBA.DbPassword: "Passw0rd"
+      community.DbConfigRoleName: "WP_BASE_CONFIG_USERS"
+      community.DbRuntimeRoleName: "WP_BASE_RUNTIME_USERS"
+      community.XDbName: "WPCOMM"
+      community.DbNode: "wpsNode"
+      customization.DbType: "db2"
+      customization.DbName: "WPCUST"
+      customization.DbSchema: "customization"
+      customization.DataSourceName: "wpcustdbDS"
+      customization.DbUrl: "jdbc:db2://db2.europesip-lab.com:50000/WPCUST:returnAlias=0;"
+      customization.DbUser: "db2inst1"
+      customization.DbPassword: "Passw0rd"
+      customization.DbRuntimeUser: "db2inst1"
+      customization.DbRuntimePassword: "Passw0rd"
+      customization.DBA.DbUser: "db2inst1"
+      customization.DBA.DbPassword: "Passw0rd"
+      customization.DbConfigRoleName: "WP_BASE_CONFIG_USERS"
+      customization.DbRuntimeRoleName: "WP_BASE_RUNTIME_USERS"
+      customization.XDbName: "WPCUST"
+      customization.DbNode: "wpsNode"
+      jcr.DbType: "db2"
+      jcr.DbName: "WPJCR"
+      jcr.DbSchema: "jcr"
+      jcr.DataSourceName: "wpjcrdbDS"
+      jcr.DbUrl: "jdbc:db2://db2.europesip-lab.com:50000/WPJCR:returnAlias=0;"
+      jcr.DbUser: "db2inst1"
+      jcr.DbPassword: "Passw0rd"
+      jcr.DbRuntimeUser: "db2inst1"
+      jcr.DbRuntimePassword: "Passw0rd"
+      jcr.DBA.DbUser: "db2inst1"
+      jcr.DBA.DbPassword: "Passw0rd"
+      jcr.DbConfigRoleName: "WP_JCR_CONFIG_USERS"
+      jcr.DbRuntimeRoleName: "WP_JCR_RUNTIME_USERS"
+      jcr.XDbName: "WPJCR"
+      jcr.DbNode: "wpsNode"
+
+    dbTypeProperties:
+      db2.DbDriver: "com.ibm.db2.jcc.DB2Driver"
+      db2.DbLibrary: "/opt/openliberty/wlp/usr/svrcfg/templates/jars/db2/db2jcc4.jar"
+      db2.JdbcProviderName: "wpdbJDBC_db2"

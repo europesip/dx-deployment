@@ -48,15 +48,20 @@ volumes:
       storageClassName: "dx-deploy-rwo"
 # Controls which application is deployed and configured
 applications:
-  # Deploy Open LDAP
-  # Setting the ldap type in the core application configuration to dx will override this setting with: true
+  # Deploy Open LDAP (set to false for external LDAP)
   openLdap: false
   # Deploys the Remote Search
   remoteSearch: false
-  # Do not install Core DX, we will install WebEngine (Compose) instead
+  # Do not install Core DX, install WebEngine (Compose) instead
   core: false
   # Install Compose
   webEngine: true
+
+# Configuration for the peopleservice sub-chart.
+# Set `enabled` to `true` to enable the peopleservice sub-chart, or `false` to disable it.
+peopleservice:
+  enabled: false
+      
 # Networking specific configuration
 networking:
   # Networking configurations specific to HAProxy

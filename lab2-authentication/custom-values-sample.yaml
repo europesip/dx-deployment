@@ -62,7 +62,7 @@ applications:
 # Configuration for the peopleservice sub-chart.
 # Set `enabled` to `true` to enable the peopleservice sub-chart, or `false` to disable it.
 peopleservice:
-  enabled: true
+  enabled: false
   
 # Networking specific configuration
 networking:
@@ -113,3 +113,16 @@ configuration:
       serverType: "Custom"
       # LDAP configuration ID
       id: "dx_ldap"
+
+    configOverrideFiles:
+      user-overrides.xml: |
+          <server description="DX Web Engine server">
+          <basicRegistry id="basic" realm="defaultWIMFileBasedRealm">
+          <user name="wpsadmin" password="Passw0rd" id="uid=wpsadmin,o=defaultWIMFileBasedRealm" />
+          <user name="admin1" password="admin2pwd" id="uid=admin1,o=defaultWIMFileBasedRealm"/>
+          <group name="wpsadmins" id="cn=wpsadmins,o=defaultWIMFileBasedRealm">
+             <member name="andres"/>
+             <member name="wpsadmin" />
+          </group>
+          </basicRegistry>
+          </server>

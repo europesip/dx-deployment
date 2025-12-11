@@ -1,0 +1,14 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: vsix-registry
+  namespace: devspaces
+spec:
+  to:
+    kind: Service
+    name: vsix-registry-service
+  port:
+    targetPort: 80
+  tls:
+    termination: edge
+

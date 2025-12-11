@@ -127,12 +127,18 @@ For further details, refer to the official HCL documentation:
 ## B.4 Extract and prepare Helm values
 
 ```bash
-helm show values hcl-dx-deployment-2.42.1.tgz > values.yaml
+helm show values ../required-assets/hcl-dx-deployment-2.42.1.tgz > values.yaml
 cp values.yaml custom-values.yaml
 ```
 
 Modify `custom-values.yaml` as needed.
-Note that a "custom-values-sample.yaml" is provided with the values we have use on this lab.
+
+OPTIONAL: A sample configuration used in this lab is on this repository, on the file custom-search-values-sample.yaml
+If you want to use the sample as-is, you can overwrite your current values:
+```bash
+cp custom-values-sample.yaml custom-values.yaml 
+```
+
 
 ---
 
@@ -142,7 +148,7 @@ Note that a "custom-values-sample.yaml" is provided with the values we have use 
 helm install -n digital-experience \
   -f custom-values.yaml \
   dx-deployment \
-  ./hcl-dx-deployment-2.42.1.tgz \
+  ../required-assets/hcl-dx-deployment-2.42.1.tgz \
   --timeout 20m \
   --wait
 ```

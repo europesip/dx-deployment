@@ -118,7 +118,7 @@ Before installing the Search Engine, extract the default Helm chart values and p
 ### 5.1 Extract default values from the Helm chart
 
 ```bash
-helm show values hcl-dx-search-v2.29.0_20251027-1916.tgz > search-values.yaml
+helm show values ../required-assets/hcl-dx-search-v2.29.0_20251027-1916.tgz > search-values.yaml
 cp search-values.yaml custom-search-values.yaml
 ```
 
@@ -143,7 +143,7 @@ With your Helm values prepared, you can now install the DX Search Engine in your
 helm install -n digital-experience \
   -f custom-search-values.yaml \
   dx-search-deployment \
-  ./hcl-dx-search-v2.29.0_20251027-1916.tgz \
+  ../required-assets/hcl-dx-search-v2.29.0_20251027-1916.tgz \
   --timeout 20m \
   --wait
 ```
@@ -199,7 +199,9 @@ Perform the Helm upgrade to integrate DX Compose with the Search Engine:
 helm upgrade dx-deployment \
   -n digital-experience \
   -f custom-values.yaml \
-  ./hcl-dx-deployment-2.42.1.tgz
+  ../required-assets/hcl-dx-deployment-2.42.1.tgz
+  --timeout 20m \
+  --wait
 ```
 
 ### 7.3 Verify Integration

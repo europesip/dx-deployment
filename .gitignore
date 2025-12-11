@@ -8,6 +8,7 @@ hcl-dx-deployment*
 
 # Ignores default or temporary configuration value files.
 values.yaml
+search-values.yaml
 
 # Ignores any file with the .NOUSAR extension
 # This files are used for testing and temporary actions and are not needed for the labs

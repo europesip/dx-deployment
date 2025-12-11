@@ -32,7 +32,7 @@ applications:
   # Deploys the search middleware
   searchMiddleware: true
   # Deploys file processor
-  fileProcessor: false
+  fileProcessor: true
 
 # Security related configuration, e.g. default credentials
 security:
@@ -57,3 +57,13 @@ configuration:
     # Name of the DX helm deployment, needs to be configured with the value that has been used
     # during the DX deployment in the same namespace
     dxDeploymentName: "dx-deployment"
+    digitalAssetManagement: 
+      enabled: true
+    jcr:
+      enabled: true
+    portal:
+      enabled: true
+    wcm:
+      enabled: true
+    people:
+      enabled: false 

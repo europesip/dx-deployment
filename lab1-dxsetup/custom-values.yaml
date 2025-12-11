@@ -88,27 +88,3 @@ security:
 
 configuration:
   containerTimezone: "Europe/Madrid"
-  webEngine:
-    # ------------------------------------------------
-    # EXTERNAL LDAP CONNECTION CONFIGURATION
-    # ------------------------------------------------
-    ldap:
-      # Set type to "other" to use provided external configuration
-      type: "other"
-      
-      # Bind DN used for connecting and searching (Service Account: wpsbind)
-      bindUser: "uid=wpsbind,ou=People,dc=europesip,dc=com"
-      # Password used for the Bind user
-      bindPassword: "Passw0rd"
-      
-      # Suffix in LDAP (The Base DN)
-      suffix: "dc=europesip,dc=com"
-      # Host of LDAP server
-      host: "ldap.europesip-lab.com"
-      # Port of LDAP server
-      port: 389
-      
-      # Supported LDAP Server type
-      serverType: "Custom"
-      # LDAP configuration ID
-      id: "dx_ldap"

@@ -82,6 +82,7 @@ security:
   # Security configuration for webEngine
   webEngine:
     webEnginePassword: "Passw0rd"
+
 # Application configuration
 configuration:
   # To change the timezone of all the containers. This value should be a valid timezone format (i.e. Australia/Melbourne, Europe/London, America/Phoenix).
@@ -95,6 +96,46 @@ configuration:
     # Password of the push administrator
     pushAdminPassword: "adminpush"  
   webEngine:
+
+  # ------------------------------------------------
+    # EXTERNAL LDAP CONNECTION CONFIGURATION
+    # ------------------------------------------------
+    ldap:
+      # Set type to "other" to use provided external configuration
+      # Be aware that "custom internal registry" is not deactivated and is still working for users authentication
+      # so previous users (ie, admin1) will still work.
+      type: "other"
+      
+      # Bind DN used for connecting and searching (Service Account: wpsbind)
+      bindUser: "uid=wpsbind,ou=People,dc=europesip,dc=com"
+      # Password used for the Bind user
+      bindPassword: "Passw0rd"
+      
+      # Suffix in LDAP (The Base DN)
+      suffix: "dc=europesip,dc=com"
+      # Host of LDAP server
+      host: "ldap.europesip-lab.com"
+      # Port of LDAP server
+      port: 389
+      
+      # Supported LDAP Server type
+      serverType: "Custom"
+      # LDAP configuration ID
+      id: "dx_ldap"
+
+    configOverrideFiles:
+      user-overrides.xml: |
+          <server description="DX Web Engine server">
+          <basicRegistry id="basic" realm="defaultWIMFileBasedRealm">
+          <user name="wpsadmin" password="Passw0rd" id="uid=wpsadmin,o=defaultWIMFileBasedRealm" />
+          <user name="admin1" password="admin2pwd" id="uid=admin1,o=defaultWIMFileBasedRealm"/>
+          <group name="wpsadmins" id="cn=wpsadmins,o=defaultWIMFileBasedRealm">
+             <member name="andres"/>
+             <member name="wpsadmin" />
+          </group>
+          </basicRegistry>
+          </server>
+
     search:
       # Determines if search ui v2 is enabled or not
       uiV2Enabled: true
@@ -102,6 +143,3 @@ configuration:
       inputRedirectVersion: "v2"
       # Determines which search is used in wcm authoring
       wcmVersion: "v2"
-
-
-

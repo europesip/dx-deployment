@@ -1,0 +1,107 @@
+images:
+  # Container repository used to retrieve the images
+  repository: "image-registry.openshift-image-registry.svc:5000/openshift"
+  
+  # Image name for each application
+  names:
+    contentComposer: "dx-content-composer"
+    core: "dx-core"
+    damPluginGoogleVision: "dx-dam-plugin-google-vision"
+    digitalAssetManagement: "dx-digital-asset-manager"
+    imageProcessor: "dx-image-processor"
+    openLdap: "dx-openldap"
+    persistenceConnectionPool: "dx-persistence-connection-pool"
+    persistenceNode: "dx-persistence-node"
+    persistenceMetricsExporter: "dx-persistence-metrics-exporter"
+    remoteSearch: "dx-remote-search"
+    ringApi: "dx-ringapi"
+    runtimeController: "dx-runtime-controller"
+    loggingSidecar: "dx-logging-sidecar"
+    haproxy: "dx-haproxy"
+    damPluginKaltura: "dx-dam-plugin-kaltura"
+    licenseManager: "dx-license-manager"
+    prereqsChecker: "dx-prereqs-checker"
+    webEngine: "dx-webengine"
+# Persistent Volume Setup
+volumes:
+  digitalAssetManagement:
+    # Binary storage PVC, shared by all Digital Asset Management Pods - RWX
+    binaries:
+      storageClassName: "dx-deploy-rwx"
+  # Persistent Volumes for Persistence Node
+  persistenceNode:
+    # Database PVC, one per Persistence Node
+    database:
+      storageClassName: "dx-deploy-rwo"
+  # Persistent Volumes for License-Manager Node
+  licenseManager:
+    # Database PVC, one per license-manager Node
+    data:
+      storageClassName: "dx-deploy-rwo"
+  # Persistent Volumes for webEngine
+  webEngine:
+    # Customization PVC one per webEngine pod - RWO
+    customization:
+      storageClassName: "dx-deploy-rwo"
+    # Application Log PVC, one per webEngine pod - RWO
+    log:
+      storageClassName: "dx-deploy-rwo"
+# Controls which application is deployed and configured
+applications:
+  # Deploy Open LDAP (set to false for external LDAP)
+  openLdap: false
+  # Deploys the Remote Search
+  remoteSearch: false
+  # Do not install Core DX, install WebEngine (Compose) instead
+  core: false
+  # Install Compose
+  webEngine: true
+
+# Configuration for the peopleservice sub-chart.
+# Set `enabled` to `true` to enable the peopleservice sub-chart, or `false` to disable it.
+peopleservice:
+  enabled: false
+      
+# Networking specific configuration
+networking:
+  # Networking configurations specific to HAProxy
+  haproxy:
+    # Configuration to set the type Service type for the HAProxy Service. Supported values are "ClusterIP", "LoadBalancer" and "NodePort"
+    serviceType: "ClusterIP"
+  # TLS Certificate secret used for HAProxy
+  tlsCertSecret: "dx-tls-cert"
+  # Search middleware service name, needs to match the query service if you have deployed
+  # OpenSearch and the search middleware
+  searchMiddlewareService: "dx-search-deployment-search-middleware-query"
+  # Networking configuration specific to webEngine
+  webEngine:
+    # Host of webEngine, must be specified as a FQDN
+    host: "dx.apps.promox.europesip-lab.com"
+# Security related configuration, e.g. default credentials
+security:
+  # Security configuration for webEngine
+  webEngine:
+    webEnginePassword: "Passw0rd"
+# Application configuration
+configuration:
+  # To change the timezone of all the containers. This value should be a valid timezone format (i.e. Australia/Melbourne, Europe/London, America/Phoenix).
+  # WARNING: If you are using DAM Staging and/or WCM syndication, then all the deployments must be in same timezone, to prevent issues during synchronisation.
+  containerTimezone: "Europe/Madrid"
+  searchMiddleware:
+    # Enable/Disable Search Middleware
+    enabled: true
+    # Security related configuration, e.g. default credentials
+    pushAdminUser: "pushadmin"
+    # Password of the push administrator
+    pushAdminPassword: "adminpush"  
+  webEngine:
+    search:
+      # Determines if search ui v2 is enabled or not
+      uiV2Enabled: true
+      # Determines to which search center any input box redirects by default
+      inputRedirectVersion: "v2"
+      # Determines which search is used in wcm authoring
+      wcmVersion: "v2"
+
+
+

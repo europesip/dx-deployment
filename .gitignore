@@ -1,0 +1,12 @@
+hcl-dx-deployment*
+values.yaml
+*NOUSAR
+.pem
+.xml
+.crt
+log*
+*.tgz
+*.tar
+*.ldif
+*.csr
+*.srl

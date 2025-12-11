@@ -1,0 +1,79 @@
+******************************************************************************
+* PRODUCTO A INSTALAR
+******************************************************************************
+PROD = ENTERPRISE_SERVER_EDITION
+
+******************************************************************************
+* OPCIONES GENERALES
+******************************************************************************
+# Directorio de instalación adaptado para DB2 V12.1
+FILE = /opt/ibm/db2/V12.1
+
+# Aceptación de la licencia (OBLIGATORIO para instalación CLI)
+LIC_AGREEMENT = ACCEPT
+
+# Tipo de instalación: TYPICAL instala todas las características estándar
+INSTALL_TYPE = TYPICAL
+
+# Determina si el proceso de instalación debe ser interactivo (NO para CLI)
+INTERACTIVE = NO
+
+# No mostrar diálogos (adecuado para ejecución en segundo plano/CLI)
+NO_OUTPUT = YES
+
+# No detener la ejecución por advertencias (útil para ignorar los errores de ksh/kernel)
+DO_NOT_CONTINUE_ON_WARNING = NO
+
+# Sobrescribir si el directorio ya existe
+OVERWRITE_ON_INSTALL = YES
+
+******************************************************************************
+* CONFIGURACIÓN DEL USUARIO CERCADO (FENCED USER)
+******************************************************************************
+FENCED_USER = db2fenc1
+DB2_FENCED_USER.NAME = db2fenc1
+# Contraseña unificada: Db2Passw0rd
+DB2_FENCED_USER.PASSWORD = Db2Passw0rd
+DB2_FENCED_USER.GROUP_NAME = db2grp1
+DB2_FENCED_USER.HOME_DIRECTORY = /home/db2fenc1
+
+******************************************************************************
+* CONFIGURACIÓN DE LA INSTANCIA PRINCIPAL
+******************************************************************************
+INSTANCE = DB2_INST
+DB2_INST.NAME = db2inst1
+DB2_INST.OWNER = db2inst1
+# Contraseña unificada: Db2Passw0rd
+DB2_INST.PASSWORD = Db2Passw0rd
+DB2_INST.GROUP_NAME = db2grp1
+DB2_INST.HOME_DIRECTORY = /home/db2inst1
+
+# Tipo de autoridad (SERVER para una instalación completa de servidor)
+DB2_INST.AUTHORITY_TYPE = SERVER
+
+# Iniciar automáticamente al arrancar el sistema
+DB2_INST.AUTOSTART = YES
+
+# Iniciar la instancia inmediatamente después de la instalación
+DB2_INST.START_DURING_INSTALL = YES
+
+# Puerto TCP/IP de escucha por defecto: 50000
+DB2_INST.SVCENAME = db2inst1
+DB2_INST.PORT_NUMBER = 50000
+
+DB2_INST.FENCED_USER = db2fenc1
+
+******************************************************************************
+* CONFIGURACIÓN DEL CENTRO DE NOTIFICACIONES (DAS - DB2 Administration Server)
+******************************************************************************
+# Si no necesitas administración remota, puedes cambiar DAS_NOT_USED a YES. 
+# Lo mantenemos en NO para una instalación estándar.
+DAS_NOT_USED = NO
+DAS = DAS_INS
+
+DAS_INS.OWNER = dasusr1
+# Contraseña unificada: Db2Passw0rd
+DAS_INS.PASSWORD = Db2Passw0rd
+DAS_INS.GROUP_NAME = dasgrp1
+DAS_INS.HOME_DIRECTORY = /home/dasusr1
+DAS_INS.AUTOSTART = YES

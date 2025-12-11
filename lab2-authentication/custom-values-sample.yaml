@@ -1,0 +1,115 @@
+images:
+  # Container repository used to retrieve the images
+  repository: "image-registry.openshift-image-registry.svc:5000/openshift"
+  
+  # Image name for each application
+  names:
+    contentComposer: "dx-content-composer"
+    core: "dx-core"
+    damPluginGoogleVision: "dx-dam-plugin-google-vision"
+    digitalAssetManagement: "dx-digital-asset-manager"
+    imageProcessor: "dx-image-processor"
+    openLdap: "dx-openldap"
+    persistenceConnectionPool: "dx-persistence-connection-pool"
+    persistenceNode: "dx-persistence-node"
+    persistenceMetricsExporter: "dx-persistence-metrics-exporter"
+    remoteSearch: "dx-remote-search"
+    ringApi: "dx-ringapi"
+    runtimeController: "dx-runtime-controller"
+    loggingSidecar: "dx-logging-sidecar"
+    haproxy: "dx-haproxy"
+    damPluginKaltura: "dx-dam-plugin-kaltura"
+    licenseManager: "dx-license-manager"
+    prereqsChecker: "dx-prereqs-checker"
+    webEngine: "dx-webengine"
+
+# Persistent Volume Setup
+volumes:
+  digitalAssetManagement:
+    # Binary storage PVC, shared by all Digital Asset Management Pods - RWX
+    binaries:
+      storageClassName: "dx-deploy-rwx"
+  # Persistent Volumes for Persistence Node
+  persistenceNode:
+    # Database PVC, one per Persistence Node
+    database:
+      storageClassName: "dx-deploy-rwo"
+  # Persistent Volumes for License-Manager Node
+  licenseManager:
+    # Database PVC, one per license-manager Node
+    data:
+      storageClassName: "dx-deploy-rwo"
+  # Persistent Volumes for webEngine
+  webEngine:
+    # Customization PVC one per webEngine pod - RWO
+    customization:
+      storageClassName: "dx-deploy-rwo"
+    # Application Log PVC, one per webEngine pod - RWO
+    log:
+      storageClassName: "dx-deploy-rwo"
+
+# Controls which application is deployed and configured
+applications:
+  # Deploy Open LDAP (set to false for external LDAP)
+  openLdap: false
+  # Deploys the Remote Search
+  remoteSearch: false
+  # Do not install Core DX, install WebEngine (Compose) instead
+  core: false
+  # Install Compose
+  webEngine: true
+
+# Configuration for the peopleservice sub-chart.
+# Set `enabled` to `true` to enable the peopleservice sub-chart, or `false` to disable it.
+peopleservice:
+  enabled: true
+  
+# Networking specific configuration
+networking:
+  # Networking configurations specific to HAProxy
+  haproxy:
+    # Configuration to set the type Service type for the HAProxy Service
+    serviceType: "ClusterIP"
+  # TLS Certificate secret used for HAProxy
+  tlsCertSecret: "dx-tls-cert"
+  # Networking configuration specific to webEngine
+  webEngine:
+    # Host of webEngine, must be specified as a FQDN
+    host: "dx.apps.promox.europesip-lab.com"
+# Security related configuration, e.g. default credentials
+security:
+  # Security configuration for webEngine
+  webEngine:
+    # Credentials for the WebEngine Server administrative user
+    # Note: Be aware of the out-of-the-box additional "admin1" adminsitrative user
+    webEngineUser: "wpsadmin"
+    webEnginePassword: "Passw0rd" # Simple password for wpsadmin
+
+configuration:
+  containerTimezone: "Europe/Madrid"
+  webEngine:
+    # ------------------------------------------------
+    # EXTERNAL LDAP CONNECTION CONFIGURATION
+    # ------------------------------------------------
+    ldap:
+      # Set type to "other" to use provided external configuration
+      # Be aware that "custom internal registry" is not deactivated and is still working for users authentication
+      # so previous users (ie, admin1) will still work.
+      type: "other"
+      
+      # Bind DN used for connecting and searching (Service Account: wpsbind)
+      bindUser: "uid=wpsbind,ou=People,dc=europesip,dc=com"
+      # Password used for the Bind user
+      bindPassword: "Passw0rd"
+      
+      # Suffix in LDAP (The Base DN)
+      suffix: "dc=europesip,dc=com"
+      # Host of LDAP server
+      host: "ldap.europesip-lab.com"
+      # Port of LDAP server
+      port: 389
+      
+      # Supported LDAP Server type
+      serverType: "Custom"
+      # LDAP configuration ID
+      id: "dx_ldap"

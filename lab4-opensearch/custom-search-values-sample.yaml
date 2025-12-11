@@ -1,0 +1,59 @@
+images:
+  # Container repository used to retrieve the images
+  repository: "image-registry.openshift-image-registry.svc:5000/openshift"
+  
+  # Image name for each application
+  # Image name for each application
+  names:
+    openSearch: "dx-opensearch"
+    searchMiddleware: "dx-search-middleware"
+    fileProcessor: "dx-file-processor"
+# Persistent Volume Setup
+volumes:
+  # Persistent Volumes for OpenSearch
+  openSearchManager:
+    # Data persistence for OpenSearch nodes
+    data: 
+      storageClassName: "dx-deploy-rwo"
+      requests:
+        storage: "1Gi"
+  openSearchData:
+    # Data persistence for OpenSearch nodes
+    data: 
+      storageClassName: "dx-deploy-rwo"
+      requests:
+        storage: "1Gi"
+      # Optional label selector to further filter the set of volumes. Only the volumes whose labels match the selector can be bound to the claim.
+
+# Controls which application is deployed and configured
+applications:
+  # Deploys openSearch
+  openSearch: true
+  # Deploys the search middleware
+  searchMiddleware: true
+  # Deploys file processor
+  fileProcessor: false
+
+# Security related configuration, e.g. default credentials
+security:
+  # Security configuration for Search administration
+  administration:
+    # Username of the search administrator.
+    searchAdminUser: "searchadmin"
+    # Password of the search administrator.
+    searchAdminPassword: "adminsearch"
+  # Security configuration for push admin
+  pushAdministration:
+    # Username of the push administrator.
+    pushAdminUser: "pushadmin"
+    # Password of the push administrator.
+    pushAdminPassword: "adminpush"
+# Application configuration
+configuration:
+  # To change the timezone of all the containers. This value should be a valid timezone format (i.e. Australia/Melbourne, Europe/London, America/Phoenix).
+  containerTimezone: "Europe/Madrid"
+  # Automated setup
+  automatedSetup:
+    # Name of the DX helm deployment, needs to be configured with the value that has been used
+    # during the DX deployment in the same namespace
+    dxDeploymentName: "dx-deployment"

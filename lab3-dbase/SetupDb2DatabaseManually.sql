@@ -1,0 +1,119 @@
+/****************************************************************************************************
+ * ★★★★★ IMPORTANT WARNING ★★★★★
+ * PLEASE REVIEW AND UPDATE ALL USERS, ROLES, AND PATHS ACCORDING TO YOUR ENVIRONMENT.
+ * This sample script is provided as a template. BEFORE EXECUTION, ensure that you modify the
+ * user names, role definitions, and file paths to match your specific requirements and
+ * security policies.
+ ****************************************************************************************************/
+
+-- NOTE: create a database name WPSDB & user. And update below query with your database connect user (<replace-with-user>) and password (<replace-with-user-password>)
+-- NOTE: make sure replace the <replace-with-user> and <replace-with-user-password> with your database connect user and password
+
+CONNECT TO WPSDB USER db2inst1 USING Passw0rd;
+
+--------------------------------------------------------------------------------
+-- RELEASE Schema
+--------------------------------------------------------------------------------
+CREATE SCHEMA release AUTHORIZATION db2inst1;
+COMMIT;
+
+GRANT CONNECT, CREATETAB ON DATABASE TO GROUP WP_BASE_CONFIG_USERS;
+GRANT EXECUTE ON PACKAGE NULLID.SYSSH200 TO GROUP WP_BASE_CONFIG_USERS;
+GRANT ALTERIN, CREATEIN, DROPIN ON SCHEMA release TO GROUP WP_BASE_CONFIG_USERS;
+GRANT USE OF TABLESPACE USERSPACE1 TO GROUP WP_BASE_CONFIG_USERS;
+GRANT USAGE ON WORKLOAD SYSDEFAULTUSERWORKLOAD TO GROUP WP_BASE_CONFIG_USERS;
+
+CONNECT RESET;
+
+
+--------------------------------------------------------------------------------
+-- COMMUNITY Schema
+--------------------------------------------------------------------------------
+CONNECT TO WPSDB USER db2inst1 USING Passw0rd;
+
+CREATE SCHEMA community AUTHORIZATION db2inst1;
+COMMIT;
+
+GRANT CONNECT, CREATETAB ON DATABASE TO GROUP WP_BASE_CONFIG_USERS;
+GRANT EXECUTE ON PACKAGE NULLID.SYSSH200 TO GROUP WP_BASE_CONFIG_USERS;
+GRANT ALTERIN, CREATEIN, DROPIN ON SCHEMA community TO GROUP WP_BASE_CONFIG_USERS;
+GRANT USE OF TABLESPACE USERSPACE1 TO GROUP WP_BASE_CONFIG_USERS;
+GRANT USAGE ON WORKLOAD SYSDEFAULTUSERWORKLOAD TO GROUP WP_BASE_CONFIG_USERS;
+
+CONNECT RESET;
+
+
+--------------------------------------------------------------------------------
+-- CUSTOMIZATION Schema
+--------------------------------------------------------------------------------
+CONNECT TO WPSDB USER db2inst1 USING Passw0rd;
+
+CREATE SCHEMA customization AUTHORIZATION db2inst1;
+COMMIT;
+
+GRANT CONNECT, CREATETAB ON DATABASE TO GROUP WP_BASE_CONFIG_USERS;
+GRANT EXECUTE ON PACKAGE NULLID.SYSSH200 TO GROUP WP_BASE_CONFIG_USERS;
+GRANT ALTERIN, CREATEIN, DROPIN ON SCHEMA customization TO GROUP WP_BASE_CONFIG_USERS;
+GRANT USE OF TABLESPACE USERSPACE1 TO GROUP WP_BASE_CONFIG_USERS;
+GRANT USAGE ON WORKLOAD SYSDEFAULTUSERWORKLOAD TO GROUP WP_BASE_CONFIG_USERS;
+
+CONNECT RESET;
+
+
+--------------------------------------------------------------------------------
+-- JCR Schema
+--------------------------------------------------------------------------------
+CONNECT TO WPSDB USER db2inst1 USING Passw0rd;
+
+CREATE SCHEMA jcr AUTHORIZATION db2inst1;
+COMMIT;
+
+GRANT CONNECT, CREATETAB ON DATABASE TO GROUP WP_JCR_CONFIG_USERS;
+GRANT EXECUTE ON PACKAGE NULLID.SYSSH200 TO GROUP WP_JCR_CONFIG_USERS;
+GRANT ALTERIN, CREATEIN, DROPIN ON SCHEMA jcr TO GROUP WP_JCR_CONFIG_USERS;
+GRANT USE OF TABLESPACE USERSPACE1 TO GROUP WP_JCR_CONFIG_USERS;
+GRANT USAGE ON WORKLOAD SYSDEFAULTUSERWORKLOAD TO GROUP WP_JCR_CONFIG_USERS;
+
+-- Extra tablespaces required by JCR
+GRANT USE OF TABLESPACE ICMLFQ32 TO GROUP WP_JCR_CONFIG_USERS;
+GRANT USE OF TABLESPACE ICMLNF32 TO GROUP WP_JCR_CONFIG_USERS;
+GRANT USE OF TABLESPACE ICMVFQ04 TO GROUP WP_JCR_CONFIG_USERS;
+GRANT USE OF TABLESPACE ICMSFQ04 TO GROUP WP_JCR_CONFIG_USERS;
+GRANT USE OF TABLESPACE CMBINV04 TO GROUP WP_JCR_CONFIG_USERS;
+GRANT USE OF TABLESPACE ICMLSUSRTSPACE4 TO GROUP WP_JCR_CONFIG_USERS;
+
+CONNECT RESET;
+
+
+--------------------------------------------------------------------------------
+-- FEEDBACK Schema
+--------------------------------------------------------------------------------
+CONNECT TO WPSDB USER db2inst1 USING Passw0rd;
+
+CREATE SCHEMA feedback AUTHORIZATION db2inst1;
+COMMIT;
+
+GRANT CONNECT, CREATETAB ON DATABASE TO GROUP WP_PZN_CONFIG_USERS;
+GRANT EXECUTE ON PACKAGE NULLID.SYSSH200 TO GROUP WP_PZN_CONFIG_USERS;
+GRANT ALTERIN, CREATEIN, DROPIN ON SCHEMA feedback TO GROUP WP_PZN_CONFIG_USERS;
+GRANT USE OF TABLESPACE USERSPACE1 TO GROUP WP_PZN_CONFIG_USERS;
+GRANT USAGE ON WORKLOAD SYSDEFAULTUSERWORKLOAD TO GROUP WP_PZN_CONFIG_USERS;
+
+CONNECT RESET;
+
+
+--------------------------------------------------------------------------------
+-- LIKEMINDS Schema
+--------------------------------------------------------------------------------
+CONNECT TO WPSDB USER db2inst1 USING Passw0rd;
+
+CREATE SCHEMA likeminds AUTHORIZATION db2inst1;
+COMMIT;
+
+GRANT CONNECT, CREATETAB ON DATABASE TO GROUP WP_PZN_CONFIG_USERS;
+GRANT EXECUTE ON PACKAGE NULLID.SYSSH200 TO GROUP WP_PZN_CONFIG_USERS;
+GRANT ALTERIN, CREATEIN, DROPIN ON SCHEMA likeminds TO GROUP WP_PZN_CONFIG_USERS;
+GRANT USE OF TABLESPACE USERSPACE1 TO GROUP WP_PZN_CONFIG_USERS;
+GRANT USAGE ON WORKLOAD SYSDEFAULTUSERWORKLOAD TO GROUP WP_PZN_CONFIG_USERS;
+
+CONNECT RESET;

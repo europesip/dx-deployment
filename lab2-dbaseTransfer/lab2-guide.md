@@ -1,17 +1,17 @@
-# 🚀 HCL DX Compose: Installing the New Search Engine on OpenShift
+# 🚀 HCL DX Compose: Doing a DBTransfers
 
 ## Lab Guide (DX 9.5 CF231)
 
 > ⚠️ **DRAFT – Content Under Development**
 > This lab guide is not yet finalized. Instructions may change as the content evolves.
 
-This lab explains the operational steps required to deploy and enable LDAP
+This lab explains the operational steps required to deploy and enable DB2
 ---
 
 ## 📚 Official Documentation
 
-➡️ **HCL DX Documentation – Install the New Search Engine**
-`https://help.hcl-software.com/digital-experience/9.5/CF231/deployment/install/container/helm_deployment/preparation/optional_tasks/optional_install_new_search/`
+➡️ **HCL DX Documentation – Database Management**
+<https://help.hcl-software.com/digital-experience/dx-compose/CF231/deploy_dx/manage/cfg_webengine/external_db_database_transfer/>
 
 ---
 
@@ -19,23 +19,19 @@ This lab explains the operational steps required to deploy and enable LDAP
 
 This guide provides the required steps to:
 
-* Deploy the **DX Search Engine** as an additional component in DX Compose.
-* Generate certificates and configure **OpenSearch** security.
-* Integrate the new Search Engine into the existing DX Compose deployment.
+* Deploy the **LDAP Instegration** as authentication method in DX Compose.
 
 ### 1.1 Prerequisites
 
 * A fully functional **DX Compose** installation (complete Lab 1 first).
 * Permissions as `dxadmin` (or equivalent) on the OpenShift cluster.
 * **Helm** installed and configured on your workstation.
-* Sufficient storage available for the Search Engine deployment.
+* A external Database (on this lab Db2 will be user) with a user that can create the needed database
+
 
 > **Important:**
 > This lab covers *operational setup only*. Any tuning or custom configuration must be applied via your own `custom-values.yaml`.
 
-### 1.2 🧑‍💻 Educational Scope Disclaimer
-
-> The DX Search Engine is highly configurable and offers numerous advanced features. This guide is designed for **didactic and learning purposes** only, demonstrating the **basic functional setup**. For large-scale, corporate environments, high-volume indexing, or advanced search requirements, specialized **advanced tuning** and configuration (including resource allocation, sharding, and specific performance parameters) are strongly advised to achieve maximum performance and product capability.
 
 ---
 
@@ -104,7 +100,5 @@ oc get pods -n digital-experience
 ```
 2. Log in to DX as an administrator.
 
-3. Navigate to Settings → Search to confirm that the New Search Engine is detected and active.
-
-4. Optionally, create test content and verify that it is indexed correctly by the Search Engine.
+3. Login in Portal using LDAP users
 

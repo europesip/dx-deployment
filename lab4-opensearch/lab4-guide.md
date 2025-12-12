@@ -166,9 +166,6 @@ Expected results:
 - Persistent volumes should be Bound.
 - No pods should be in CrashLoopBackOff.
 
-Now, you shold be able to access the search API service at <https://dx.apps.promox.europesip-lab.com/dx/api/search/v2/explorer>
-You can also access the new Search interface following the instructions at <https://help.hcl-software.com/digital-experience/9.5/CF231/build_sites/search_v2/access/>
-
 
 ## 7. Upgrade DX Compose Helm Deployment to Use SearchMiddleware
 
@@ -199,7 +196,7 @@ Perform the Helm upgrade to integrate DX Compose with the Search Engine:
 helm upgrade dx-deployment \
   -n digital-experience \
   -f custom-values.yaml \
-  ../required-assets/hcl-dx-deployment-2.42.1.tgz
+  ../required-assets/hcl-dx-deployment-2.42.1.tgz \
   --timeout 20m \
   --wait
 ```
@@ -208,24 +205,5 @@ helm upgrade dx-deployment \
 
 After upgrading DX Compose, ensure that the integration with the Search Engine is working correctly:
 
-1. Check that all DX Compose pods are running:
-
-```bash
-oc get pods -n digital-experience
-```
-2. Log in to DX as an administrator.
-
-3. Navigate to Settings → Search to confirm that the New Search Engine is detected and active.
-
-4. Optionally, create test content and verify that it is indexed correctly by the Search Engine.
-
-### 7.4 Troubleshooting Tips
-
-| Symptom | Possible Cause | Recommended Action |
-|---------|----------------|------------------|
-| DX cannot connect to Search | Incorrect client certificate or Helm values | Verify the `search-client-cert` secret and confirm that `custom-values.yaml` references are correct |
-| Pods in CrashLoopBackOff | Incorrect Helm values or missing secrets | Compare with `custom-values-sample.yaml` and ensure all required secrets are created |
-| Search not detected in DX | Upgrade did not apply correctly | Re-run the Helm upgrade with the correct namespace and values file |
-
-
-
+Now, you shold be able to access the search API service at <https://dx.apps.promox.europesip-lab.com/dx/api/search/v2/explorer>
+You can also access the new Search interface following the instructions at <https://help.hcl-software.com/digital-experience/9.5/CF231/build_sites/search_v2/access/>

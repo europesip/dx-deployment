@@ -63,7 +63,19 @@ Upon completion, you will have a fully functional HCL DX Compose environment run
 
 ---
 
-## 🧪 Lab 2 – DX Advanced Authentication  
+## 🧪 Lab 2 – DX Corporate Database Integration  
+⏱ Estimated time: **10 minutes**  
+📂 **Directory:** `lab2-dbaseTransfer/`
+
+This lab (under construction) will demonstrate:
+
+- Integration with corporate databases  
+- Configuration of secure connections  
+- Credential and secret management
+
+---
+
+## 🧪 Lab 3 – DX Advanced Authentication  
 ⏱ Estimated time: **10 minutes**  
 📂 **Directory:** `lab2-authentication/`
 
@@ -72,18 +84,6 @@ This lab (coming soon) will cover:
 - Integration with corporate identity providers  
 - SSO and OIDC configurations  
 - External authentication workflows
-
----
-
-## 🧪 Lab 3 – DX Corporate Database Integration  
-⏱ Estimated time: **10 minutes**  
-📂 **Directory:** `lab3-dbase/`
-
-This lab (under construction) will demonstrate:
-
-- Integration with corporate databases  
-- Configuration of secure connections  
-- Credential and secret management
 
 ---
 

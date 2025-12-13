@@ -127,7 +127,7 @@ You need to prepare the `dx_dbdomain.properties` and `dx_dbtype.properties` file
 **Optional:** If you have the sample files provided in this repository (`custom_db2_dx_dbdomain.properties` and `custom_db2_dx_dx_dbtype.properties`), you can copy them to the required filenames:
 
 ```bash
-cp custom_db2_dx_dbdomain.properties dx_dbdomain.properties 
+cp custom_db2_dx_dbdomain.properties dx_dbdomain.properties ;
 cp custom_db2_dx_dbtype.properties dx_dbtype.properties
 ```
 
@@ -136,7 +136,7 @@ cp custom_db2_dx_dbtype.properties dx_dbtype.properties
 Create the generic secrets using the files prepared above. These secrets allow the WebEngine to authenticate against the new database.
 
 ```bash
-oc create secret generic custom-credentials-webengine-dbtype-secret --from-file=dx_dbtype.properties
+oc create secret generic custom-credentials-webengine-dbtype-secret --from-file=dx_dbtype.properties ;
 oc create secret generic custom-credentials-webengine-dbdomain-secret --from-file=dx_dbdomain.properties
 ```
 

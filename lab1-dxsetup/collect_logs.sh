@@ -3,7 +3,7 @@
 # ----------------------------
 # DEFAULT VALUES
 # ----------------------------
-DEFAULT_NAMESPACE="dxspace"
+DEFAULT_NAMESPACE="digital-experience"
 DEFAULT_RELEASE="dx-deployment"
 
 # ----------------------------

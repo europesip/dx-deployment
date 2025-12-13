@@ -42,7 +42,7 @@ This guide provides the required steps to:
 Transfer the setup script from your local machine to the remote DB2 server.
 
 ```bash
-scp SetupDb2DatabaseManually.sql db2inst1@db2.europesip.com:~
+scp SetupDb2DatabaseManually.sql db2inst1@db2.europesip-lab.com:~
 ```
 
 ### 2.2 Connect and Create OS Groups
@@ -50,7 +50,7 @@ scp SetupDb2DatabaseManually.sql db2inst1@db2.europesip.com:~
 Connect to the server via SSH. Note that creating groups requires `root` or `sudo` privileges.
 
 ```bash
-ssh db2inst1@db2.europesip.com
+ssh db2inst1@db2.europesip-lab.com
 ```
 
 Once connected, create the necessary Operating System groups and assign the DB2 user to them. These groups are required for the permission grants in the SQL script.
@@ -58,8 +58,8 @@ Once connected, create the necessary Operating System groups and assign the DB2 
 Si db2inst1 tiene sudo, usa sudo. Si no, cambia a root con 'su -'
 
 ```bash
-sudo groupadd WP_BASE_CONFIG_USERS
-sudo groupadd WP_JCR_CONFIG_USERS
+sudo groupadd WP_BASE_CONFIG_USERS ;
+sudo groupadd WP_JCR_CONFIG_USERS  ;
 sudo groupadd WP_PZN_CONFIG_USERS
 ```
 
@@ -75,28 +75,28 @@ Execute the following commands as the `db2inst1` user to initialize the database
 
 ```bash
 # Ensure the DB2 instance is started
-db2start
+db2start ;
 
-# 1. Create the WPSDB database (UTF-8 and 32k Pagesize are mandatory for DX)
-db2 "CREATE DATABASE WPSDB AUTOMATIC STORAGE YES USING CODESET UTF-8 TERRITORY US PAGESIZE 32768"
+# 1. Create the WPSDB database (UTF-8 and 32k Pagesize are mandatory for DX) ;
+db2 "CREATE DATABASE WPSDB AUTOMATIC STORAGE YES USING CODESET UTF-8 TERRITORY US PAGESIZE 32768" ;
 
-# 2. Connect to the database
-db2 connect to WPSDB
+# 2. Connect to the database ;
+db2 connect to WPSDB ;
 
-# 3. Create necessary Bufferpools (4k and 32k)
-db2 "CREATE BUFFERPOOL ICML04KBP SIZE 1000 PAGESIZE 4K"
-db2 "CREATE BUFFERPOOL ICML32KBP SIZE 1000 PAGESIZE 32K"
+# 3. Create necessary Bufferpools (4k and 32k) ;
+db2 "CREATE BUFFERPOOL ICML04KBP SIZE 1000 PAGESIZE 4K" ;
+db2 "CREATE BUFFERPOOL ICML32KBP SIZE 1000 PAGESIZE 32K" ;
 
-# 4. Create JCR Tablespaces (Required before running the setup script)
-db2 "CREATE REGULAR TABLESPACE ICMLFQ32 PAGESIZE 32K MANAGED BY AUTOMATIC STORAGE BUFFERPOOL ICML32KBP"
-db2 "CREATE REGULAR TABLESPACE ICMLNF32 PAGESIZE 32K MANAGED BY AUTOMATIC STORAGE BUFFERPOOL ICML32KBP"
-db2 "CREATE REGULAR TABLESPACE ICMVFQ04 PAGESIZE 4K  MANAGED BY AUTOMATIC STORAGE BUFFERPOOL ICML04KBP"
-db2 "CREATE REGULAR TABLESPACE ICMSFQ04 PAGESIZE 4K  MANAGED BY AUTOMATIC STORAGE BUFFERPOOL ICML04KBP"
-db2 "CREATE REGULAR TABLESPACE CMBINV04 PAGESIZE 4K  MANAGED BY AUTOMATIC STORAGE BUFFERPOOL ICML04KBP"
-db2 "CREATE REGULAR TABLESPACE ICMLSUSRTSPACE4 PAGESIZE 4K MANAGED BY AUTOMATIC STORAGE BUFFERPOOL ICML04KBP"
+# 4. Create JCR Tablespaces (Required before running the setup script) ;
+db2 "CREATE REGULAR TABLESPACE ICMLFQ32 PAGESIZE 32K MANAGED BY AUTOMATIC STORAGE BUFFERPOOL ICML32KBP" ;
+db2 "CREATE REGULAR TABLESPACE ICMLNF32 PAGESIZE 32K MANAGED BY AUTOMATIC STORAGE BUFFERPOOL ICML32KBP" ;
+db2 "CREATE REGULAR TABLESPACE ICMVFQ04 PAGESIZE 4K  MANAGED BY AUTOMATIC STORAGE BUFFERPOOL ICML04KBP" ;
+db2 "CREATE REGULAR TABLESPACE ICMSFQ04 PAGESIZE 4K  MANAGED BY AUTOMATIC STORAGE BUFFERPOOL ICML04KBP" ;
+db2 "CREATE REGULAR TABLESPACE CMBINV04 PAGESIZE 4K  MANAGED BY AUTOMATIC STORAGE BUFFERPOOL ICML04KBP" ;
+db2 "CREATE REGULAR TABLESPACE ICMLSUSRTSPACE4 PAGESIZE 4K MANAGED BY AUTOMATIC STORAGE BUFFERPOOL ICML04KBP" ;
 
-# Disconnect to ensure a clean state
-db2 connect reset
+# Disconnect to ensure a clean state ;
+db2 connect reset ;
 ```
 
 ### 2.4 Execute the Configuration Script
@@ -104,8 +104,8 @@ db2 connect reset
 Run the SQL script provided in step 2.1 to create the schemas and assign grants. We will log the output to a file for verification.
 
 ```bash
-db2 -tvf SetupDb2DatabaseManually.sql -z result_final.log
-grep "SQLCODE" result_final.log
+db2 -tvf SetupDb2DatabaseManually.sql -z result_final.log ;
+grep "SQLCODE" result_final.log ;
 ```
 
 If the log returns SUCCESS (or only successful SQL codes like 0), the database setup is complete. You can now logout from the remote server and return to your local machine.

@@ -197,9 +197,13 @@ helm upgrade dx-deployment \
   -n digital-experience \
   -f custom-values.yaml \
   ../required-assets/hcl-dx-deployment-2.42.1.tgz \
+  --reuse-values \
   --timeout 20m \
   --wait
 ```
+
+Note:  We use the --reuse-values flag to ensure that the currently active configuration is preserved and merged with the new changes.
+
 
 ### 7.3 Verify Integration
 

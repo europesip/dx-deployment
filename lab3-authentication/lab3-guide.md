@@ -78,16 +78,24 @@ Once we have the custom-values.yaml  we need for DX Compose & DX Search integrat
 
 ### 4.2 Upgrade DX Compose Deployment
 
-Perform the Helm upgrade to integrate DX Compose with the Search Engine:
+Perform the Helm upgrade to integrate DX Compose with the Search Engine.
+
+> **⚠️ IMPORTANT:** Please be aware that if you did lab-2 previously (DB Transfers) you should ensure that a new transfer is not initiated.
+>
+> If you changed the `configuration.webEngine.dropDatabaseTables` property to `true`, it is recommended to immediately reset it to `false` after your helm upgrade. **Failure to do so could lead to unexpected loss of data.**
 
 ```bash
 helm upgrade dx-deployment \
   -n digital-experience \
   -f custom-values.yaml \
   ../required-assets/hcl-dx-deployment-2.42.1.tgz \
+  --reuse-values \
   --timeout 20m \
   --wait
 ```
+
+Note:  We use the --reuse-values flag to ensure that the currently active configuration is preserved and merged with the new changes.
+Again, be sure before running the upgrade that you have the configuration.webEngine.dropDatabaseTables property back to false
 
 ### 4.3 Verify Integration
 

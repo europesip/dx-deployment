@@ -159,13 +159,15 @@ helm upgrade dx-deployment \
   -n digital-experience \
   -f custom-values.yaml \
   ../required-assets/hcl-dx-deployment-2.42.1.tgz \
-  --reuse-values \
-  --timeout 20m \
-  --wait
+  --reuse-values 
 ```
 
 Note: We use the --reuse-values flag to ensure that the currently active configuration is preserved and merged with the new changes.
 
+You can see how the database transfer progress checking the logs of the WebEngine:
+```bash
+oc logs -f dx-deployment-web-engine-0 -c system-out-log
+```
 
 ## 4. Post-Deployment Critical Step
 

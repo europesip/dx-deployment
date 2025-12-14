@@ -93,5 +93,5 @@ configuration:
     # The secrets below contains the info about the database tables to use 
     customDbTypePropertiesSecret: custom-credentials-webengine-dbtype-secret
     customDbDomainPropertiesSecret: custom-credentials-webengine-dbdomain-secret
-    # If set to true, existing WebEngine database tables will be dropped and re-created whenever database transfer is run.
-    dropDatabaseTables: false
+    # If true, existing WebEngine database tables will be dropped and re-created whenever database transfer is run.
+    dropDatabaseTables: true

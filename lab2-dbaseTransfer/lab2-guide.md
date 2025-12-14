@@ -166,7 +166,7 @@ Note: We use the --reuse-values flag to ensure that the currently active configu
 
 You can see how the database transfer progress checking the logs of the WebEngine:
 ```bash
-oc logs -f dx-deployment-web-engine-0 -c system-out-log
+oc logs -f dx-deployment-web-engine-0 -c web-engine
 ```
 
 ## 4. Post-Deployment Critical Step

@@ -24,10 +24,10 @@
 #echo -e "  ./ContainersMastgather.sh dxns openshift dxcore-pv dam-pv"
 #echo -e " Running action: Collecting configuration for dx-deployment"
 
-NAMESPACE=digital-experience
-CloudProvider=openshift
-COREPV=pvc-b2c7a62c-e494-49b3-9d35-a694e6ba263a
-#DAMPV=$4
+NAMESPACE=$1
+CloudProvider=$2
+COREPV=$3
+DAMPV=$4
 
 echo -e "Running action: Collecting logs $NAMESPACE DX Deployment"
 

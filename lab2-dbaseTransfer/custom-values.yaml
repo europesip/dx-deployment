@@ -91,7 +91,15 @@ configuration:
     # Use a External Database, avoid Derby
     useExternalDatabase: true
     # The secrets below contains the info about the database tables to use 
-    customDbTypePropertiesSecret: custom-credentials-webengine-dbtype-secret
+    #customDbTypePropertiesSecret: custom-credentials-webengine-dbtype-secret
+    # Do not USE Secrets for DbtypeProperties, since is not well documented and we do not know how to use it 
     customDbDomainPropertiesSecret: custom-credentials-webengine-dbdomain-secret
     # If true, existing WebEngine database tables will be dropped and re-created whenever database transfer is run.
     dropDatabaseTables: true
+    dbTypeProperties:
+      derby.DbDriver: "org.apache.derby.jdbc.EmbeddedDriver"
+      derby.DbLibrary: "/opt/HCL/AppServer/derby/lib/derby.jar"
+      derby.JdbcProviderName: "wpdbJDBC_derby"
+      db2.DbDriver: "com.ibm.db2.jcc.DB2Driver"
+      db2.DbLibrary: "/opt/openliberty/wlp/usr/svrcfg/templates/jars/db2/db2jcc4.jar"
+      db2.JdbcProviderName: "wpdbJDBC_db2"

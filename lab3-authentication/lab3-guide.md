@@ -110,3 +110,8 @@ oc get pods -n digital-experience
 
 3. Login in Portal using LDAP users
 
+## 4.4  Optional - Addig SSL and Email authentication
+
+See https://help.hcl-software.com/digital-experience/dx-compose/CF232/deploy_dx/manage/working_with_compose/custom_certificates/?h=custom+certi
+oc  create secret generic dx-custom-certs   --from-file=europesip-ca.crt=/home/andres/dx-deployment/required-assets/pki_europesip/europesip-ca.pem   -n digital-experience
+

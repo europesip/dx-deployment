@@ -1,0 +1,8 @@
+$ helm upgrade dx-deployment   -n digital-experience   -f custom-values.yaml   ../required-assets/hcl-dx-deployment-2.42.1.tgz   --reuse-values   --timeout 20m   --wait
+I1222 20:19:35.959749    1594 warnings.go:110] "Warning: would violate PodSecurity \"restricted:latest\": allowPrivilegeEscalation != false (container \"dx-deployment-peopleservice\" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container \"dx-deployment-peopleservice\" must set securityContext.capabilities.drop=[\"ALL\"]), seccompProfile (pod or container \"dx-deployment-peopleservice\" must set securityContext.seccompProfile.type to \"RuntimeDefault\" or \"Localhost\")"
+level=WARN msg="upgrade failed" name=dx-deployment error="resource not ready, name: dx-deployment-peopleservice-data, kind: PersistentVolumeClaim, status: InProgress\nresource not ready, name: dx-deployment-peopleservice, kind: Deployment, status: Failed\nresource not ready, name: dx-deployment-haproxy, kind: Deployment, status: Failed\ncontext deadline exceeded"
+Error: UPGRADE FAILED: resource not ready, name: dx-deployment-peopleservice-data, kind: PersistentVolumeClaim, status: InProgress
+resource not ready, name: dx-deployment-peopleservice, kind: Deployment, status: Failed
+resource not ready, name: dx-deployment-haproxy, kind: Deployment, status: Failed
+context deadline exceeded
+andres@AndresPortatil:~/dx-deployment/lab3-authentication$

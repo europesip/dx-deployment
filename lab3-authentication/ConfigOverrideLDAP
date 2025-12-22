@@ -1,0 +1,33 @@
+configOverrideFiles:
+      ldapOverride.xml: |
+        <server description="WebEngineServer">
+          <ldapRegistry id="ldap" realm="SampleLdapIDSRealm"
+            host="webengine-deployment-open-ldap" port="1389" ignoreCase="true"
+            baseDN="dc=dx,dc=com"
+            ldapType="Custom"
+            sslEnabled="false"
+            bindDN="cn=dx_user,dc=dx,dc=com"
+            bindPassword="p0rtal4u">
+
+            <customFilters
+              userFilter="(&amp;(uid=%v)(objectclass=inetOrgPerson))"
+              groupFilter="(&amp;(cn=%v)(|(objectclass=groupOfNames)(objectclass=groupOfUniqueNames)))"
+              userIdMap="*:uid"
+              groupIdMap="*:cn"
+              groupMemberIdMap="ibm-allGroups:member;ibm-allGroups:uniqueMember;groupOfNames:member;groupOfUniqueNames:uniqueMember">
+            </customFilters>
+
+            <attributeConfiguration>
+              <attribute name="mail" propertyName="ibm-primaryEmail" entityType="PersonAccount"/>
+              <attribute name="title" propertyName="ibm-jobTitle" entityType="PersonAccount"/>
+            </attributeConfiguration>
+
+          </ldapRegistry>
+
+          <federatedRepository>
+            <primaryRealm name="FederatedRealm" allowOpIfRepoDown="true">
+              <participatingBaseEntry name="o=defaultWIMFileBasedRealm"/>
+              <participatingBaseEntry name="dc=dx,dc=com"/>
+            </primaryRealm>
+          </federatedRepository>
+        </server>

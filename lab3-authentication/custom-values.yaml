@@ -1,4 +1,4 @@
-images:
+images:  # Section used ON MAIN CUSTOM_VALUES.YAML
   # Container repository used to retrieve the images
   repository: "image-registry.openshift-image-registry.svc:5000/openshift"
   
@@ -63,6 +63,18 @@ applications:
 # Set `enabled` to `true` to enable the peopleservice sub-chart, or `false` to disable it.
 peopleservice:
   enabled: false
+  #configuration.search.middleware.enabled: true
+  image:  # ->  Not working lines, for overriding values needed for People Service.
+   registry: "image-registry.openshift-image-registry.svc:5000/openshift"
+   repository: "dx-people-service"
+   tag: "v1.0.0_20251024-1349"
+  volumes:
+   # Data persistence for People Service using PVC
+   data:
+     # -- (string) PVC Storage Class for People Service data volume
+     # @section -- Persistence Volume configuration
+     storageClassName: "stg-deploy-rwx"
+
   
 # Networking specific configuration
 networking:
@@ -113,6 +125,10 @@ configuration:
       serverType: "Custom"
       # LDAP configuration ID
       id: "dx_ldap"
+    
+    customTruststoreSecrets:
+      # El nombre de la clave (izquierda) debe ser en minúsculas
+      ca-secret-1: "dx-custom-certs"    
 
     configOverrideFiles:
       user-overrides.xml: |
@@ -125,4 +141,36 @@ configuration:
              <member name="wpsadmin" />
           </group>
           </basicRegistry>
+          </server>
+      ldapOverride.xml: |
+          <server description="WebEngineServer">
+            <ldapRegistry id="ldap" realm="SampleLdapIDSRealm"
+              host="ldap.europesip-lab.com" port="636" ignoreCase="true"
+              baseDN="dc=europesip,dc=com"
+              ldapType="Custom"
+              sslEnabled="true"
+              sslRef="customSSLConfig"
+              bindDN="uid=wpsbind,ou=People,dc=europesip,dc=com"
+              bindPassword="Passw0rd">
+
+              <customFilters
+                userFilter="(&amp;(|(uid=%v)(mail=%v))(objectclass=inetOrgPerson))"
+                groupFilter="(&amp;(cn=%v)(|(objectclass=groupOfNames)(objectclass=groupOfUniqueNames)))"
+                userIdMap="*:uid"
+                groupIdMap="*:cn"
+                groupMemberIdMap="ibm-allGroups:member;ibm-allGroups:uniqueMember;groupOfNames:member;groupOfUniqueNames:uniqueMember">
+              </customFilters>
+
+              <attributeConfiguration>
+                <attribute name="mail" propertyName="ibm-primaryEmail" entityType="PersonAccount"/>
+                <attribute name="title" propertyName="ibm-jobTitle" entityType="PersonAccount"/>
+              </attributeConfiguration>
+
+            </ldapRegistry>
+            <federatedRepository>
+               <primaryRealm name="FederatedRealm" allowOpIfRepoDown="true">
+                  <participatingBaseEntry name="o=defaultWIMFileBasedRealm"/>
+                  <participatingBaseEntry name="dc=europesip,dc=com"/>
+               </primaryRealm>
+            </federatedRepository>
           </server>

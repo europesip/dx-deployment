@@ -1,0 +1,9 @@
+[NOTICE]   (4) : haproxy version is 2.8.1-a90123a
+[NOTICE]   (4) : path to executable is /usr/local/sbin/haproxy
+[WARNING]  (4) : config : parsing [/home/dx_user/haproxy.cfg:18]: 'log-format' overrides previous 'option httplog' in 'defaults' section.
+[WARNING]  (4) : config : parsing [/home/dx_user/haproxy.cfg:50] : a 'http-request' rule placed after a 'use_backend' rule will still be processed before.
+[WARNING]  (4) : config : parsing [/home/dx_user/haproxy.cfg:51] : a 'http-request' rule placed after a 'use_backend' rule will still be processed before.
+[ALERT]    (4) : config : parsing [/home/dx_user/haproxy.cfg:55] : error detected while parsing switching rule : no such ACL : 'is_custom_people_ui_path'.
+[ALERT]    (4) : config : parsing [/home/dx_user/haproxy.cfg:56] : error detected while parsing switching rule : no such ACL : 'is_custom_people_api_path'.
+[ALERT]    (4) : config : Error(s) found in configuration file : /home/dx_user/haproxy.cfg
+[ALERT]    (4) : config : Fatal errors found in configuration.

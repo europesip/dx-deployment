@@ -100,6 +100,9 @@ security:
 configuration:
   containerTimezone: "Europe/Madrid"
   webEngine:
+    customTruststoreSecrets:
+      ca-secret-1: "dx-custom-certs"
+    
     # ------------------------------------------------
     # EXTERNAL LDAP CONNECTION CONFIGURATION
     # ------------------------------------------------
@@ -126,10 +129,6 @@ configuration:
       # LDAP configuration ID
       id: "dx_ldap"
     
-    customTruststoreSecrets:
-      # El nombre de la clave (izquierda) debe ser en minúsculas
-      ca-secret-1: "dx-custom-certs"    
-
     configOverrideFiles:
       user-overrides.xml: |
           <server description="DX Web Engine server">

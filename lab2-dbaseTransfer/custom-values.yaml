@@ -88,6 +88,8 @@ security:
 configuration:
   containerTimezone: "Europe/Madrid"
   webEngine:
+    customTruststoreSecrets:
+      ca-secret-1: "dx-custom-certs"
     # Use a External Database, avoid Derby
     useExternalDatabase: true
     # The secrets below contains the info about the database tables to use 

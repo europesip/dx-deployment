@@ -1,0 +1,219 @@
+        ba:36:cc:ce:08:b1:e8:4c:99:03:a7:ed:97:2c:9e:fc:49:14:
+        79:aa:25:d6:34:96:3a:1e:bf:12:22:3f:ca:8f:ce:88:24:bf:
+        f0:55:12:d5:e3:3e:4c:2f:ca:31:f0:ea:15:45:0b:a5:03:2b:
+        f4:09:1e:44:c1:ac:6a:e7:d1:5a:57:7e:72:b9:48:2b:7d:d5:
+        21:b0:86:7b:38:d2:18:c1:34:2f:fe:60:5b:fb:4d:df:cc:e8:
+        d2:bf:12:88:9a:da:c3:e3:63:05:1a:ab:d5:27:8c:13:de:18:
+        10:6c:30:5a:90:06:31:84:b5:7e:24:29:ec:0f:a5:5b:cd:1a:
+        cc:de:57:3f:c6:df:3a:32:e8:25:90:6a:2f:39:72:4f:b3:ef:
+        fd:6d:27:95:8e:d4:5b:ad:19:23:31:4a:d9:3e:57:aa:11:95:
+        31:3d:8c:8b:d0:cc:4d:3e:40:94:f2:98:10:2a:37:97:46:7d:
+        40:29:5d:8e:9d:dd:6f:e4:b7:a9:4c:d9:7f:cc:2e:fd:34:6c:
+        ee:e4:1c:4f:ae:97:09:d8:e4:12:03:57:3b:f1:ff:d1:a8:31:
+        66:07:c8:6d:c9:de:7c:c6:a0:cf:bc:ba:4a:fe:5e:61:a6:f5:
+        e2:96:f9:dc:32:46:ec:db:d4:87:5e:a7:d4:2b:16:f5:78:e4:
+        e8:00:a4:45:b7:06:02:78:bd:9e:e2:12:3a:36:bf:2b:8d:2a:
+        91:c5:dc:83:5d:13:23:fe:43:76:55:c6:65:e8:06:8f:d0:ff:
+        6c:6e:65:1d:d0:e9:ed:c9:bd:27:ab:86:e1:07:34:57:01:e9:
+        83:9b:18:2b:bd:2a:53:da
+:96:3a:1e:bf:12:22:3f:ca:8f:ce:88:24:bf:
+        f0:55:12:d5:e3:3e:4c:2f:ca:31:f0:ea:15:45:0b:a5:03:2b:
+        f4:09:1e:44:c1:ac:6a:e7:d1:5a:57:7e:72:b9:48:2b:7d:d5:
+        21:b0:86:7b:38:d2:18:c1:34:2f:fe:60:5b:fb:4d:df:cc:e8:
+        d2:bf:12:88:9a:da:c3:e3:63:05:1a:ab:d5:27:8c:13:de:18:
+        10:6c:30:5a:90:06:31:84:b5:7e:24:29:ec:0f:a5:5b:cd:1a:
+        cc:de:57:3f:c6:df:3a:32:e8:25:90:6a:2f:39:72:4f:b3:ef:
+        fd:6d:27:95:8e:d4:5b:ad:19:23:31:4a:d9:3e:57:aa:11:95:
+        31:3d:8c:8b:d0:cc:4d:3e:40:94:f2:98:10:2a:37:97:46:7d:
+        40:29:5d:8e:9d:dd:6f:e4:b7:a9:4c:d9:7f:cc:2e:fd:34:6c:
+        ee:e4:1c:4f:ae:97:09:d8:e4:12:03:57:3b:f1:ff:d1:a8:31:
+        66:07:c8:6d:c9:de:7c:c6:a0:cf:bc:ba:4a:fe:5e:61:a6:f5:
+        e2:96:f9:dc:32:46:ec:db:d4:87:5e:a7:d4:2b:16:f5:78:e4:
+        e8:00:a4:45:b7:06:02:78:bd:9e:e2:12:3a:36:bf:2b:8d:2a:
+        91:c5:dc:83:5d:13:23:fe:43:76:55:c6:65:e8:06:8f:d0:ff:
+        6c:6e:65:1d:d0:e9:ed:c9:bd:27:ab:86:e1:07:34:57:01:e9:
+        83:9b:18:2b:bd:2a:53:da
+[12/24/25, 19:13:14:921 CET] [entryPoint.sh] Valid CA certificate. Importing to truststore.
+[12/24/25, 19:13:14:925 CET] [entryPoint.sh] Extracting CN from certificate: /mnt/certs/truststores/ca-secret-1/..2025_12_24_18_01_35.2771164270/europesip-ca.crt
+[12/24/25, 19:13:14:941 CET] [entryPoint.sh] Raw CN extraction result: subject=C=ES, O=EuropeSIP, OU=LAB, CN=EuropeSIP LAB Root CA
+[12/24/25, 19:13:14:948 CET] [entryPoint.sh] Extracted CN (before trimming): EuropeSIP LAB Root CA
+[12/24/25, 19:13:14:957 CET] [entryPoint.sh] Trimmed CN: EuropeSIP LAB Root CA
+[12/24/25, 19:13:14:965 CET] [entryPoint.sh] Generated unique alias for certificate: EuropeSIP LAB Root CA_7f28c63d
+Certificate was added to keystore
+[12/24/25, 19:13:15:652 CET] [entryPoint.sh] Successfully imported EuropeSIP LAB Root CA_7f28c63d into truststore.
+[12/24/25, 19:13:16:016 CET] [entryPoint.sh] Certificate with alias europesip lab root ca_7f28c63d is successfully in the truststore.
+[12/24/25, 19:13:16:021 CET] [entryPoint.sh] Truststore update summary for /mnt/certs/truststores/ca-secret-1/: 1 certificates imported, 0 invalid certificates skipped.
+[12/24/25, 19:13:16:026 CET] [entryPoint.sh] Generating keystore override snippet.
+[12/24/25, 19:13:16:032 CET] [entryPoint.sh] Successfully created keystore override snippet.
+[12/24/25, 19:13:16:036 CET] [entryPoint.sh] Generating truststore override snippet.
+[12/24/25, 19:13:16:043 CET] [entryPoint.sh] Successfully created truststore override snippet.
+[12/24/25, 19:13:16:048 CET] [entryPoint.sh] Generated customSSL.xml: <ssl id="customSSLConfig" keyStoreRef="customKeyStore" trustStoreRef="customTrustStore" trustDefaultCerts="true"/>
+[12/24/25, 19:13:16:052 CET] [entryPoint.sh] Updating server.xml with keystore and truststore overrides.
+Dec 24, 2025 7:13:16 PM com.hcl.dbxfer.UpdateServerXML main
+INFO: New server.xml is written to /opt/openliberty/wlp/usr/servers/defaultServer/server.xml.
+Dec 24, 2025 7:13:16 PM com.hcl.dbxfer.UpdateServerXML main
+INFO: New server.xml is written to /opt/openliberty/wlp/usr/servers/defaultServer/server.xml.
+[12/24/25, 19:13:16:390 CET] [entryPoint.sh] Server.xml updated with override files: /opt/openliberty/wlp/usr/servers/defaultServer/configDropins/keystoreOverrides/customKeyStore.xml:/opt/openliberty/wlp/usr/servers/defaultServer/configDropins/keystoreOverrides/customTrustStore.xml:/opt/openliberty/wlp/usr/servers/defaultServer/configDropins/keystoreOverrides/customSSL.xml
+[12/24/25, 19:13:16:399 CET] [entryPoint.sh] ENABLE_DATABASE_SSL: true
+[12/24/25, 19:13:16:404 CET] [entryPoint.sh] SSL connection is enabled for db2. Configuring JVM SSL options.
+[12/24/25, 19:13:16:409 CET] [entryPoint.sh] JVM SSL options set for db2: -Djavax.net.ssl.trustStore=/opt/openliberty/wlp/usr/servers/defaultServer/resources/security/truststore.p12 -Djavax.net.ssl.trustStorePassword=6Jwhl3fKgs/oC9rjvJ2RLxKUj48= -Djavax.net.ssl.trustStoreType=PKCS12
+[12/24/25, 19:13:16:419 CET] [entryPoint.sh] Keystore and Truststore processing completed successfully. Keystore: -rw-r--r--. 1 dx_user dx_users 103 Dec 24 19:13 /opt/openliberty/wlp/usr/servers/defaultServer/resources/security/key.p12 Truststore: -rw-r--r--. 1 dx_user dx_users 1.8K Dec 24 19:13 /opt/openliberty/wlp/usr/servers/defaultServer/resources/security/truststore.p12
+[12/24/25, 19:13:16:427 CET] [entryPoint.sh] Using status table: RELEASE.LIBERTY_STATUS
+[12/24/25, 19:13:16:436 CET] [entryPoint.sh] Environment variables set:
+[12/24/25, 19:13:16:441 CET] [entryPoint.sh] LIBERTY_TARGET_DIR: /opt/openliberty
+[12/24/25, 19:13:16:447 CET] [entryPoint.sh] LIBERTY_HOME: /opt/openliberty/wlp
+[12/24/25, 19:13:16:451 CET] [entryPoint.sh] SERVER: defaultServer
+[12/24/25, 19:13:16:456 CET] [entryPoint.sh] SERVER_CMD: /opt/openliberty/wlp/bin/server
+[12/24/25, 19:13:16:461 CET] [entryPoint.sh] LOG_PATH: /opt/openliberty/wlp/usr/servers/defaultServer/logs/SystemOut.log
+[12/24/25, 19:13:16:466 CET] [entryPoint.sh] CUSTOMIZATION_FOLDER: /opt/openliberty/wlp/usr/servers/defaultServer/customization
+[12/24/25, 19:13:16:470 CET] [entryPoint.sh] PROPERTIES_OVERRIDES_FOLDER: /opt/openliberty/wlp/usr/servers/defaultServer/properties-overrides
+[12/24/25, 19:13:16:475 CET] [entryPoint.sh] PROPERTIES_FOLDER: /opt/openliberty/wlp/usr/servers/defaultServer/resources/dxconfig/config/services
+[12/24/25, 19:13:16:480 CET] [entryPoint.sh] CONFIG_SEMAPHORE_FILE: /opt/openliberty/wlp/usr/svrcfg/configInProgress
+[12/24/25, 19:13:16:485 CET] [entryPoint.sh] Initialized STATUS_TO_SET array
+[12/24/25, 19:13:16:490 CET] [entryPoint.sh] Maintenance mode is not enabled
+[12/24/25, 19:13:16:494 CET] [entryPoint.sh] Starting to load config map into environment variables
+[12/24/25, 19:13:16:508 CET] [entryPoint.sh] All environment variables from config map, AI_ENABLED and file is core.config.ai_enabled
+[12/24/25, 19:13:16:521 CET] [entryPoint.sh] All environment variables from config map, AUTHORING and file is core.config.authoring
+[12/24/25, 19:13:16:534 CET] [entryPoint.sh] All environment variables from config map, CC_ENABLED and file is core.config.cc_enabled
+[12/24/25, 19:13:16:546 CET] [entryPoint.sh] All environment variables from config map, CC_URL and file is core.config.cc_url
+[12/24/25, 19:13:16:559 CET] [entryPoint.sh] All environment variables from config map, CONTENT_AI_PROVIDER and file is core.config.content_ai_provider
+[12/24/25, 19:13:16:572 CET] [entryPoint.sh] All environment variables from config map, CONTEXT_ROOT and file is core.config.context_root
+[12/24/25, 19:13:16:585 CET] [entryPoint.sh] All environment variables from config map, CUSTOM_AI_CLASSNAME and file is core.config.custom_ai_classname
+[12/24/25, 19:13:16:598 CET] [entryPoint.sh] All environment variables from config map, DAM_ENABLED and file is core.config.dam_enabled
+[12/24/25, 19:13:16:612 CET] [entryPoint.sh] All environment variables from config map, DAM_URL and file is core.config.dam_url
+[12/24/25, 19:13:16:624 CET] [entryPoint.sh] All environment variables from config map, DEPLOYMENT_TYPE and file is core.config.deployment_type
+[12/24/25, 19:13:16:637 CET] [entryPoint.sh] All environment variables from config map, DROP_DATABASE_TABLES and file is core.config.drop_database_tables
+[12/24/25, 19:13:16:650 CET] [entryPoint.sh] All environment variables from config map, DXPICKER_ENABLED and file is core.config.dxpicker_enabled
+[12/24/25, 19:13:16:662 CET] [entryPoint.sh] All environment variables from config map, DXPICKER_URL and file is core.config.dxpicker_url
+[12/24/25, 19:13:16:675 CET] [entryPoint.sh] All environment variables from config map, HOME_PATH and file is core.config.home_path
+[12/24/25, 19:13:16:687 CET] [entryPoint.sh] All environment variables from config map, HOST_NAME and file is core.config.host_name
+[12/24/25, 19:13:16:699 CET] [entryPoint.sh] All environment variables from config map, LDAP_ATTRIBUTE_MAPPING_LDAP and file is core.config.ldap_attribute_mapping_ldap
+[12/24/25, 19:13:16:711 CET] [entryPoint.sh] All environment variables from config map, LDAP_ATTRIBUTE_MAPPING_PORTAL and file is core.config.ldap_attribute_mapping_portal
+[12/24/25, 19:13:16:723 CET] [entryPoint.sh] All environment variables from config map, LDAP_ATTRIBUTE_NON_SUPPORTED and file is core.config.ldap_attribute_non_supported
+[12/24/25, 19:13:16:735 CET] [entryPoint.sh] All environment variables from config map, LDAP_ENABLED and file is core.config.ldap_enabled
+[12/24/25, 19:13:16:747 CET] [entryPoint.sh] All environment variables from config map, LDAP_HOST and file is core.config.ldap_host
+[12/24/25, 19:13:16:759 CET] [entryPoint.sh] All environment variables from config map, LDAP_ID and file is core.config.ldap_id
+[12/24/25, 19:13:16:771 CET] [entryPoint.sh] All environment variables from config map, LDAP_PORT and file is core.config.ldap_port
+[12/24/25, 19:13:16:784 CET] [entryPoint.sh] All environment variables from config map, LDAP_SERVER_TYPE and file is core.config.ldap_server_type
+[12/24/25, 19:13:16:795 CET] [entryPoint.sh] All environment variables from config map, LDAP_SUFFIX and file is core.config.ldap_suffix
+[12/24/25, 19:13:16:808 CET] [entryPoint.sh] All environment variables from config map, METRICS_ENABLED and file is core.config.metrics_enabled
+[12/24/25, 19:13:16:820 CET] [entryPoint.sh] All environment variables from config map, PEOPLE_SERVICE_ENABLED and file is core.config.people_service_enabled
+[12/24/25, 19:13:16:833 CET] [entryPoint.sh] All environment variables from config map, PERSONALIZED_PATH and file is core.config.personalized_path
+[12/24/25, 19:13:16:846 CET] [entryPoint.sh] All environment variables from config map, SEARCH_MIDDLEWARE_CONTEXT_ROOT_API and file is core.config.search_middleware_context_root_api
+[12/24/25, 19:13:16:859 CET] [entryPoint.sh] All environment variables from config map, SEARCH_MIDDLEWARE_CONTEXT_ROOT_PICKER_UI and file is core.config.search_middleware_context_root_picker_ui
+[12/24/25, 19:13:16:873 CET] [entryPoint.sh] All environment variables from config map, SEARCH_MIDDLEWARE_ENABLED and file is core.config.search_middleware_enabled
+[12/24/25, 19:13:16:886 CET] [entryPoint.sh] All environment variables from config map, SEARCH_MIDDLEWARE_VERSION and file is core.config.search_middleware_version
+[12/24/25, 19:13:16:897 CET] [entryPoint.sh] All environment variables from config map, SEARCH_UI_V2_ENABLED and file is core.config.search_ui_v2_enabled
+[12/24/25, 19:13:16:909 CET] [entryPoint.sh] All environment variables from config map, USE_EXTERNAL_DATABASE and file is core.config.use_external_database
+[12/24/25, 19:13:16:913 CET] [entryPoint.sh] Completed loading config map into environment variables
+[12/24/25, 19:13:16:918 CET] [entryPoint.sh] USE_EXTERNAL_DATABASE set to: true
+[12/24/25, 19:13:16:922 CET] [entryPoint.sh] DROP_DATABASE_TABLES set to: true
+[12/24/25, 19:13:16:927 CET] [entryPoint.sh] DAM_ENABLED set to: true
+[12/24/25, 19:13:16:932 CET] [entryPoint.sh] CC_ENABLED set to: true
+[12/24/25, 19:13:16:936 CET] [entryPoint.sh] AI_ENABLED set to: false
+[12/24/25, 19:13:16:941 CET] [entryPoint.sh] CEC_ENABLED set to: false
+[12/24/25, 19:13:16:945 CET] [entryPoint.sh] PEOPLE_SERVICE_ENABLED set to: false
+[12/24/25, 19:13:16:950 CET] [entryPoint.sh] SEARCH_UI_V2_ENABLED set to: false
+[12/24/25, 19:13:16:957 CET] [entryPoint.sh] Semaphore file created: /opt/openliberty/wlp/usr/svrcfg/configInProgress
+[12/24/25, 19:13:16:966 CET] [entryPoint.sh] Invoking changeLogLevel.sh with initial log level: *=info,com.ibm.wps.logging.ExceptionLogger=all,hcl.logging.search-v2.DEBUG.client.*=all
+[12/24/25, 19:13:16:973 CET] [changeLogLevel.sh] Start: Replacing traceSpecification in server.xml with the new global log level configuration
+[12/24/25, 19:13:16:977 CET] [changeLogLevel.sh] New traceSpecification from global config: *=info,com.ibm.wps.logging.ExceptionLogger=all,hcl.logging.search-v2.DEBUG.client.*=all
+[12/24/25, 19:13:16:988 CET] [changeLogLevel.sh] Current traceSpecification in server.xml: *=info:com.ibm.wps.logging.ExceptionLogger=all
+[12/24/25, 19:13:16:995 CET] [changeLogLevel.sh] Formatted new traceSpecification: *=info:com.ibm.wps.logging.ExceptionLogger=all:hcl.logging.search-v2.DEBUG.client.*=all
+[12/24/25, 19:13:17:000 CET] [changeLogLevel.sh] Validating log levels in traceSpecification: *=info:com.ibm.wps.logging.ExceptionLogger=all:hcl.logging.search-v2.DEBUG.client.*=all
+[12/24/25, 19:13:17:004 CET] [changeLogLevel.sh] Validating log level 'info' for logger '*'
+[12/24/25, 19:13:17:008 CET] [changeLogLevel.sh] All log levels in traceSpecification are valid.
+[12/24/25, 19:13:17:013 CET] [changeLogLevel.sh] New traceSpecification differs from current. Proceeding with the update...
+[12/24/25, 19:13:17:017 CET] [changeLogLevel.sh] Updating traceSpecification in server.xml with new value: *=info:com.ibm.wps.logging.ExceptionLogger=all:hcl.logging.search-v2.DEBUG.client.*=all
+[12/24/25, 19:13:17:024 CET] [changeLogLevel.sh] End: Updated traceSpecification successfully with new value: *=info:com.ibm.wps.logging.ExceptionLogger=all:hcl.logging.search-v2.DEBUG.client.*=all
+[12/24/25, 19:13:17:029 CET] [entryPoint.sh] Trapping SIGTERM and SIGINT signals
+[12/24/25, 19:13:17:033 CET] [entryPoint.sh] Temporarily renaming init-config.tpl to init-config.xml
+[12/24/25, 19:13:17:042 CET] [entryPoint.sh] No files found in /opt/openliberty/wlp/usr/servers/defaultServer/properties-overrides. Skipping updateProperties.sh execution.
+[12/24/25, 19:13:17:047 CET] [entryPoint.sh] Starting to tail logs in the background
+[12/24/25, 19:13:17:052 CET] [entryPoint.sh] Executing command: /opt/openliberty/wlp/usr/svrcfg/scripts/find_and_tail.sh
+[12/24/25, 19:13:17:052 CET] [entryPoint.sh] CUSTOMIZATION_FOLDER exists: /opt/openliberty/wlp/usr/servers/defaultServer/customization
+[12/24/25, 19:13:17:057 CET] [entryPoint.sh] Derby folder exists - nothing to do
+[12/24/25, 19:13:17:062 CET] [find_and_tail.sh] Starting tail command for file: /opt/openliberty/wlp/usr/servers/defaultServer/logs/SystemOut.log
+[12/24/25, 19:13:17:062 CET] [entryPoint.sh] USE_EXTERNAL_DATABASE is true
+[12/24/25, 19:01:29:962 CET] 000000a5 com.ibm.tx.jta.impl.FailureScopeController                   A WTRN0105I: The transaction service has shutdown successfully with no transactions requiring recovery.
+[12/24/25, 19:01:29:990 CET] 000000a5 com.hcl.dx.liberty.dxextensions.bundle.Activator             I DX Extensions feature stopping
+[12/24/25, 19:01:30:049 CET] 000000a5 com.hcl.dx.liberty.portletcontainer.bundle.Activator         I Portlet container feature stopping
+[12/24/25, 19:01:30:067 CET] 000000a5 om.ibm.ws.microprofile.metrics.monitor.MonitorMetricsHandler I CWPMI2004I: All monitoring metrics were unregistered from mpMetrics.
+[12/24/25, 19:01:30:937 CET] 000000a5 ibm.ws.security.authentication.internal.jaas.JAASServiceImpl I CWWKS1124I: The collective authentication plugin with class name NullCollectiveAuthenticationPlugin has been deactivated. 
+[12/24/25, 19:01:30:939 CET] 000000a5 com.ibm.ws.security.ready.internal.SecurityReadyServiceImpl  I CWWKS0009I: The security service has stopped.
+[12/24/25, 19:01:32:786 CET] 000000a5 com.ibm.ws.sib.utils.ras.SibMessage                          I  CWSIS1589I: The file store has stopped successfully.
+[12/24/25, 19:01:32:912 CET] 000000a5 com.ibm.ws.sib.utils.ras.SibMessage                          I  CWSID0121I: JMS server stopped.  
+[12/24/25, 19:01:32:937 CET] 000000a5 com.ibm.ws.security.wim.VMMService                           I CWIMK0010I: The user registry federation service is stopped.
+[12/24/25, 19:01:33:131 CET] 00000001 com.ibm.ws.kernel.launch.internal.FrameworkManager           A CWWKE0036I: The server defaultServer stopped after 2 minutes, 25.948 seconds.
+[12/24/25, 19:13:17:066 CET] [find_and_tail.sh] Tail command started with PID: 674
+[12/24/25, 19:13:17:067 CET] [entryPoint.sh] Initialising the status table in the db2 database if it does not exist
+[12/24/25, 19:13:17:071 CET] [entryPoint.sh] Executing command: /opt/openliberty/wlp/usr/svrcfg/scripts/liberty_status/initStatusTable.sh
+[12/24/25, 19:13:17:078 CET] [initStatusTable.sh] Start: Initializing the status table
+[12/24/25, 19:13:17:085 CET] [initStatusTable.sh] Script started with argument(s): DATABASE_TYPE=DB2
+[12/24/25, 19:13:17:092 CET] [initStatusTable.sh] Script directory: /opt/openliberty/wlp/usr/svrcfg/scripts/liberty_status
+[12/24/25, 19:13:17:097 CET] [initStatusTable.sh] Using properties file: /opt/openliberty/wlp/usr/svrcfg/scripts/liberty_status/../../properties/dx_dbdomain.properties
+[12/24/25, 19:13:17:113 CET] [initStatusTable.sh] JDBC_URL: jdbc:db2://db2.europesip-lab.com:50001/WPSDB:sslConnection=true;returnAlias
+[12/24/25, 19:13:17:118 CET] [initStatusTable.sh] Database library: /opt/openliberty/wlp/usr/svrcfg/templates/jars/db2/db2jcc4.jar
+[12/24/25, 19:13:17:128 CET] [initStatusTable.sh] Database user: db2inst1
+[12/24/25, 19:13:17:132 CET] [initStatusTable.sh] Using template file: /opt/openliberty/wlp/usr/svrcfg/scripts/liberty_status/../../templates/db/libertyStatus/initTable.tpl
+[12/24/25, 19:13:17:136 CET] [initStatusTable.sh] Creating SQL file: /opt/openliberty/wlp/usr/svrcfg/scripts/liberty_status/../../templates/db/libertyStatus/initTable.sql
+[12/24/25, 19:13:17:143 CET] [initStatusTable.sh] Running Java command to execute SQL file
+[12/24/25, 19:13:17:369 CET] [initStatusTable.sh] Result of Java command: Reading file /opt/openliberty/wlp/usr/svrcfg/scripts/liberty_status/../../templates/db/libertyStatus/initTable.sql
+Could not connect to database
+com.ibm.db2.jcc.am.SqlSyntaxErrorException: [jcc][10165][12601][4.33.31] Invalid database URL syntax: jdbc:db2://db2.europesip-lab.com:50001/WPSDB:sslConnection=true;returnAlias. ERRORCODE=-4461, SQLSTATE=42815
+	at com.ibm.db2.jcc.am.b4.a(b4.java:810)
+	at com.ibm.db2.jcc.am.b4.a(b4.java:66)
+	at com.ibm.db2.jcc.am.b4.a(b4.java:107)
+	at com.ibm.db2.jcc.DB2Driver.tokenizeURLProperties(DB2Driver.java:946)
+	at com.ibm.db2.jcc.DB2Driver.connect(DB2Driver.java:428)
+	at com.ibm.db2.jcc.DB2Driver.connect(DB2Driver.java:117)
+	at com.ibm.wps.config.SqlProcessor.process(SqlProcessor.java:306)
+	at com.ibm.wps.config.SqlProcessor.process(SqlProcessor.java:229)
+	at com.ibm.wps.config.SqlProcessor.process(SqlProcessor.java:94)
+	at SimpleDBConnect.processSql(SimpleDBConnect.java:47)
+	at SimpleDBConnect.main(SimpleDBConnect.java:72)
+(ErrCode=-4461, SqlState=42815)
+[12/24/25, 19:13:17:375 CET] [initStatusTable.sh] End: Initializing the status table
+[12/24/25, 19:13:17:379 CET] [entryPoint.sh] Get the status values from the db2 database
+[12/24/25, 19:13:17:384 CET] [entryPoint.sh] Executing command: /opt/openliberty/wlp/usr/svrcfg/scripts/liberty_status/getLibertyStatus.sh
+[12/24/25, 19:13:17:392 CET] [getLibertyStatus.sh] Start: Getting Liberty status
+[12/24/25, 19:13:17:396 CET] [getLibertyStatus.sh] Script started with argument(s): DATABASE_TYPE=db2
+[12/24/25, 19:13:17:404 CET] [getLibertyStatus.sh] Script directory: /opt/openliberty/wlp/usr/svrcfg/scripts/liberty_status
+[12/24/25, 19:13:17:408 CET] [getLibertyStatus.sh] Using properties file: /opt/openliberty/wlp/usr/svrcfg/scripts/liberty_status/../../properties/dx_dbdomain.properties
+[12/24/25, 19:13:17:425 CET] [getLibertyStatus.sh] JDBC_URL: jdbc:db2://db2.europesip-lab.com:50001/WPSDB:sslConnection=true;returnAlias
+[12/24/25, 19:13:17:429 CET] [getLibertyStatus.sh] Database library: /opt/openliberty/wlp/usr/svrcfg/templates/jars/db2/db2jcc4.jar
+[12/24/25, 19:13:17:440 CET] [getLibertyStatus.sh] Database user: db2inst1
+[12/24/25, 19:13:17:444 CET] [getLibertyStatus.sh] Running Java command to execute SQL file
+[12/24/25, 19:13:17:664 CET] [getLibertyStatus.sh] Result of Java command: com.ibm.db2.jcc.am.SqlSyntaxErrorException: [jcc][10165][12601][4.33.31] Invalid database URL syntax: jdbc:db2://db2.europesip-lab.com:50001/WPSDB:sslConnection=true;returnAlias. ERRORCODE=-4461, SQLSTATE=42815
+	at com.ibm.db2.jcc.am.b4.a(b4.java:810)
+	at com.ibm.db2.jcc.am.b4.a(b4.java:66)
+	at com.ibm.db2.jcc.am.b4.a(b4.java:107)
+	at com.ibm.db2.jcc.DB2Driver.tokenizeURLProperties(DB2Driver.java:946)
+	at com.ibm.db2.jcc.DB2Driver.connect(DB2Driver.java:428)
+	at com.ibm.db2.jcc.DB2Driver.connect(DB2Driver.java:117)
+	at com.ibm.wps.config.SqlProcessor.queryLibertyStatusData(SqlProcessor.java:1094)
+	at GetLibertyStatus.getData(GetLibertyStatus.java:51)
+	at GetLibertyStatus.main(GetLibertyStatus.java:91)
+[12/24/25, 19:13:17:669 CET] [getLibertyStatus.sh] End: Getting Liberty status
+[12/24/25, 19:13:17:674 CET] [entryPoint.sh] Checking if DB transfer is done...
+[12/24/25, 19:13:17:686 CET] [entryPoint.sh] Error extracting DB_TRANSFER_DONE status. Exiting.
+[12/24/25, 19:01:29:962 CET] 000000a5 com.ibm.tx.jta.impl.FailureScopeController                   A WTRN0105I: The transaction service has shutdown successfully with no transactions requiring recovery.
+[12/24/25, 19:01:29:990 CET] 000000a5 com.hcl.dx.liberty.dxextensions.bundle.Activator             I DX Extensions feature stopping
+[12/24/25, 19:01:30:049 CET] 000000a5 com.hcl.dx.liberty.portletcontainer.bundle.Activator         I Portlet container feature stopping
+[12/24/25, 19:01:30:067 CET] 000000a5 om.ibm.ws.microprofile.metrics.monitor.MonitorMetricsHandler I CWPMI2004I: All monitoring metrics were unregistered from mpMetrics.
+[12/24/25, 19:01:30:937 CET] 000000a5 ibm.ws.security.authentication.internal.jaas.JAASServiceImpl I CWWKS1124I: The collective authentication plugin with class name NullCollectiveAuthenticationPlugin has been deactivated. 
+[12/24/25, 19:01:30:939 CET] 000000a5 com.ibm.ws.security.ready.internal.SecurityReadyServiceImpl  I CWWKS0009I: The security service has stopped.
+[12/24/25, 19:01:32:786 CET] 000000a5 com.ibm.ws.sib.utils.ras.SibMessage                          I  CWSIS1589I: The file store has stopped successfully.
+[12/24/25, 19:01:32:912 CET] 000000a5 com.ibm.ws.sib.utils.ras.SibMessage                          I  CWSID0121I: JMS server stopped.  
+[12/24/25, 19:01:32:937 CET] 000000a5 com.ibm.ws.security.wim.VMMService                           I CWIMK0010I: The user registry federation service is stopped.
+[12/24/25, 19:01:33:131 CET] 00000001 com.ibm.ws.kernel.launch.internal.FrameworkManager           A CWWKE0036I: The server defaultServer stopped after 2 minutes, 25.948 seconds.
+[12/24/25, 19:01:29:962 CET] 000000a5 FailureScopeC A   WTRN0105I: The transaction service has shutdown successfully with no transactions requiring recovery.
+[12/24/25, 19:01:29:990 CET] 000000a5 Activator     I com.hcl.dx.liberty.dxextensions.bundle.Activator stop DX Extensions feature stopping
+[12/24/25, 19:01:30:049 CET] 000000a5 Activator     I com.hcl.dx.liberty.portletcontainer.bundle.Activator stop Portlet container feature stopping
+[12/24/25, 19:01:30:067 CET] 000000a5 MonitorMetric I   CWPMI2004I: All monitoring metrics were unregistered from mpMetrics.
+[12/24/25, 19:01:30:937 CET] 000000a5 JAASServiceIm I   CWWKS1124I: The collective authentication plugin with class name NullCollectiveAuthenticationPlugin has been deactivated. 
+[12/24/25, 19:01:30:939 CET] 000000a5 SecurityReady I   CWWKS0009I: The security service has stopped.
+[12/24/25, 19:01:32:786 CET] 000000a5 SibMessage    I    CWSIS1589I: The file store has stopped successfully.
+[12/24/25, 19:01:32:912 CET] 000000a5 SibMessage    I    CWSID0121I: JMS server stopped.  
+[12/24/25, 19:01:32:937 CET] 000000a5 VMMService    I   CWIMK0010I: The user registry federation service is stopped.
+[12/24/25, 19:01:33:131 CET] 00000001 FrameworkMana A   CWWKE0036I: The server defaultServer stopped after 2 minutes, 25.948 seconds.

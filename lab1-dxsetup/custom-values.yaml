@@ -83,8 +83,18 @@ security:
   webEngine:
     # Credentials for the WebEngine Server administrative user 
     # Note: Be aware of the out-of-the-box additional "admin1" adminsitrative user
-    webEngineUser: "wpsadmin"
-    webEnginePassword: "Passw0rd" # Simple password for wpsadmin
+    # Also, be aware that if we want to use custom-secrets, we must also unset webEngineUser & webEnginePassword values 
+    webEngineUser: null
+    webEnginePassword: null 
+    customWebEngineSecret: "web-engine-secret" # secret only is taken if previous values are empty.
+
+# Logging & Trace configuration
+logging:
+  webEngine:
+    level:
+      - "*=info" # Global default log level
+      - "com.ibm.wps.logging.ExceptionLogger=all" # ExceptionLogger default level
+      - "hcl.logging.search-v2.DEBUG.client.*=all" # Search Debugging
 
 configuration:
   containerTimezone: "Europe/Madrid"

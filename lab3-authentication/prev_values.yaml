@@ -1,0 +1,137 @@
+applications:
+  core: false
+  openLdap: false
+  remoteSearch: false
+  webEngine: true
+configuration:
+  containerTimezone: Europe/Madrid
+  prereqsChecker:
+    enabled: true
+  webEngine:
+    configOverrideFiles:
+      ldapOverride.xml: |
+        <server description="WebEngineServer">
+          <ldapRegistry id="ldap" realm="SampleLdapIDSRealm"
+            host="ldap.europesip-lab.com" port="636" ignoreCase="true"
+            baseDN="dc=europesip,dc=com"
+            ldapType="Custom"
+            sslEnabled="true"
+            sslRef="customSSLConfig"
+            bindDN="${LDAP_USERNAME}"
+            bindPassword="${LDAP_PASSWORD}">
+
+            <customFilters
+              userFilter="(&amp;(|(uid=%v)(mail=%v))(objectclass=inetOrgPerson))"
+              groupFilter="(&amp;(cn=%v)(|(objectclass=groupOfNames)(objectclass=groupOfUniqueNames)))"
+              userIdMap="*:uid"
+              groupIdMap="*:cn"
+              groupMemberIdMap="ibm-allGroups:member;ibm-allGroups:uniqueMember;groupOfNames:member;groupOfUniqueNames:uniqueMember">
+            </customFilters>
+
+            <attributeConfiguration>
+              <attribute name="mail" propertyName="ibm-primaryEmail" entityType="PersonAccount"/>
+              <attribute name="title" propertyName="ibm-jobTitle" entityType="PersonAccount"/>
+            </attributeConfiguration>
+
+          </ldapRegistry>
+          <federatedRepository>
+             <primaryRealm name="FederatedRealm" allowOpIfRepoDown="true">
+                <participatingBaseEntry name="o=defaultWIMFileBasedRealm"/>
+                <participatingBaseEntry name="dc=europesip,dc=com"/>
+             </primaryRealm>
+          </federatedRepository>
+        </server>
+      user-overrides.xml: |
+        <server description="DX Web Engine server">
+        <basicRegistry id="basic" realm="defaultWIMFileBasedRealm">
+        <user name="wpsadmin" password="Passw0rd" id="uid=wpsadmin,o=defaultWIMFileBasedRealm" />
+        <user name="admin1" password="admin2pwd" id="uid=admin1,o=defaultWIMFileBasedRealm"/>
+        <group name="wpsadmins" id="cn=wpsadmins,o=defaultWIMFileBasedRealm">
+           <member name="andres"/>
+           <member name="wpsadmin" />
+        </group>
+        </basicRegistry>
+        </server>
+    customDbDomainPropertiesSecret: custom-credentials-webengine-dbdomain-secret
+    customSecrets:
+      ldap-credentials: ldap-credentials
+    customTruststoreSecrets:
+      ca-secret-1: dx-custom-certs
+    dbTypeProperties:
+      db2.DbDriver: com.ibm.db2.jcc.DB2Driver
+      db2.DbLibrary: /opt/openliberty/wlp/usr/svrcfg/templates/jars/db2/db2jcc4.jar
+      db2.JdbcProviderName: wpdbJDBC_db2
+      derby.DbDriver: org.apache.derby.jdbc.EmbeddedDriver
+      derby.DbLibrary: /opt/HCL/AppServer/derby/lib/derby.jar
+      derby.JdbcProviderName: wpdbJDBC_derby
+    dropDatabaseTables: true
+    ldap:
+      bindPassword: Passw0rd
+      bindUser: uid=wpsbind,ou=People,dc=europesip,dc=com
+      host: ldap.europesip-lab.com
+      id: dx_ldap
+      port: 389
+      serverType: Custom
+      suffix: dc=europesip,dc=com
+      type: other
+    useExternalDatabase: true
+images:
+  names:
+    contentComposer: dx-content-composer
+    core: dx-core
+    damPluginGoogleVision: dx-dam-plugin-google-vision
+    damPluginKaltura: dx-dam-plugin-kaltura
+    digitalAssetManagement: dx-digital-asset-manager
+    haproxy: dx-haproxy
+    imageProcessor: dx-image-processor
+    licenseManager: dx-license-manager
+    loggingSidecar: dx-logging-sidecar
+    openLdap: dx-openldap
+    persistenceConnectionPool: dx-persistence-connection-pool
+    persistenceMetricsExporter: dx-persistence-metrics-exporter
+    persistenceNode: dx-persistence-node
+    prereqsChecker: dx-prereqs-checker
+    remoteSearch: dx-remote-search
+    ringApi: dx-ringapi
+    runtimeController: dx-runtime-controller
+    webEngine: dx-webengine
+  repository: image-registry.openshift-image-registry.svc:5000/openshift
+logging:
+  webEngine:
+    level:
+    - '*=info'
+    - com.ibm.wps.logging.ExceptionLogger=all
+    - hcl.logging.search-v2.DEBUG.client.*=all
+networking:
+  haproxy:
+    serviceType: ClusterIP
+  tlsCertSecret: dx-tls-cert
+  webEngine:
+    host: dx.apps.promox.europesip-lab.com
+peopleservice:
+  enabled: false
+  image:
+    registry: image-registry.openshift-image-registry.svc:5000/openshift
+    repository: dx-people-service
+    tag: v1.0.0_20251024-1349
+  volumes:
+    data:
+      storageClassName: stg-deploy-rwx
+security:
+  webEngine:
+    customWebEngineSecret: web-engine-secret
+volumes:
+  digitalAssetManagement:
+    binaries:
+      storageClassName: dx-deploy-rwx
+  licenseManager:
+    data:
+      storageClassName: dx-deploy-rwo
+  persistenceNode:
+    database:
+      storageClassName: dx-deploy-rwo
+  webEngine:
+    customization:
+      storageClassName: dx-deploy-rwo
+    log:
+      storageClassName: dx-deploy-rwo

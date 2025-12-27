@@ -1,0 +1,7 @@
+NAME       STATUS   ROLES                  AGE   VERSION   INTERNAL-IP       EXTERNAL-IP   OS-IMAGE                                                KERNEL-VERSION                 CONTAINER-RUNTIME
+master-0   Ready    control-plane,master   34d   v1.33.5   192.168.100.101   <none>        Red Hat Enterprise Linux CoreOS 9.6.20251105-0 (Plow)   5.14.0-570.62.1.el9_6.x86_64   cri-o://1.33.5-3.rhaos4.20.gitd0ea985.el9
+master-1   Ready    control-plane,master   34d   v1.33.5   192.168.100.102   <none>        Red Hat Enterprise Linux CoreOS 9.6.20251105-0 (Plow)   5.14.0-570.62.1.el9_6.x86_64   cri-o://1.33.5-3.rhaos4.20.gitd0ea985.el9
+master-2   Ready    control-plane,master   34d   v1.33.5   192.168.100.103   <none>        Red Hat Enterprise Linux CoreOS 9.6.20251105-0 (Plow)   5.14.0-570.62.1.el9_6.x86_64   cri-o://1.33.5-3.rhaos4.20.gitd0ea985.el9
+worker-0   Ready    worker                 34d   v1.33.5   192.168.100.104   <none>        Red Hat Enterprise Linux CoreOS 9.6.20251105-0 (Plow)   5.14.0-570.62.1.el9_6.x86_64   cri-o://1.33.5-3.rhaos4.20.gitd0ea985.el9
+worker-1   Ready    worker                 34d   v1.33.5   192.168.100.105   <none>        Red Hat Enterprise Linux CoreOS 9.6.20251105-0 (Plow)   5.14.0-570.62.1.el9_6.x86_64   cri-o://1.33.5-3.rhaos4.20.gitd0ea985.el9
+worker-2   Ready    worker                 34d   v1.33.5   192.168.100.106   <none>        Red Hat Enterprise Linux CoreOS 9.6.20251105-0 (Plow)   5.14.0-570.62.1.el9_6.x86_64   cri-o://1.33.5-3.rhaos4.20.gitd0ea985.el9

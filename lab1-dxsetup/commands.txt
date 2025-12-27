@@ -88,6 +88,9 @@ openssl genrsa -out my-key.pem 2048
 openssl req -x509 -key my-key.pem -out my-cert.pem -days 365 -subj '/CN=EuropeSIP'
 oc create secret tls dx-tls-cert --cert=my-cert.pem --key=my-key.pem -n digital-experience 
 
+# Crear Secret Wpsadmin
+oc create secret generic web-engine-secret --from-literal=username=wpsadmin --from-literal=password=Passw0rd
+
 #Si necesario Crear PullSecret para autenticacion registro
 #Check https://help.hcl-software.com/digital-experience/dx-compose/CF231/deploy_dx/install/kubernetes_deployment/preparation/optional_tasks/optional_imagepullsecrets/
 

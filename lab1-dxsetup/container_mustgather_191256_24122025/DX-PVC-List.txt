@@ -1,0 +1,5 @@
+NAME                                        STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS    VOLUMEATTRIBUTESCLASS   AGE   VOLUMEMODE
+customization-dx-deployment-web-engine-0    Bound    pvc-3c185db5-d872-43ef-91d8-ae263ffcfadc   500Mi      RWO            dx-deploy-rwo   <unset>                 15m   Filesystem
+database-dx-deployment-persistence-node-0   Bound    pvc-9c8b12de-d408-4902-8c3a-968868f83a5e   2Gi        RWO            dx-deploy-rwo   <unset>                 15m   Filesystem
+dx-deployment-digital-asset-management      Bound    pvc-2534bd3e-53e5-412f-801f-1be65e6838c1   2Gi        RWX            dx-deploy-rwx   <unset>                 15m   Filesystem
+log-dx-deployment-web-engine-0              Bound    pvc-66aff724-e675-4ae7-b7fc-635a9d651f37   250Mi      RWO            dx-deploy-rwo   <unset>                 15m   Filesystem

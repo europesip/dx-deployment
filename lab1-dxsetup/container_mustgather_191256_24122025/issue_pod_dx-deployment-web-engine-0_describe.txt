@@ -1,0 +1,225 @@
+Name:             dx-deployment-web-engine-0
+Namespace:        digital-experience
+Priority:         0
+Service Account:  default
+Node:             worker-1/192.168.100.105
+Start Time:       Wed, 24 Dec 2025 19:01:35 +0100
+Labels:           app=dx-deployment-web-engine
+                  app.kubernetes.io/instance=dx-deployment
+                  app.kubernetes.io/managed-by=Helm
+                  app.kubernetes.io/name=hcl-dx-deployment
+                  app.kubernetes.io/version=95_CF231
+                  apps.kubernetes.io/pod-index=0
+                  controller-revision-hash=dx-deployment-web-engine-77997f48b8
+                  helm.sh/chart=hcl-dx-deployment-2.42.1
+                  release=dx-deployment
+                  statefulset.kubernetes.io/pod-name=dx-deployment-web-engine-0
+Annotations:      checksum/config-web-engine: 0095eb146472f1c6aaf56cad22b942a64f624da22de2afc036822ea5f41cf5df
+                  checksum/dbdomain-properties: 148bffcc4329a440766dd9779b3dded2f79c23d727516e7995cdd223721b2aa7
+                  checksum/dbtype-properties: 688ea2582a92999f1a58aa4c032a751e137501c0de4551bb212e786f1c94dd1c
+                  checksum/jvm-options: 90ad34cde9cac98063bf448c970d61b4d277aa4957c1f2dcbcaa2554ed13c9b3
+                  checksum/properties-overrides: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+                  k8s.ovn.org/pod-networks:
+                    {"default":{"ip_addresses":["10.129.3.177/23"],"mac_address":"0a:58:0a:81:03:b1","gateway_ips":["10.129.2.1"],"routes":[{"dest":"10.128.0....
+                  k8s.v1.cni.cncf.io/network-status:
+                    [{
+                        "name": "ovn-kubernetes",
+                        "interface": "eth0",
+                        "ips": [
+                            "10.129.3.177"
+                        ],
+                        "mac": "0a:58:0a:81:03:b1",
+                        "default": true,
+                        "dns": {}
+                    }]
+                  openshift.io/scc: restricted-v2
+                  prometheus.io/path: /metrics
+                  prometheus.io/port: 9091
+                  prometheus.io/scrape: true
+                  seccomp.security.alpha.kubernetes.io/pod: runtime/default
+                  security.openshift.io/validated-scc-subject-type: user
+Status:           Running
+SeccompProfile:   RuntimeDefault
+IP:               10.129.3.177
+IPs:
+  IP:           10.129.3.177
+Controlled By:  StatefulSet/dx-deployment-web-engine
+Containers:
+  web-engine:
+    Container ID:   cri-o://48d5aa38e3760e718a5f6a34bee0913bfc0374156f2aa96b1e19c0a816fb25b4
+    Image:          image-registry.openshift-image-registry.svc:5000/openshift/dx-webengine:CF231_20251025-2351
+    Image ID:       image-registry.openshift-image-registry.svc:5000/openshift/dx-webengine@sha256:478289e3a66fb9e85b3a3cfc8fe9a23f3836ac3d3164675d0dc873caa9e080c4
+    Ports:          9080/TCP, 9443/TCP, 10033/TCP
+    Host Ports:     0/TCP, 0/TCP, 0/TCP
+    State:          Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Wed, 24 Dec 2025 19:13:12 +0100
+      Finished:     Wed, 24 Dec 2025 19:13:17 +0100
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Wed, 24 Dec 2025 19:08:04 +0100
+      Finished:     Wed, 24 Dec 2025 19:08:09 +0100
+    Ready:          False
+    Restart Count:  7
+    Limits:
+      cpu:     4
+      memory:  6Gi
+    Requests:
+      cpu:      2
+      memory:   4Gi
+    Liveness:   exec [/bin/sh /opt/openliberty/wlp/usr/svrcfg/scripts/probe/liveness.sh] delay=30s timeout=10s period=10s #success=1 #failure=6
+    Readiness:  exec [/bin/sh /opt/openliberty/wlp/usr/svrcfg/scripts/probe/readiness.sh] delay=30s timeout=30s period=10s #success=1 #failure=1
+    Startup:    exec [/bin/sh /opt/openliberty/wlp/usr/svrcfg/scripts/probe/liveness.sh] delay=30s timeout=10s period=20s #success=1 #failure=360
+    Environment:
+      TZ:                           Europe/Madrid
+      CONFIG_CHECKSUM:              0095eb146472f1c6aaf56cad22b942a64f624da22de2afc036822ea5f41cf5df
+      DX_ADMIN:                     <set to the key 'username' in secret 'dx-deployment-web-engine-wps'>  Optional: false
+      DX_PASSWORD:                  <set to the key 'password' in secret 'dx-deployment-web-engine-wps'>  Optional: false
+      AI_ENABLED:                   false
+      NEW_CONTEXT_ROOT:             wps
+      WEBENGINE_NEWSEARCH_ENABLED:  false
+      MAINTENANCE_MODE:             false
+    Mounts:
+      /etc/config from config (rw)
+      /etc/global-config from global-config (rw)
+      /mnt/certs/truststores/ca-secret-1 from truststore-secret-ca-secret-1 (rw)
+      /opt/openliberty/wlp/usr/servers/defaultServer/configDropins/overrides from overrides (ro)
+      /opt/openliberty/wlp/usr/servers/defaultServer/customization from customization (rw)
+      /opt/openliberty/wlp/usr/servers/defaultServer/jvm.options from jvm-options (rw,path="jvm.options")
+      /opt/openliberty/wlp/usr/servers/defaultServer/logs from log (rw)
+      /opt/openliberty/wlp/usr/servers/defaultServer/properties-overrides from properties-overrides (ro)
+      /opt/openliberty/wlp/usr/svrcfg/properties/dx_dbdomain.properties from dbdomain (rw,path="dx_dbdomain.properties")
+      /opt/openliberty/wlp/usr/svrcfg/properties/dx_dbtype.properties from dbtype (rw,path="dx_dbtype.properties")
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-cbpmp (ro)
+  system-out-log:
+    Container ID:  cri-o://00de2be090bf68b69fd20ab5232743ddac28de919453d1cd9eabe3dea31658f5
+    Image:         image-registry.openshift-image-registry.svc:5000/openshift/dx-logging-sidecar:v1.0.0_20251024-1349
+    Image ID:      image-registry.openshift-image-registry.svc:5000/openshift/dx-logging-sidecar@sha256:71264d764264a46d0d3cbab57765d5fad8c335693372aef2faff09f4549e29ea
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/sh
+    Args:
+      -c
+      find_and_tail.sh '/var/logs/SystemOut.log'
+    State:          Running
+      Started:      Wed, 24 Dec 2025 19:01:36 +0100
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:     100m
+      memory:  64Mi
+    Environment:
+      TZ:                Europe/Madrid
+      MAINTENANCE_MODE:  false
+    Mounts:
+      /var/logs from log (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-cbpmp (ro)
+  trace-log:
+    Container ID:  cri-o://11ab6127290c9a8aad5dc9e42929add37ec52cc59ed5c1d4661c8e5a489325fe
+    Image:         image-registry.openshift-image-registry.svc:5000/openshift/dx-logging-sidecar:v1.0.0_20251024-1349
+    Image ID:      image-registry.openshift-image-registry.svc:5000/openshift/dx-logging-sidecar@sha256:71264d764264a46d0d3cbab57765d5fad8c335693372aef2faff09f4549e29ea
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      /bin/sh
+    Args:
+      -c
+      find_and_tail.sh '/var/logs/trace.log'
+    State:          Running
+      Started:      Wed, 24 Dec 2025 19:01:36 +0100
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     100m
+      memory:  64Mi
+    Requests:
+      cpu:     100m
+      memory:  64Mi
+    Environment:
+      TZ:                Europe/Madrid
+      MAINTENANCE_MODE:  false
+    Mounts:
+      /var/logs from log (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-cbpmp (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  customization:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  customization-dx-deployment-web-engine-0
+    ReadOnly:   false
+  log:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  log-dx-deployment-web-engine-0
+    ReadOnly:   false
+  config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      dx-deployment-web-engine
+    Optional:  false
+  overrides:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      dx-deployment-web-engine-overrides
+    Optional:  false
+  properties-overrides:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      dx-deployment-web-engine-properties-overrides
+    Optional:  false
+  jvm-options:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      dx-deployment-web-engine-jvm-options
+    Optional:  false
+  global-config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      dx-deployment-global
+    Optional:  false
+  dbdomain:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  custom-credentials-webengine-dbdomain-secret
+    Optional:    false
+  dbtype:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  dx-deployment-web-engine-dbtype
+    Optional:    false
+  truststore-secret-ca-secret-1:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  dx-custom-certs
+    Optional:    false
+  kube-api-access-cbpmp:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+    ConfigMapName:           openshift-service-ca.crt
+    Optional:                false
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/memory-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason          Age                  From               Message
+  ----     ------          ----                 ----               -------
+  Normal   Scheduled       11m                  default-scheduler  Successfully assigned digital-experience/dx-deployment-web-engine-0 to worker-1
+  Normal   AddedInterface  11m                  multus             Add eth0 [10.129.3.177/23] from ovn-kubernetes
+  Normal   Pulled          11m                  kubelet            Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-logging-sidecar:v1.0.0_20251024-1349" already present on machine
+  Normal   Created         11m                  kubelet            Created container: system-out-log
+  Normal   Started         11m                  kubelet            Started container system-out-log
+  Normal   Pulled          11m                  kubelet            Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-logging-sidecar:v1.0.0_20251024-1349" already present on machine
+  Normal   Created         11m                  kubelet            Created container: trace-log
+  Normal   Started         11m                  kubelet            Started container trace-log
+  Normal   Started         8m17s (x6 over 11m)  kubelet            Started container web-engine
+  Normal   Created         5m18s (x7 over 11m)  kubelet            Created container: web-engine
+  Warning  BackOff         83s (x51 over 11m)   kubelet            Back-off restarting failed container web-engine in pod dx-deployment-web-engine-0_digital-experience(880f32b2-cd38-4f7b-873f-cc81f54c137e)
+  Normal   Pulled          11s (x8 over 11m)    kubelet            Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-webengine:CF231_20251025-2351" already present on machine

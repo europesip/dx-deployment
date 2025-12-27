@@ -76,14 +76,18 @@ networking:
   webEngine:
     # Host of webEngine, must be specified as a FQDN
     host: "dx.apps.promox.europesip-lab.com"
+
 # Security related configuration, e.g. default credentials
 security:
   # Security configuration for webEngine
   webEngine:
     # Credentials for the WebEngine Server administrative user
     # Note: Be aware of the out-of-the-box additional "admin1" adminsitrative user
-    webEngineUser: "wpsadmin"
-    webEnginePassword: "Passw0rd" # Simple password for wpsadmin
+    # Also, be aware that if we want to use custom-secrets, we must also unset webEngineUser & webEnginePassword values
+    webEngineUser: null
+    webEnginePassword: null
+    customWebEngineSecret: "web-engine-secret" # secret only is taken if previous values are empty.
+
 
 configuration:
   containerTimezone: "Europe/Madrid"

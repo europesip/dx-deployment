@@ -1,0 +1,175 @@
+--- PVC: customization-dx-deployment-web-engine-0 ---
+Name:          customization-dx-deployment-web-engine-0
+Namespace:     digital-experience
+StorageClass:  dx-deploy-rwo
+Status:        Bound
+Volume:        pvc-3c185db5-d872-43ef-91d8-ae263ffcfadc
+Labels:        app=dx-deployment-web-engine
+Annotations:   pv.kubernetes.io/bind-completed: yes
+               pv.kubernetes.io/bound-by-controller: yes
+               volume.beta.kubernetes.io/storage-provisioner: cluster.local/nfs-client-nfs-subdir-external-provisioner
+               volume.kubernetes.io/storage-provisioner: cluster.local/nfs-client-nfs-subdir-external-provisioner
+Finalizers:    [kubernetes.io/pvc-protection]
+Capacity:      500Mi
+Access Modes:  RWO
+VolumeMode:    Filesystem
+Used By:       dx-deployment-web-engine-0
+Events:
+  Type    Reason                 Age   From                                                                                                                                                       Message
+  ----    ------                 ----  ----                                                                                                                                                       -------
+  Normal  ExternalProvisioning   15m   persistentvolume-controller                                                                                                                                Waiting for a volume to be created either by the external provisioner 'cluster.local/nfs-client-nfs-subdir-external-provisioner' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+  Normal  Provisioning           15m   cluster.local/nfs-client-nfs-subdir-external-provisioner_nfs-client-nfs-subdir-external-provisioner-786fc577bf-r4sg4_940c9e4f-c592-4b3c-a692-ab74c57c79f2  External provisioner is provisioning volume for claim "digital-experience/customization-dx-deployment-web-engine-0"
+  Normal  ProvisioningSucceeded  15m   cluster.local/nfs-client-nfs-subdir-external-provisioner_nfs-client-nfs-subdir-external-provisioner-786fc577bf-r4sg4_940c9e4f-c592-4b3c-a692-ab74c57c79f2  Successfully provisioned volume pvc-3c185db5-d872-43ef-91d8-ae263ffcfadc
+--- PV: pvc-3c185db5-d872-43ef-91d8-ae263ffcfadc (Bound to customization-dx-deployment-web-engine-0) ---
+Name:            pvc-3c185db5-d872-43ef-91d8-ae263ffcfadc
+Labels:          <none>
+Annotations:     pv.kubernetes.io/provisioned-by: cluster.local/nfs-client-nfs-subdir-external-provisioner
+Finalizers:      [kubernetes.io/pv-protection]
+StorageClass:    dx-deploy-rwo
+Status:          Bound
+Claim:           digital-experience/customization-dx-deployment-web-engine-0
+Reclaim Policy:  Retain
+Access Modes:    RWO
+VolumeMode:      Filesystem
+Capacity:        500Mi
+Node Affinity:   <none>
+Message:         
+Source:
+    Type:      NFS (an NFS mount that lasts the lifetime of a pod)
+    Server:    192.168.100.10
+    Path:      /export/nfs_openshift/digital-experience-customization-dx-deployment-web-engine-0-pvc-3c185db5-d872-43ef-91d8-ae263ffcfadc
+    ReadOnly:  false
+Events:        <none>
+--- PVC: database-dx-deployment-persistence-node-0 ---
+Name:          database-dx-deployment-persistence-node-0
+Namespace:     digital-experience
+StorageClass:  dx-deploy-rwo
+Status:        Bound
+Volume:        pvc-9c8b12de-d408-4902-8c3a-968868f83a5e
+Labels:        app=dx-deployment-persistence-node
+Annotations:   pv.kubernetes.io/bind-completed: yes
+               pv.kubernetes.io/bound-by-controller: yes
+               volume.beta.kubernetes.io/storage-provisioner: cluster.local/nfs-client-nfs-subdir-external-provisioner
+               volume.kubernetes.io/storage-provisioner: cluster.local/nfs-client-nfs-subdir-external-provisioner
+Finalizers:    [kubernetes.io/pvc-protection]
+Capacity:      2Gi
+Access Modes:  RWO
+VolumeMode:    Filesystem
+Used By:       dx-deployment-persistence-node-0
+Events:
+  Type    Reason                 Age   From                                                                                                                                                       Message
+  ----    ------                 ----  ----                                                                                                                                                       -------
+  Normal  ExternalProvisioning   15m   persistentvolume-controller                                                                                                                                Waiting for a volume to be created either by the external provisioner 'cluster.local/nfs-client-nfs-subdir-external-provisioner' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+  Normal  Provisioning           15m   cluster.local/nfs-client-nfs-subdir-external-provisioner_nfs-client-nfs-subdir-external-provisioner-786fc577bf-r4sg4_940c9e4f-c592-4b3c-a692-ab74c57c79f2  External provisioner is provisioning volume for claim "digital-experience/database-dx-deployment-persistence-node-0"
+  Normal  ProvisioningSucceeded  15m   cluster.local/nfs-client-nfs-subdir-external-provisioner_nfs-client-nfs-subdir-external-provisioner-786fc577bf-r4sg4_940c9e4f-c592-4b3c-a692-ab74c57c79f2  Successfully provisioned volume pvc-9c8b12de-d408-4902-8c3a-968868f83a5e
+--- PV: pvc-9c8b12de-d408-4902-8c3a-968868f83a5e (Bound to database-dx-deployment-persistence-node-0) ---
+Name:            pvc-9c8b12de-d408-4902-8c3a-968868f83a5e
+Labels:          <none>
+Annotations:     pv.kubernetes.io/provisioned-by: cluster.local/nfs-client-nfs-subdir-external-provisioner
+Finalizers:      [kubernetes.io/pv-protection]
+StorageClass:    dx-deploy-rwo
+Status:          Bound
+Claim:           digital-experience/database-dx-deployment-persistence-node-0
+Reclaim Policy:  Retain
+Access Modes:    RWO
+VolumeMode:      Filesystem
+Capacity:        2Gi
+Node Affinity:   <none>
+Message:         
+Source:
+    Type:      NFS (an NFS mount that lasts the lifetime of a pod)
+    Server:    192.168.100.10
+    Path:      /export/nfs_openshift/digital-experience-database-dx-deployment-persistence-node-0-pvc-9c8b12de-d408-4902-8c3a-968868f83a5e
+    ReadOnly:  false
+Events:        <none>
+--- PVC: dx-deployment-digital-asset-management ---
+Name:          dx-deployment-digital-asset-management
+Namespace:     digital-experience
+StorageClass:  dx-deploy-rwx
+Status:        Bound
+Volume:        pvc-2534bd3e-53e5-412f-801f-1be65e6838c1
+Labels:        app.kubernetes.io/instance=dx-deployment
+               app.kubernetes.io/managed-by=Helm
+               app.kubernetes.io/name=hcl-dx-deployment
+               app.kubernetes.io/version=95_CF231
+               helm.sh/chart=hcl-dx-deployment-2.42.1
+               release=dx-deployment
+Annotations:   meta.helm.sh/release-name: dx-deployment
+               meta.helm.sh/release-namespace: digital-experience
+               pv.kubernetes.io/bind-completed: yes
+               pv.kubernetes.io/bound-by-controller: yes
+               volume.beta.kubernetes.io/storage-provisioner: cluster.local/nfs-client-nfs-subdir-external-provisioner
+               volume.kubernetes.io/storage-provisioner: cluster.local/nfs-client-nfs-subdir-external-provisioner
+Finalizers:    [kubernetes.io/pvc-protection]
+Capacity:      2Gi
+Access Modes:  RWX
+VolumeMode:    Filesystem
+Used By:       dx-deployment-digital-asset-management-0
+Events:
+  Type    Reason                 Age   From                                                                                                                                                       Message
+  ----    ------                 ----  ----                                                                                                                                                       -------
+  Normal  ExternalProvisioning   15m   persistentvolume-controller                                                                                                                                Waiting for a volume to be created either by the external provisioner 'cluster.local/nfs-client-nfs-subdir-external-provisioner' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+  Normal  Provisioning           15m   cluster.local/nfs-client-nfs-subdir-external-provisioner_nfs-client-nfs-subdir-external-provisioner-786fc577bf-r4sg4_940c9e4f-c592-4b3c-a692-ab74c57c79f2  External provisioner is provisioning volume for claim "digital-experience/dx-deployment-digital-asset-management"
+  Normal  ProvisioningSucceeded  15m   cluster.local/nfs-client-nfs-subdir-external-provisioner_nfs-client-nfs-subdir-external-provisioner-786fc577bf-r4sg4_940c9e4f-c592-4b3c-a692-ab74c57c79f2  Successfully provisioned volume pvc-2534bd3e-53e5-412f-801f-1be65e6838c1
+--- PV: pvc-2534bd3e-53e5-412f-801f-1be65e6838c1 (Bound to dx-deployment-digital-asset-management) ---
+Name:            pvc-2534bd3e-53e5-412f-801f-1be65e6838c1
+Labels:          <none>
+Annotations:     pv.kubernetes.io/provisioned-by: cluster.local/nfs-client-nfs-subdir-external-provisioner
+Finalizers:      [kubernetes.io/pv-protection]
+StorageClass:    dx-deploy-rwx
+Status:          Bound
+Claim:           digital-experience/dx-deployment-digital-asset-management
+Reclaim Policy:  Retain
+Access Modes:    RWX
+VolumeMode:      Filesystem
+Capacity:        2Gi
+Node Affinity:   <none>
+Message:         
+Source:
+    Type:      NFS (an NFS mount that lasts the lifetime of a pod)
+    Server:    192.168.100.10
+    Path:      /export/nfs_openshift/digital-experience-dx-deployment-digital-asset-management-pvc-2534bd3e-53e5-412f-801f-1be65e6838c1
+    ReadOnly:  false
+Events:        <none>
+--- PVC: log-dx-deployment-web-engine-0 ---
+Name:          log-dx-deployment-web-engine-0
+Namespace:     digital-experience
+StorageClass:  dx-deploy-rwo
+Status:        Bound
+Volume:        pvc-66aff724-e675-4ae7-b7fc-635a9d651f37
+Labels:        app=dx-deployment-web-engine
+Annotations:   pv.kubernetes.io/bind-completed: yes
+               pv.kubernetes.io/bound-by-controller: yes
+               volume.beta.kubernetes.io/storage-provisioner: cluster.local/nfs-client-nfs-subdir-external-provisioner
+               volume.kubernetes.io/storage-provisioner: cluster.local/nfs-client-nfs-subdir-external-provisioner
+Finalizers:    [kubernetes.io/pvc-protection]
+Capacity:      250Mi
+Access Modes:  RWO
+VolumeMode:    Filesystem
+Used By:       dx-deployment-web-engine-0
+Events:
+  Type    Reason                 Age   From                                                                                                                                                       Message
+  ----    ------                 ----  ----                                                                                                                                                       -------
+  Normal  ExternalProvisioning   15m   persistentvolume-controller                                                                                                                                Waiting for a volume to be created either by the external provisioner 'cluster.local/nfs-client-nfs-subdir-external-provisioner' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+  Normal  Provisioning           15m   cluster.local/nfs-client-nfs-subdir-external-provisioner_nfs-client-nfs-subdir-external-provisioner-786fc577bf-r4sg4_940c9e4f-c592-4b3c-a692-ab74c57c79f2  External provisioner is provisioning volume for claim "digital-experience/log-dx-deployment-web-engine-0"
+  Normal  ProvisioningSucceeded  15m   cluster.local/nfs-client-nfs-subdir-external-provisioner_nfs-client-nfs-subdir-external-provisioner-786fc577bf-r4sg4_940c9e4f-c592-4b3c-a692-ab74c57c79f2  Successfully provisioned volume pvc-66aff724-e675-4ae7-b7fc-635a9d651f37
+--- PV: pvc-66aff724-e675-4ae7-b7fc-635a9d651f37 (Bound to log-dx-deployment-web-engine-0) ---
+Name:            pvc-66aff724-e675-4ae7-b7fc-635a9d651f37
+Labels:          <none>
+Annotations:     pv.kubernetes.io/provisioned-by: cluster.local/nfs-client-nfs-subdir-external-provisioner
+Finalizers:      [kubernetes.io/pv-protection]
+StorageClass:    dx-deploy-rwo
+Status:          Bound
+Claim:           digital-experience/log-dx-deployment-web-engine-0
+Reclaim Policy:  Retain
+Access Modes:    RWO
+VolumeMode:      Filesystem
+Capacity:        250Mi
+Node Affinity:   <none>
+Message:         
+Source:
+    Type:      NFS (an NFS mount that lasts the lifetime of a pod)
+    Server:    192.168.100.10
+    Path:      /export/nfs_openshift/digital-experience-log-dx-deployment-web-engine-0-pvc-66aff724-e675-4ae7-b7fc-635a9d651f37
+    ReadOnly:  false
+Events:        <none>

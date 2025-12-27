@@ -1,0 +1,1140 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  data:
+    dx.config.contentui.cors_origin: ""
+    dx.config.contentui.external_ring_api_host: ""
+    dx.config.contentui.external_ring_api_port: "443"
+    dx.config.contentui.portal_context_root: wps
+    dx.config.contentui.portal_host: dx-deployment-web-engine
+    dx.config.contentui.portal_port: "9443"
+    dx.config.contentui.ring_api_external_ssl_enabled: "true"
+    dx.config.contentui.ring_api_host: dx-deployment-ring-api
+    dx.config.contentui.ring_api_port: "3000"
+    dx.config.contentui.ring_api_ssl_enabled: "false"
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: dx-deployment
+      meta.helm.sh/release-namespace: digital-experience
+    creationTimestamp: "2025-12-24T17:57:32Z"
+    labels:
+      app: dx-deployment-content-composer
+      app.kubernetes.io/instance: dx-deployment
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: hcl-dx-deployment
+      app.kubernetes.io/version: 95_CF231
+      helm.sh/chart: hcl-dx-deployment-2.42.1
+      release: dx-deployment
+    name: dx-deployment-content-composer
+    namespace: digital-experience
+    resourceVersion: "18973703"
+    uid: 01662866-29d6-47f5-a407-922f93b4d9f7
+- apiVersion: v1
+  data:
+    dam.config.dam.acl_cache_ttl: "10"
+    dam.config.dam.acl_traversal: "false"
+    dam.config.dam.allow_editor_to_create_collections: "true"
+    dam.config.dam.auth_cache_ttl: "600"
+    dam.config.dam.base_api_external_ssl_enabled: "true"
+    dam.config.dam.clean_up_heartbeat_interval_time_minutes: "1440"
+    dam.config.dam.core_api_context_root: wps
+    dam.config.dam.core_api_host: dx-deployment-web-engine
+    dam.config.dam.core_api_port: "3000"
+    dam.config.dam.core_api_ssl_enabled: "true"
+    dam.config.dam.cors_origin: ""
+    dam.config.dam.crop_aspect_ratio: 1:1,4:3,3:2,16:9,9:16
+    dam.config.dam.dam_schema_migration_expired_time_in_minutes: "10"
+    dam.config.dam.db_init_by_dam: "true"
+    dam.config.dam.deployment_name: dx-deployment
+    dam.config.dam.enable_clean_up_or_rendition_version_regeneration_heartbeats: "false"
+    dam.config.dam.enable_root_collection_sort: "true"
+    dam.config.dam.event_list_length: "200"
+    dam.config.dam.extensibility_plugin_config.json: |
+      {
+        "google-vision": {
+          "actions": {
+            "annotation": {
+              "params": {},
+              "url": "/annotation"
+            }
+          },
+          "authKey": "PluginSecretAuthKey",
+          "callBackHost": "http://dx-deployment-digital-asset-management:3000",
+          "enable": false,
+          "url": "http://dx-deployment-dam-plugin-google-vision:3000/dx/api/google-vision/v1/googleVisionAI"
+        },
+        "image-processor": {
+          "actions": {
+            "crop": {
+              "params": {},
+              "url": "/crop"
+            },
+            "metadata": {
+              "params": {},
+              "url": "/metadata"
+            },
+            "resize": {
+              "params": {},
+              "url": "/resize"
+            },
+            "rotate": {
+              "params": {},
+              "url": "/rotate"
+            }
+          },
+          "authKey": "PluginSecretAuthKey",
+          "callBackHost": "http://dx-deployment-digital-asset-management:3000",
+          "enable": true,
+          "url": "http://dx-deployment-image-processor:3000/dx/api/image-processor/v1/plugin"
+        },
+        "kaltura-plugin": {
+          "actions": {
+            "delete": {
+              "params": {},
+              "url": "/delete"
+            },
+            "resize": {
+              "params": {},
+              "url": "/resize"
+            },
+            "status": {
+              "params": {},
+              "url": "/status"
+            },
+            "upload": {
+              "params": {},
+              "url": "/upload"
+            }
+          },
+          "authKey": "kalturaPluginSecretAuthKey",
+          "callBackHost": "http://dx-deployment-digital-asset-management:3000",
+          "dataUrlPattern": "https://cdnapisec.kaltura.com/p/{PARTNERID}/sp/{PARTNERID}00/playManifest/entryId/{ENTRYID}/format/url/protocol/https",
+          "enable": false,
+          "playerLibraryUrlPattern": "https://cdnapisec.kaltura.com/p/{PARTNERID}/sp/{PARTNERID}00/embedIframeJs/uiconf_id/{PLAYERID}/partner_id/{PARTNERID}",
+          "playerid": "kalturaPluginPlayerId",
+          "url": "http://dx-deployment-dam-plugin-kaltura:3000/dx/api/kaltura/v1/plugin"
+        }
+      }
+    dam.config.dam.extensibility_rendition_config.json: |
+      {
+        "image/gif": {
+          "rendition": [
+            {
+              "keywordStack": [
+                {
+                  "operation": {
+                    "annotation": {}
+                  },
+                  "plugin": "google-vision"
+                }
+              ],
+              "name": "Original",
+              "supplementalStack": [],
+              "thumbnailStack": [],
+              "transformationStack": []
+            }
+          ]
+        },
+        "image/jpeg": {
+          "rendition": [
+            {
+              "keywordStack": [
+                {
+                  "operation": {
+                    "annotation": {}
+                  },
+                  "plugin": "google-vision"
+                }
+              ],
+              "name": "Original",
+              "supplementalStack": [
+                {
+                  "operation": {
+                    "metadata": {}
+                  },
+                  "plugin": "image-processor"
+                }
+              ],
+              "thumbnailStack": [
+                {
+                  "operation": {
+                    "crop": {
+                      "region": "CENTER"
+                    }
+                  },
+                  "plugin": "image-processor"
+                },
+                {
+                  "operation": {
+                    "resize": {
+                      "height": 192,
+                      "width": 192
+                    }
+                  },
+                  "plugin": "image-processor"
+                }
+              ],
+              "transformationStack": []
+            },
+            {
+              "keywordStack": [],
+              "name": "Desktop",
+              "supplementalStack": [
+                {
+                  "operation": {
+                    "metadata": {}
+                  },
+                  "plugin": "image-processor"
+                }
+              ],
+              "thumbnailStack": [
+                {
+                  "operation": {
+                    "crop": {
+                      "region": "CENTER"
+                    }
+                  },
+                  "plugin": "image-processor"
+                },
+                {
+                  "operation": {
+                    "resize": {
+                      "height": 192,
+                      "width": 192
+                    }
+                  },
+                  "plugin": "image-processor"
+                }
+              ],
+              "transformationStack": [
+                {
+                  "operation": {
+                    "resize": {
+                      "height": 1080,
+                      "width": 1920
+                    }
+                  },
+                  "plugin": "image-processor"
+                }
+              ]
+            },
+            {
+              "keywordStack": [],
+              "name": "Tablet",
+              "supplementalStack": [
+                {
+                  "operation": {
+                    "metadata": {}
+                  },
+                  "plugin": "image-processor"
+                }
+              ],
+              "thumbnailStack": [
+                {
+                  "operation": {
+                    "crop": {
+                      "region": "CENTER"
+                    }
+                  },
+                  "plugin": "image-processor"
+                },
+                {
+                  "operation": {
+                    "resize": {
+                      "height": 192,
+                      "width": 192
+                    }
+                  },
+                  "plugin": "image-processor"
+                }
+              ],
+              "transformationStack": [
+                {
+                  "operation": {
+                    "resize": {
+                      "height": 768,
+                      "width": 1024
+                    }
+                  },
+                  "plugin": "image-processor"
+                }
+              ]
+            },
+            {
+              "keywordStack": [],
+              "name": "Smartphone",
+              "supplementalStack": [
+                {
+                  "operation": {
+                    "metadata": {}
+                  },
+                  "plugin": "image-processor"
+                }
+              ],
+              "thumbnailStack": [
+                {
+                  "operation": {
+                    "crop": {
+                      "region": "CENTER"
+                    }
+                  },
+                  "plugin": "image-processor"
+                },
+                {
+                  "operation": {
+                    "resize": {
+                      "height": 192,
+                      "width": 192
+                    }
+                  },
+                  "plugin": "image-processor"
+                }
+              ],
+              "transformationStack": [
+                {
+                  "operation": {
+                    "resize": {
+                      "height": 760,
+                      "width": 360
+                    }
+                  },
+                  "plugin": "image-processor"
+                }
+              ]
+            }
+          ]
+        },
+        "image/png": {
+          "rendition": [
+            {
+              "keywordStack": [
+                {
+                  "operation": {
+                    "annotation": {}
+                  },
+                  "plugin": "google-vision"
+                }
+              ],
+              "name": "Original",
+              "supplementalStack": [
+                {
+                  "operation": {
+                    "metadata": {}
+                  },
+                  "plugin": "image-processor"
+                }
+              ],
+              "thumbnailStack": [
+                {
+                  "operation": {
+                    "crop": {
+                      "region": "CENTER"
+                    }
+                  },
+                  "plugin": "image-processor"
+                },
+                {
+                  "operation": {
+                    "resize": {
+                      "height": 192,
+                      "width": 192
+                    }
+                  },
+                  "plugin": "image-processor"
+                }
+              ],
+              "transformationStack": []
+            },
+            {
+              "keywordStack": [],
+              "name": "Desktop",
+              "supplementalStack": [
+                {
+                  "operation": {
+                    "metadata": {}
+                  },
+                  "plugin": "image-processor"
+                }
+              ],
+              "thumbnailStack": [
+                {
+                  "operation": {
+                    "crop": {
+                      "region": "CENTER"
+                    }
+                  },
+                  "plugin": "image-processor"
+                },
+                {
+                  "operation": {
+                    "resize": {
+                      "height": 192,
+                      "width": 192
+                    }
+                  },
+                  "plugin": "image-processor"
+                }
+              ],
+              "transformationStack": [
+                {
+                  "operation": {
+                    "resize": {
+                      "height": 1080,
+                      "width": 1920
+                    }
+                  },
+                  "plugin": "image-processor"
+                }
+              ]
+            },
+            {
+              "keywordStack": [],
+              "name": "Tablet",
+              "supplementalStack": [
+                {
+                  "operation": {
+                    "metadata": {}
+                  },
+                  "plugin": "image-processor"
+                }
+              ],
+              "thumbnailStack": [
+                {
+                  "operation": {
+                    "crop": {
+                      "region": "CENTER"
+                    }
+                  },
+                  "plugin": "image-processor"
+                },
+                {
+                  "operation": {
+                    "resize": {
+                      "height": 192,
+                      "width": 192
+                    }
+                  },
+                  "plugin": "image-processor"
+                }
+              ],
+              "transformationStack": [
+                {
+                  "operation": {
+                    "resize": {
+                      "height": 768,
+                      "width": 1024
+                    }
+                  },
+                  "plugin": "image-processor"
+                }
+              ]
+            },
+            {
+              "keywordStack": [],
+              "name": "Smartphone",
+              "supplementalStack": [
+                {
+                  "operation": {
+                    "metadata": {}
+                  },
+                  "plugin": "image-processor"
+                }
+              ],
+              "thumbnailStack": [
+                {
+                  "operation": {
+                    "crop": {
+                      "region": "CENTER"
+                    }
+                  },
+                  "plugin": "image-processor"
+                },
+                {
+                  "operation": {
+                    "resize": {
+                      "height": 192,
+                      "width": 192
+                    }
+                  },
+                  "plugin": "image-processor"
+                }
+              ],
+              "transformationStack": [
+                {
+                  "operation": {
+                    "resize": {
+                      "height": 760,
+                      "width": 360
+                    }
+                  },
+                  "plugin": "image-processor"
+                }
+              ]
+            }
+          ]
+        },
+        "image/svg+xml": {
+          "rendition": [
+            {
+              "keywordStack": [],
+              "name": "Original",
+              "supplementalStack": [],
+              "thumbnailStack": [],
+              "transformationStack": []
+            }
+          ]
+        },
+        "image/tiff": {
+          "rendition": [
+            {
+              "keywordStack": [],
+              "name": "Original",
+              "supplementalStack": [],
+              "thumbnailStack": [],
+              "transformationStack": []
+            }
+          ]
+        },
+        "video/mp4": {
+          "rendition": [
+            {
+              "keywordStack": [],
+              "name": "Original",
+              "supplementalStack": [
+                {
+                  "operation": {
+                    "status": {
+                      "entryId": ""
+                    }
+                  },
+                  "plugin": "kaltura-plugin"
+                }
+              ],
+              "thumbnailStack": [
+                {
+                  "operation": {
+                    "resize": {
+                      "entryId": "",
+                      "height": 192,
+                      "width": 192
+                    }
+                  },
+                  "plugin": "kaltura-plugin"
+                }
+              ],
+              "transformationStack": [
+                {
+                  "operation": {
+                    "upload": {
+                      "mediaId": ""
+                    }
+                  },
+                  "plugin": "kaltura-plugin"
+                }
+              ]
+            }
+          ]
+        },
+        "video/ogg": {
+          "rendition": [
+            {
+              "keywordStack": [],
+              "name": "Original",
+              "supplementalStack": [
+                {
+                  "operation": {
+                    "status": {
+                      "entryId": ""
+                    }
+                  },
+                  "plugin": "kaltura-plugin"
+                }
+              ],
+              "thumbnailStack": [
+                {
+                  "operation": {
+                    "resize": {
+                      "entryId": "",
+                      "height": 192,
+                      "width": 192
+                    }
+                  },
+                  "plugin": "kaltura-plugin"
+                }
+              ],
+              "transformationStack": [
+                {
+                  "operation": {
+                    "upload": {
+                      "mediaId": ""
+                    }
+                  },
+                  "plugin": "kaltura-plugin"
+                }
+              ]
+            }
+          ]
+        },
+        "video/webm": {
+          "rendition": [
+            {
+              "keywordStack": [],
+              "name": "Original",
+              "supplementalStack": [
+                {
+                  "operation": {
+                    "status": {
+                      "entryId": ""
+                    }
+                  },
+                  "plugin": "kaltura-plugin"
+                }
+              ],
+              "thumbnailStack": [
+                {
+                  "operation": {
+                    "resize": {
+                      "entryId": "",
+                      "height": 192,
+                      "width": 192
+                    }
+                  },
+                  "plugin": "kaltura-plugin"
+                }
+              ],
+              "transformationStack": [
+                {
+                  "operation": {
+                    "upload": {
+                      "mediaId": ""
+                    }
+                  },
+                  "plugin": "kaltura-plugin"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    dam.config.dam.external_base_api_host: ""
+    dam.config.dam.external_base_api_port: "443"
+    dam.config.dam.external_image_processor_api_host: ""
+    dam.config.dam.external_image_processor_api_port: "443"
+    dam.config.dam.external_ring_api_host: ""
+    dam.config.dam.external_ring_api_port: "443"
+    dam.config.dam.failed_operation_threshold_limit_records: "20000"
+    dam.config.dam.failed_operation_threshold_time_hours: "24"
+    dam.config.dam.friendly_url_context_root: ""
+    dam.config.dam.image_processor_api_external_ssl_enabled: "true"
+    dam.config.dam.image_processor_api_host: dx-deployment-image-processor
+    dam.config.dam.image_processor_api_port: "3000"
+    dam.config.dam.image_processor_api_ssl_enabled: "false"
+    dam.config.dam.internal_base_api_host: dx-deployment-digital-asset-management
+    dam.config.dam.internal_base_api_port: "3000"
+    dam.config.dam.last_scan_threshold_time_minutes: "360"
+    dam.config.dam.ltpa_token_refresh_time_in_minutes: "5"
+    dam.config.dam.max_age: "600"
+    dam.config.dam.max_bulk_upload_without_warning: "100"
+    dam.config.dam.max_records_to_compare: "10000"
+    dam.config.dam.max_validation_processing_limit: "100"
+    dam.config.dam.media_creation_threshold_time_minutes: "1440"
+    dam.config.dam.node_request_timeout_in_minutes: "15"
+    dam.config.dam.operation_clean_up_heart_beat_interval: "0"
+    dam.config.dam.operation_timeout: "30"
+    dam.config.dam.operation_worker_limit: "10"
+    dam.config.dam.orphan_data_and_file_cleanup_heartbeat_interval_time_minutes: "1440"
+    dam.config.dam.orphan_directory_modification_threshold_time_minutes: "1440"
+    dam.config.dam.orphan_media_storage_creation_threshold_time_minutes: "1440"
+    dam.config.dam.postgres_db_host: dx-deployment-persistence
+    dam.config.dam.postgres_db_name: dxmediadb
+    dam.config.dam.postgres_db_port: "5432"
+    dam.config.dam.postgres_db_ssl: "false"
+    dam.config.dam.render_new_ui: "true"
+    dam.config.dam.rendition_or_version_heartbeat_interval_time_minutes: "60"
+    dam.config.dam.ring_api_external_ssl_enabled: "true"
+    dam.config.dam.ring_api_host: dx-deployment-ring-api
+    dam.config.dam.ring_api_port: "3000"
+    dam.config.dam.ring_api_ssl_enabled: "false"
+    dam.config.dam.search_middleware_content_source_id: ""
+    dam.config.dam.search_middleware_external_port: ""
+    dam.config.dam.search_middleware_external_ssl_enabled: "false"
+    dam.config.dam.search_middleware_host: ""
+    dam.config.dam.search_middleware_is_enabled: "false"
+    dam.config.dam.search_middleware_ssl_enabled: "false"
+    dam.config.dam.staging_dam_api_host: ""
+    dam.config.dam.staging_dam_api_port: "443"
+    dam.config.dam.staging_dam_api_ssl_enabled: "true"
+    dam.config.dam.staging_ring_api_host: ""
+    dam.config.dam.staging_ring_api_port: "443"
+    dam.config.dam.staging_ring_api_ssl_enabled: "true"
+    dam.config.dam.static_max_age: "86400"
+    dam.config.dam.validation_heartbeat_interval_time_minutes: "10"
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: dx-deployment
+      meta.helm.sh/release-namespace: digital-experience
+    creationTimestamp: "2025-12-24T17:57:32Z"
+    labels:
+      app: dx-deployment-digital-asset-management
+      app.kubernetes.io/instance: dx-deployment
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: hcl-dx-deployment
+      app.kubernetes.io/version: 95_CF231
+      helm.sh/chart: hcl-dx-deployment-2.42.1
+      release: dx-deployment
+    name: dx-deployment-digital-asset-management
+    namespace: digital-experience
+    resourceVersion: "18973706"
+    uid: f83c016b-b313-4987-afae-1056b40d26e9
+- apiVersion: v1
+  data:
+    log.contentComposer: api:server-v1:*=info
+    log.damPluginGoogleVision: api:server-v1:*=info
+    log.damPluginKaltura: api:server-v1:*=info
+    log.digitalAssetManagement: api:server-v1:*=info,worker:server-v1:*=info
+    log.haproxy: haproxy:=info
+    log.imageProcessor: api:server-v1:*=info
+    log.licenseManager: license-check:.*=INFO,license-check:com.hcl.dx.*=INFO
+    log.persistenceConnectionPool: pgpool:=info
+    log.persistenceNode: psql:=info,repmgr:=info
+    log.ringApi: api:server-v1:*=info
+    log.runtimeController: controller:.*=INFO,controller:com.hcl.dx.*=INFO
+    log.webEngine: '*=info,com.ibm.wps.logging.ExceptionLogger=all,hcl.logging.search-v2.DEBUG.client.*=all'
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: dx-deployment
+      meta.helm.sh/release-namespace: digital-experience
+    creationTimestamp: "2025-12-24T17:57:32Z"
+    labels:
+      app.kubernetes.io/instance: dx-deployment
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: hcl-dx-deployment
+      app.kubernetes.io/version: 95_CF231
+      helm.sh/chart: hcl-dx-deployment-2.42.1
+      release: dx-deployment
+    name: dx-deployment-global
+    namespace: digital-experience
+    resourceVersion: "18973708"
+    uid: 900699f4-f8b7-4de0-8172-f66b506dd93e
+- apiVersion: v1
+  data:
+    dx.config.haproxy.cfg: "global\n  stats socket ipv4@*:9999 mode 660 level admin
+      expose-fd listeners\n  maxconn 50000\n  log stdout format raw local0 info\n
+      \ nbthread 4\n\ndefaults\n  timeout connect 10s\n  timeout client 1200s\n  timeout
+      server 1200s\n  log global\n  mode http\n  option httplog\n  # If a core server
+      goes down we allow connecting to other servers even if stickyness would prevent
+      that\n  option redispatch\n  balance leastconn\n  # Default http log format
+      with IP removed\n  log-format \"[%tr] %ft %b/%s %TR/%Tw/%Tc/%Tr/%Ta %ST %B %CC
+      %CS %tsc %ac/%fc/%bc/%sc/%rc %sq/%bq %hr %hs %{+Q}r\"\n\n# Mock frontend returning
+      a 200 code for the probes once HAProxy is up\nfrontend probe\n  # We disable
+      logging for the probe frontend to not pollute the log\n  no log\n  bind :10001\n
+      \ http-request return status 200 content-type \"text/plain\" string \"OK\"\n\nfrontend
+      metrics\n  bind *:8404\n  http-request use-service prometheus-exporter if {
+      path /metrics }\n  stats enable\n  stats uri /stats\n  stats refresh 10s\n\n#
+      We create a peer section only pointing to the current instance. This persists
+      stick tables during a config reload as the new process reads the tables from
+      the old process\npeers localPeer\n  peer local 127.0.0.1:10000\n\nfrontend dx\n
+      \ bind :8081 ssl crt /etc/ssl/certs/tls.crt \n\n  # HTTP Strict Transport Security(HSTS)\n
+      \ http-response set-header Strict-Transport-Security \"max-age=31536000;\"\n\n
+      \ use_backend dam if { path -m reg ^/dx/(api|ui)/dam/ }\n  use_backend dam if
+      { path_beg /dx/ui/picker/ }\n  use_backend content if { path_beg /dx/ui/content/
+      }\n  use_backend image-processor if { path_beg /dx/api/image-processor/ }\n
+      \ use_backend ring-api if { path_beg /dx/api/core/ }\n  stick-table type string
+      len 180 size 32m expire 30m store http_req_rate(30m),gpc0 peers localPeer\n
+      \ http-request set-header X-Concat --%[src]_%[req.fhdr(User-Agent)]_%[req.fhdr(X-Forwarded-For,-1)]--\n
+      \ http-request track-sc0 req.fhdr(X-Concat)\n\n\n  use_backend runtime-controller
+      \ if { path_beg /dx/api/runtime-controller/ }\n\n  default_backend web-engine-dx-home\n\n#
+      Define DNS resolver for core headless services\nresolvers kube-dns\n  # Use
+      the Pod's /etc/resolv.conf file (created by Kubernetes) to define the nameserver\n
+      \ parse-resolv-conf\n  accepted_payload_size 8192\n\nbackend web-engine-dx-home\n
+      \ acl has_oidc_set_cookie res.hdr(Set-Cookie) -m reg ^OIDCSTATE\n  acl has_saml_set_cookie
+      res.hdr(Set-Cookie) -m reg ^WasSamlAcsID\n  dynamic-cookie-key dx-deployment\n
+      \ acl path_metrics path -i /metrics\n  http-request deny if path_metrics\n  #
+      Set CSP frame-ancestors if URLs are provided\n  # We use this workaround to
+      create a second cookie when certain cookies are present\n  # The new cookie
+      will be used to handle the stickyness. This prevents the actual cookie value
+      from being altered.\n  # The cookie is created with a placeholder value and
+      is rewritten by HAProxy\n  http-response add-header Set-Cookie DxSessionAffinity=placeholder_value;\\
+      path=/;\\ HttpOnly;\\ Secure;\\ SameSite= if { res.cook(JSESSIONID) -m found
+      } || has_oidc_set_cookie || has_saml_set_cookie\n  cookie DxSessionAffinity
+      rewrite dynamic  nocache\n  default-server ssl check verify none\n  # Setting
+      server template \"num\" parameter to highest number among `maxReplica`, `replica`,
+      and 99. `maxReplica` and `replica` would be considered from the Helm values.\n
+      \ # The purpose to set the higher number of server template is to cover for
+      auto-scaling of the core pods.\n  # We do not want to set this number too high
+      as Prometheus is scraping all servers which are specified to `server-template`
+      whether it's assigned to any pods or not.\n  server-template web-engine-dx-home
+      99 dx-deployment-web-engine-headless.digital-experience.svc.cluster.local:9443
+      check resolvers kube-dns init-addr none\n\nbackend core-dx-home\n  acl has_oidc_set_cookie
+      res.hdr(Set-Cookie) -m reg ^OIDCSTATE\n  acl has_saml_set_cookie res.hdr(Set-Cookie)
+      -m reg ^WasSamlAcsID\n  dynamic-cookie-key dx-deployment\n  # Set CSP frame-ancestors
+      if URLs are provided\n  # We use this workaround to create a second cookie when
+      certain cookies are present\n  # The new cookie will be used to handle the stickyness.
+      This prevents the actual cookie value from being altered.\n  # The cookie is
+      created with a placeholder value and is rewritten by HAProxy\n  http-response
+      add-header Set-Cookie DxSessionAffinity=placeholder_value;\\ path=/;\\ HttpOnly;\\
+      Secure;\\ SameSite= if { res.cook(JSESSIONID) -m found } || has_oidc_set_cookie
+      || has_saml_set_cookie\n  cookie DxSessionAffinity rewrite dynamic  nocache\n
+      \ default-server ssl check verify none\n  # Setting server template \"num\"
+      parameter to highest number among `maxReplica`, `replica`, and 99. `maxReplica`
+      and `replica` would be considered from the Helm values.\n  # The purpose to
+      set the higher number of server template is to cover for auto-scaling of the
+      core pods.\n  # We do not want to set this number too high as Prometheus is
+      scraping all servers which are specified to `server-template` whether it's assigned
+      to any pods or not.\n  server-template core-dx-home 99 dx-deployment-core-headless.digital-experience.svc.cluster.local:10042
+      check resolvers kube-dns init-addr none\nbackend core-was-admin\n  dynamic-cookie-key
+      dx-deployment\n  # We use this workaround to create a second cookie when JSESSIONID
+      is present\n  # The new cookie will be used to handle the stickyness. This prevents
+      the actual JSESSIONID value from being altered\n  http-response add-header Set-cookie
+      DxSessionAffinity=placeholder_value;\\ path=/;\\ HttpOnly;\\ Secure;\\ SameSite=
+      if { res.cook(JSESSIONID) -m found }\n  cookie DxSessionAffinity rewrite dynamic
+      \ nocache\n  default-server ssl check verify none\n  # Setting server template
+      \"num\" parameter to highest number among `maxReplica`, `replica`, and 99. `maxReplica`
+      and `replica` would be considered from the Helm values.\n  # The purpose to
+      set the higher number of server template is to cover for auto-scaling of the
+      core pods.\n  # We do not want to set this number too high as Prometheus is
+      scraping all servers which are specified to `server-template` whether it's assigned
+      to any pods or not.\n  server-template core-was-admin 99 dx-deployment-core-headless.digital-experience.svc.cluster.local:10041
+      check resolvers kube-dns init-addr none\nbackend core-dxconnect\n  dynamic-cookie-key
+      dx-deployment\n  # We use this workaround to create a second cookie when CWSession4
+      is present\n  # The new cookie will be used to handle the stickyness. This prevents
+      the actual CWSession4 value from being altered\n  http-response add-header Set-cookie
+      CwSessionAffinity=%[res.cook(CWSession4)];\\ path=/ if { res.cook(CWSession4)
+      -m found }\n  cookie CwSessionAffinity rewrite dynamic nocache\n  default-server
+      ssl check verify none\n  # Setting server template \"num\" parameter to highest
+      number among `maxReplica`, `replica`, and 99. `maxReplica` and `replica` would
+      be considered from the Helm values.\n  # The purpose to set the higher number
+      of server template is to cover for auto-scaling of the core pods.\n  # We do
+      not want to set this number too high as Prometheus is scraping all servers which
+      are specified to `server-template` whether it's assigned to any pods or not.\n
+      \ server-template core-dxconnect 99 dx-deployment-core-headless.digital-experience.svc.cluster.local:10202
+      check resolvers kube-dns init-addr none\n\nbackend core-cw-home\n  default-server
+      ssl check verify none\n  # For Config Wizard we always connect to the first
+      Core Pod (core-0). Requests will be forwarded even when the Pod is unready to
+      allow Config Wizard to keep communicating during restarts.\n  server-template
+      core-cw-home 1 dx-deployment-core-unready-pod-0.digital-experience.svc.cluster.local:10202
+      check resolvers kube-dns init-addr none\n\nfrontend cw-admin-sec\n  mode tcp\n
+      \ option tcplog\n  # Default tcp log format with IP removed\n  log-format \"[%t]
+      %ft %b/%s %Tw/%Tc/%Tt %B %ts %ac/%fc/%bc/%sc/%rc %sq/%bq\"\n  bind :10203 ssl
+      crt /etc/ssl/certs/tls.crt \n  default_backend cw-admin-sec\n\nbackend cw-admin-sec\n
+      \ dynamic-cookie-key dx-deployment\n  # We use this workaround to create a second
+      cookie when JSESSIONID is present\n  # The new cookie will be used to handle
+      the stickyness. This prevents the actual JSESSIONID value from being altered\n
+      \ http-response add-header Set-cookie CwAdminSessionAffinity=%[res.cook(JSESSIONID)];\\
+      path=/ if { res.cook(JSESSIONID) -m found }\n  cookie CwAdminSessionAffinity
+      rewrite dynamic nocache\n  default-server ssl check verify none\n  # Setting
+      server template \"num\" parameter to highest number among `maxReplica`, `replica`,
+      and 99. `maxReplica` and `replica` would be considered from the Helm values.\n
+      \ # The purpose to set the higher number of server template is to cover for
+      auto-scaling of the core pods.\n  # We do not want to set this number too high
+      as Prometheus is scraping all servers which are specified to `server-template`
+      whether it's assigned to any pods or not.\n  server-template cw-admin-sec 99
+      dx-deployment-core-headless.digital-experience.svc.cluster.local:10203 check
+      resolvers kube-dns init-addr none\nfrontend remote-search-frontend\n  mode tcp\n
+      \ option tcplog\n  # Default tcp log format with IP removed\n  log-format \"[%t]
+      %ft %b/%s %Tw/%Tc/%Tt %B %ts %ac/%fc/%bc/%sc/%rc %sq/%bq\"\n  bind :9043 ssl
+      crt /etc/ssl/certs/tls.crt \n  default_backend remote-search\n\nbackend remote-search\n
+      \ server-template remote-search 1 dx-deployment-remote-search.digital-experience.svc.cluster.local:9043
+      ssl check verify none resolvers kube-dns init-addr none\n\ndefaults\n  timeout
+      connect 10s\n  timeout client 1200s\n  timeout server 1200s\n  log global\n
+      \ mode http\n  option httplog\nbackend dam\n  server-template dam 1 dx-deployment-digital-asset-management.digital-experience.svc.cluster.local:3000
+      check resolvers kube-dns init-addr none\n\nbackend content\n  server-template
+      content 1 dx-deployment-content-composer.digital-experience.svc.cluster.local:3000
+      check resolvers kube-dns init-addr none\n\nbackend image-processor\n  server-template
+      image-processor 1 dx-deployment-image-processor.digital-experience.svc.cluster.local:3000
+      check resolvers kube-dns init-addr none\n\nbackend runtime-controller\n  server-template
+      runtime-controller 1 dx-deployment-runtime-controller.digital-experience.svc.cluster.local:3000
+      check resolvers kube-dns init-addr none\n\nbackend ring-api\n  server-template
+      ring-api 1 dx-deployment-ring-api.digital-experience.svc.cluster.local:3000
+      check resolvers kube-dns init-addr none\n"
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: dx-deployment
+      meta.helm.sh/release-namespace: digital-experience
+    creationTimestamp: "2025-12-24T17:57:32Z"
+    labels:
+      app: dx-deployment-haproxy
+      app.kubernetes.io/instance: dx-deployment
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: hcl-dx-deployment
+      app.kubernetes.io/version: 95_CF231
+      helm.sh/chart: hcl-dx-deployment-2.42.1
+      release: dx-deployment
+    name: dx-deployment-haproxy
+    namespace: digital-experience
+    resourceVersion: "18973710"
+    uid: e7d75202-bd81-464e-b691-a60e12efe8fd
+- apiVersion: v1
+  data:
+    dam.config.dam.imgprocessor.cors_origin: ""
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: dx-deployment
+      meta.helm.sh/release-namespace: digital-experience
+    creationTimestamp: "2025-12-24T17:57:32Z"
+    labels:
+      app: dx-deployment-image-processor
+      app.kubernetes.io/instance: dx-deployment
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: hcl-dx-deployment
+      app.kubernetes.io/version: 95_CF231
+      helm.sh/chart: hcl-dx-deployment-2.42.1
+      release: dx-deployment
+    name: dx-deployment-image-processor
+    namespace: digital-experience
+    resourceVersion: "18973713"
+    uid: 8d29a40d-a5a6-4a05-ad8b-5a1ba77017bb
+- apiVersion: v1
+  data:
+    dam.config.dam.persistence.postgres_db: dxmediadb
+    dam.config.dam.persistence.system: ""
+  kind: ConfigMap
+  metadata:
+    annotations:
+      helm.sh/hook: pre-upgrade
+      helm.sh/hook-weight: "-5"
+    creationTimestamp: "2025-12-24T18:01:22Z"
+    labels:
+      app: dx-deployment-persistence
+      app.kubernetes.io/instance: dx-deployment
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: hcl-dx-deployment
+      app.kubernetes.io/version: 95_CF231
+      helm.sh/chart: hcl-dx-deployment-2.42.1
+      release: dx-deployment
+    name: dx-deployment-persistence
+    namespace: digital-experience
+    resourceVersion: "18975324"
+    uid: 376aad5b-467c-49dc-a55d-ce1968a7ce77
+- apiVersion: v1
+  data:
+    dam.config.dam.persistence.pgpool_max_pool: "15"
+    dam.config.dam.persistence.pgpool_num_init_children: "64"
+    dam.config.dam.persistence.pgpool_sr_check_database: repmgr
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: dx-deployment
+      meta.helm.sh/release-namespace: digital-experience
+    creationTimestamp: "2025-12-24T17:57:32Z"
+    labels:
+      app: dx-deployment-persistence-connection-pool
+      app.kubernetes.io/instance: dx-deployment
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: hcl-dx-deployment
+      app.kubernetes.io/version: 95_CF231
+      helm.sh/chart: hcl-dx-deployment-2.42.1
+      release: dx-deployment
+    name: dx-deployment-persistence-connection-pool
+    namespace: digital-experience
+    resourceVersion: "18973711"
+    uid: 5c390539-d731-4793-bc2d-781b78e681fe
+- apiVersion: v1
+  data:
+    dam.config.dam.persistence.postgres_db: dxmediadb
+    dam.config.dam.persistence.postgres_max_connections: "1000"
+    dam.config.dam.persistence.postgres_wal_keep_segments: "64"
+    dam.config.dam.persistence.postgres_wal_senders: "5"
+    dam.config.dam.persistence.replication_db: repmgr
+    dam.config.dam.persistence.repmgr_port_number: "5432"
+    dam.config.dam.persistence.synchronous_commit: remote_apply
+    dam.config.dam.persistence.synchronous_standby_names: ""
+    dam.config.dam.persistence.validation_sleep_timer: "120"
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: dx-deployment
+      meta.helm.sh/release-namespace: digital-experience
+    creationTimestamp: "2025-12-24T17:57:32Z"
+    labels:
+      app: dx-deployment-persistence-node
+      app.kubernetes.io/instance: dx-deployment
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: hcl-dx-deployment
+      app.kubernetes.io/version: 95_CF231
+      helm.sh/chart: hcl-dx-deployment-2.42.1
+      release: dx-deployment
+    name: dx-deployment-persistence-node
+    namespace: digital-experience
+    resourceVersion: "18973707"
+    uid: 22c7d41a-8e99-4557-a71f-4eddee863c07
+- apiVersion: v1
+  data:
+    dx.config.experienceapi.cors_origin: ""
+    dx.config.experienceapi.portal_context_root: wps
+    dx.config.experienceapi.portal_host: dx-deployment-web-engine
+    dx.config.experienceapi.portal_personalized_home: myportal
+    dx.config.experienceapi.portal_port: "9443"
+    dx.config.experienceapi.portal_ssl_enabled: "true"
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: dx-deployment
+      meta.helm.sh/release-namespace: digital-experience
+    creationTimestamp: "2025-12-24T17:57:32Z"
+    labels:
+      app: dx-deployment-ring-api
+      app.kubernetes.io/instance: dx-deployment
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: hcl-dx-deployment
+      app.kubernetes.io/version: 95_CF231
+      helm.sh/chart: hcl-dx-deployment-2.42.1
+      release: dx-deployment
+    name: dx-deployment-ring-api
+    namespace: digital-experience
+    resourceVersion: "18973705"
+    uid: 8e78a7b3-ce2a-45e1-ac88-61060df571dc
+- apiVersion: v1
+  data:
+    configmapRecycle.affectedResources.deployment: content-composer,image-processor,ring-api
+    configmapRecycle.affectedResources.statefulset: core,digital-asset-management,persistence-ro,persistence-rw,remote-search
+    configmapRecycle.enable: "true"
+    persistentFailover.enable: "true"
+    runtimecontroller.config.imageTagChecksum: 4890f28ee947d1fe47a79a89143a5b6f53377e4008ec8a95e8c4e2498dd8fe06
+    runtimecontroller.config.runtime_controller_lease_expiry_time: "15"
+    runtimecontroller.config.runtime_controller_lease_polling_time: "5"
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: dx-deployment
+      meta.helm.sh/release-namespace: digital-experience
+    creationTimestamp: "2025-12-24T17:57:32Z"
+    labels:
+      app: dx-deployment-runtime-controller
+      app.kubernetes.io/instance: dx-deployment
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: hcl-dx-deployment
+      app.kubernetes.io/version: 95_CF231
+      helm.sh/chart: hcl-dx-deployment-2.42.1
+      release: dx-deployment
+    name: dx-deployment-runtime-controller
+    namespace: digital-experience
+    resourceVersion: "18973712"
+    uid: 1762e211-36e1-40ce-ba7a-fed114f45436
+- apiVersion: v1
+  data:
+    core.config.ai_enabled: "false"
+    core.config.authoring: "true"
+    core.config.cc_enabled: "true"
+    core.config.cc_url: /dx/ui/content/static
+    core.config.content_ai_provider: OPEN_AI
+    core.config.context_root: wps
+    core.config.custom_ai_classname: ""
+    core.config.dam_enabled: "true"
+    core.config.dam_url: /dx/ui/dam/static
+    core.config.deployment_type: helm
+    core.config.drop_database_tables: "true"
+    core.config.dxpicker_enabled: "true"
+    core.config.dxpicker_url: /dx/ui/picker/static
+    core.config.home_path: portal
+    core.config.host_name: dx.apps.promox.europesip-lab.com
+    core.config.ldap_attribute_mapping_ldap: mail,title,userPassword
+    core.config.ldap_attribute_mapping_portal: ibm-primaryEmail,ibm-jobTitle,password
+    core.config.ldap_attribute_non_supported: certificate,members
+    core.config.ldap_enabled: "false"
+    core.config.ldap_host: ""
+    core.config.ldap_id: dx_ldap
+    core.config.ldap_port: ""
+    core.config.ldap_server_type: Custom
+    core.config.ldap_suffix: ""
+    core.config.metrics_enabled: "true"
+    core.config.people_service_enabled: "false"
+    core.config.personalized_path: myportal
+    core.config.search_middleware_context_root_api: /dx/api/search
+    core.config.search_middleware_context_root_picker_ui: /dx/ui/search/picker
+    core.config.search_middleware_enabled: "false"
+    core.config.search_middleware_version: v2
+    core.config.search_ui_v2_enabled: "false"
+    core.config.use_external_database: "true"
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: dx-deployment
+      meta.helm.sh/release-namespace: digital-experience
+    creationTimestamp: "2025-12-24T17:57:32Z"
+    labels:
+      app: dx-deployment-web-engine
+      app.kubernetes.io/instance: dx-deployment
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: hcl-dx-deployment
+      app.kubernetes.io/version: 95_CF231
+      helm.sh/chart: hcl-dx-deployment-2.42.1
+      release: dx-deployment
+    name: dx-deployment-web-engine
+    namespace: digital-experience
+    resourceVersion: "18975335"
+    uid: a2e9d3f7-13eb-430f-9996-1e5948480741
+- apiVersion: v1
+  data:
+    jvm.options: |
+      -Dicm.config.file.dir=./libraries/dxcoreLib/com/ibm/icm/icm.properties
+      -noverify
+      -Xms2560m
+      -Xmn1024m
+      -Xlog:gc*:file=verbosegc.log:time
+      -Dfile.encoding=UTF-8
+      -Ddefault.client.encoding=UTF-8
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: dx-deployment
+      meta.helm.sh/release-namespace: digital-experience
+    creationTimestamp: "2025-12-24T17:57:32Z"
+    labels:
+      app: dx-deployment-web-engine
+      app.kubernetes.io/instance: dx-deployment
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: hcl-dx-deployment
+      app.kubernetes.io/version: 95_CF231
+      helm.sh/chart: hcl-dx-deployment-2.42.1
+      release: dx-deployment
+    name: dx-deployment-web-engine-jvm-options
+    namespace: digital-experience
+    resourceVersion: "18973702"
+    uid: b971f3bf-d628-416b-9857-23adcba61a9e
+- apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: dx-deployment
+      meta.helm.sh/release-namespace: digital-experience
+    creationTimestamp: "2025-12-24T17:57:32Z"
+    labels:
+      app: dx-deployment-web-engine
+      app.kubernetes.io/instance: dx-deployment
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: hcl-dx-deployment
+      app.kubernetes.io/version: 95_CF231
+      helm.sh/chart: hcl-dx-deployment-2.42.1
+      release: dx-deployment
+    name: dx-deployment-web-engine-overrides
+    namespace: digital-experience
+    resourceVersion: "18973709"
+    uid: be6bc102-ec83-4dce-893b-2216e7c6b6bd
+- apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: dx-deployment
+      meta.helm.sh/release-namespace: digital-experience
+    creationTimestamp: "2025-12-24T17:57:32Z"
+    labels:
+      app: dx-deployment-web-engine
+      app.kubernetes.io/instance: dx-deployment
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: hcl-dx-deployment
+      app.kubernetes.io/version: 95_CF231
+      helm.sh/chart: hcl-dx-deployment-2.42.1
+      release: dx-deployment
+    name: dx-deployment-web-engine-properties-overrides
+    namespace: digital-experience
+    resourceVersion: "18973714"
+    uid: 9f4ea7d8-fb66-4c90-8ec1-5bf08a6b4a0d
+kind: List
+metadata:
+  resourceVersion: ""

@@ -1,5 +1,0 @@
-error: unknown command "top" for "oc"
-
-Did you mean this?
-	cp
-	tag

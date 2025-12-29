@@ -52,7 +52,7 @@ log*
 
 # 1. Explicitly ignore the entire directory and all its contents.
 #    (This prevents anything from being uploaded by default).
-required-assets/
+#required-assets/
 
 # 2. Exception: Force tracking of the README.md file inside that directory.
 #    The exclamation mark (!) overrides the previous ignore rule.

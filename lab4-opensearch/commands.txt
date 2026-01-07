@@ -1,0 +1,4 @@
+
+oc create secret generic pushcreadentials --from-literal=username=pushadmin --from-literal=password=adminpush
+
+oc create secret generic searchadmincreadentials --from-literal=username=searchadmin --from-literal=password=adminsearch

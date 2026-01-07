@@ -1,6 +1,6 @@
 helm list
 helm uninstall dx-deployment
-helm uninstall dx-search
+helm uninstall dx-search-deployment
 oc get pvc
 oc delete pvc --all -n digital-experience
 oc get pv

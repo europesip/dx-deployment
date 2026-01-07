@@ -1,0 +1,509 @@
+LAST SEEN   TYPE      REASON                  OBJECT                                                              MESSAGE
+61m         Normal    Killing                 pod/dx-deployment-persistence-connection-pool-7c47cc988f-98jn4      Stopping container persistence-connection-pool
+61m         Normal    Killing                 pod/dx-deployment-image-processor-747c9457fc-kzqrz                  Stopping container image-processor
+61m         Normal    Killing                 pod/dx-deployment-digital-asset-management-0                        Stopping container digital-asset-management
+61m         Normal    Killing                 pod/dx-deployment-web-engine-0                                      Stopping container web-engine
+61m         Normal    Killing                 pod/dx-deployment-web-engine-0                                      Stopping container system-out-log
+61m         Normal    Killing                 pod/dx-deployment-persistence-node-0                                Stopping container persistence-metrics-exporter
+61m         Normal    Killing                 pod/dx-deployment-ring-api-69d69497d5-l84nw                         Stopping container ring-api
+61m         Normal    Killing                 pod/dx-deployment-content-composer-79d7fd546f-fqhfb                 Stopping container content-composer
+61m         Normal    Killing                 pod/dx-deployment-haproxy-6f7bb7cbd5-vr8px                          Stopping container haproxy
+61m         Normal    Killing                 pod/dx-deployment-digital-asset-management-0                        Stopping container prereqs-checker
+61m         Normal    Killing                 pod/dx-deployment-web-engine-0                                      Stopping container trace-log
+61m         Normal    Killing                 pod/dx-deployment-persistence-node-0                                Stopping container prereqs-checker
+61m         Normal    Killing                 pod/dx-deployment-persistence-node-0                                Stopping container persistence-repmgr-log
+61m         Normal    Killing                 pod/dx-deployment-runtime-controller-7b474b9bbf-jqv8q               Stopping container runtime-controller
+61m         Normal    Killing                 pod/dx-deployment-persistence-node-0                                Stopping container persistence-node
+61m         Warning   Unhealthy               pod/dx-deployment-web-engine-0                                      Readiness probe errored and resulted in unknown state: rpc error: code = Unknown desc = command error: cannot register an exec PID: container is stopping, stdout: , stderr: , exit code -1
+61m         Warning   Unhealthy               pod/dx-deployment-persistence-node-0                                Readiness probe errored and resulted in unknown state: rpc error: code = Unknown desc = command error: cannot register an exec PID: container is stopping, stdout: , stderr: , exit code -1
+61m         Warning   Unhealthy               pod/dx-deployment-ring-api-69d69497d5-l84nw                         Readiness probe failed: HTTP probe failed with statuscode: 500
+61m         Warning   Unhealthy               pod/dx-deployment-content-composer-79d7fd546f-fqhfb                 Readiness probe failed: HTTP probe failed with statuscode: 500
+61m         Warning   Unhealthy               pod/dx-deployment-digital-asset-management-0                        Readiness probe failed: HTTP probe failed with statuscode: 503
+60m         Normal    Killing                 pod/dx-search-deployment-open-search-manager-0                      Stopping container open-search
+60m         Normal    Killing                 pod/dx-search-deployment-search-middleware-query-75459cc859-qzlm6   Stopping container search-middleware
+60m         Normal    Killing                 pod/dx-search-deployment-file-processor-584f64848b-mc4fk            Stopping container file-processor
+60m         Warning   Unhealthy               pod/dx-search-deployment-search-middleware-query-75459cc859-qzlm6   Readiness probe failed: Get "http://10.128.3.193:3000/probe/ready": EOF
+60m         Normal    ScalingReplicaSet       deployment/dx-deployment-haproxy                                    Scaled up replica set dx-deployment-haproxy-8cc95c9c9 from 0 to 1
+60m         Normal    ScalingReplicaSet       deployment/dx-deployment-persistence-connection-pool                Scaled up replica set dx-deployment-persistence-connection-pool-7c47cc988f from 0 to 1
+60m         Normal    SuccessfulCreate        replicaset/dx-deployment-persistence-connection-pool-7c47cc988f     Created pod: dx-deployment-persistence-connection-pool-7c47cc988f-swklz
+60m         Normal    SuccessfulCreate        replicaset/dx-deployment-ring-api-69d69497d5                        Created pod: dx-deployment-ring-api-69d69497d5-74j5k
+60m         Normal    ScalingReplicaSet       deployment/dx-deployment-ring-api                                   Scaled up replica set dx-deployment-ring-api-69d69497d5 from 0 to 1
+60m         Normal    Scheduled               pod/dx-deployment-runtime-controller-7b474b9bbf-j4npp               Successfully assigned digital-experience/dx-deployment-runtime-controller-7b474b9bbf-j4npp to worker-1
+60m         Normal    ProvisioningSucceeded   persistentvolumeclaim/dx-deployment-digital-asset-management        Successfully provisioned volume pvc-74451a17-3960-4aaa-9c28-fcd8a0141830
+60m         Normal    Scheduled               pod/dx-deployment-ring-api-69d69497d5-74j5k                         Successfully assigned digital-experience/dx-deployment-ring-api-69d69497d5-74j5k to worker-1
+60m         Normal    ScalingReplicaSet       deployment/dx-deployment-image-processor                            Scaled up replica set dx-deployment-image-processor-747c9457fc from 0 to 1
+60m         Normal    Scheduled               pod/dx-deployment-content-composer-79d7fd546f-zd78t                 Successfully assigned digital-experience/dx-deployment-content-composer-79d7fd546f-zd78t to worker-0
+60m         Normal    Scheduled               pod/dx-deployment-haproxy-8cc95c9c9-x6jsd                           Successfully assigned digital-experience/dx-deployment-haproxy-8cc95c9c9-x6jsd to worker-1
+60m         Normal    ExternalProvisioning    persistentvolumeclaim/dx-deployment-digital-asset-management        Waiting for a volume to be created either by the external provisioner 'cluster.local/nfs-client-nfs-subdir-external-provisioner' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+60m         Normal    Provisioning            persistentvolumeclaim/dx-deployment-digital-asset-management        External provisioner is provisioning volume for claim "digital-experience/dx-deployment-digital-asset-management"
+60m         Normal    ScalingReplicaSet       deployment/dx-deployment-runtime-controller                         Scaled up replica set dx-deployment-runtime-controller-7b474b9bbf from 0 to 1
+60m         Normal    SuccessfulCreate        replicaset/dx-deployment-image-processor-747c9457fc                 Created pod: dx-deployment-image-processor-747c9457fc-jjxfr
+60m         Normal    SuccessfulCreate        replicaset/dx-deployment-runtime-controller-7b474b9bbf              Created pod: dx-deployment-runtime-controller-7b474b9bbf-j4npp
+60m         Normal    Scheduled               pod/dx-deployment-persistence-connection-pool-7c47cc988f-swklz      Successfully assigned digital-experience/dx-deployment-persistence-connection-pool-7c47cc988f-swklz to worker-1
+60m         Normal    SuccessfulCreate        replicaset/dx-deployment-haproxy-8cc95c9c9                          Created pod: dx-deployment-haproxy-8cc95c9c9-x6jsd
+60m         Normal    Scheduled               pod/dx-deployment-image-processor-747c9457fc-jjxfr                  Successfully assigned digital-experience/dx-deployment-image-processor-747c9457fc-jjxfr to worker-1
+60m         Normal    ScalingReplicaSet       deployment/dx-deployment-content-composer                           Scaled up replica set dx-deployment-content-composer-79d7fd546f from 0 to 1
+60m         Normal    SuccessfulCreate        replicaset/dx-deployment-content-composer-79d7fd546f                Created pod: dx-deployment-content-composer-79d7fd546f-zd78t
+60m         Normal    AddedInterface          pod/dx-deployment-image-processor-747c9457fc-jjxfr                  Add eth0 [10.129.2.149/23] from ovn-kubernetes
+60m         Normal    Started                 pod/dx-deployment-content-composer-79d7fd546f-zd78t                 Started container content-composer
+60m         Normal    Created                 pod/dx-deployment-content-composer-79d7fd546f-zd78t                 Created container: content-composer
+60m         Normal    Pulled                  pod/dx-deployment-content-composer-79d7fd546f-zd78t                 Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-content-composer:v1.44.0_20251024-1345" already present on machine
+60m         Normal    Scheduled               pod/dx-deployment-digital-asset-management-0                        Successfully assigned digital-experience/dx-deployment-digital-asset-management-0 to worker-0
+60m         Normal    AddedInterface          pod/dx-deployment-digital-asset-management-0                        Add eth0 [10.128.3.195/23] from ovn-kubernetes
+60m         Normal    Started                 pod/dx-deployment-haproxy-8cc95c9c9-x6jsd                           Started container haproxy
+60m         Normal    Created                 pod/dx-deployment-haproxy-8cc95c9c9-x6jsd                           Created container: haproxy
+60m         Normal    ExternalProvisioning    persistentvolumeclaim/customization-dx-deployment-web-engine-0      Waiting for a volume to be created either by the external provisioner 'cluster.local/nfs-client-nfs-subdir-external-provisioner' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+60m         Normal    Pulled                  pod/dx-deployment-digital-asset-management-0                        Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-prereqs-checker:v1.0.0_20251024-1353" already present on machine
+60m         Normal    Pulled                  pod/dx-deployment-haproxy-8cc95c9c9-x6jsd                           Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-haproxy:v1.27.0_20251024-1338" already present on machine
+60m         Normal    AddedInterface          pod/dx-deployment-haproxy-8cc95c9c9-x6jsd                           Add eth0 [10.129.2.147/23] from ovn-kubernetes
+60m         Normal    AddedInterface          pod/dx-deployment-content-composer-79d7fd546f-zd78t                 Add eth0 [10.128.3.194/23] from ovn-kubernetes
+60m         Normal    SuccessfulCreate        statefulset/dx-deployment-persistence-node                          create Claim database-dx-deployment-persistence-node-0 Pod dx-deployment-persistence-node-0 in StatefulSet dx-deployment-persistence-node success
+60m         Normal    SuccessfulCreate        statefulset/dx-deployment-persistence-node                          create Pod dx-deployment-persistence-node-0 in StatefulSet dx-deployment-persistence-node successful
+60m         Normal    SuccessfulCreate        statefulset/dx-deployment-digital-asset-management                  create Pod dx-deployment-digital-asset-management-0 in StatefulSet dx-deployment-digital-asset-management successful
+60m         Normal    Scheduled               pod/dx-deployment-persistence-node-0                                Successfully assigned digital-experience/dx-deployment-persistence-node-0 to worker-2
+60m         Normal    AddedInterface          pod/dx-deployment-ring-api-69d69497d5-74j5k                         Add eth0 [10.129.2.150/23] from ovn-kubernetes
+60m         Normal    Pulled                  pod/dx-deployment-ring-api-69d69497d5-74j5k                         Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-ringapi:v1.44.0_20251024-1347" already present on machine
+60m         Warning   FailedScheduling        pod/dx-deployment-persistence-node-0                                0/6 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/6 nodes are available: 6 Preemption is not helpful for scheduling.
+60m         Normal    Provisioning            persistentvolumeclaim/database-dx-deployment-persistence-node-0     External provisioner is provisioning volume for claim "digital-experience/database-dx-deployment-persistence-node-0"
+60m         Normal    Started                 pod/dx-deployment-persistence-connection-pool-7c47cc988f-swklz      Started container persistence-connection-pool
+60m         Normal    SuccessfulCreate        statefulset/dx-deployment-web-engine                                create Claim log-dx-deployment-web-engine-0 Pod dx-deployment-web-engine-0 in StatefulSet dx-deployment-web-engine success
+60m         Normal    SuccessfulCreate        statefulset/dx-deployment-web-engine                                create Claim customization-dx-deployment-web-engine-0 Pod dx-deployment-web-engine-0 in StatefulSet dx-deployment-web-engine success
+60m         Normal    Created                 pod/dx-deployment-persistence-connection-pool-7c47cc988f-swklz      Created container: persistence-connection-pool
+60m         Normal    Pulled                  pod/dx-deployment-persistence-connection-pool-7c47cc988f-swklz      Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-persistence-connection-pool:v1.41.0_20251024-1356" already present on machine
+60m         Normal    ProvisioningSucceeded   persistentvolumeclaim/database-dx-deployment-persistence-node-0     Successfully provisioned volume pvc-ea3719a3-b5f0-4d77-ac7f-c0628c678607
+60m         Normal    ExternalProvisioning    persistentvolumeclaim/database-dx-deployment-persistence-node-0     Waiting for a volume to be created either by the external provisioner 'cluster.local/nfs-client-nfs-subdir-external-provisioner' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+60m         Normal    Scheduled               pod/dx-deployment-web-engine-0                                      Successfully assigned digital-experience/dx-deployment-web-engine-0 to worker-1
+60m         Warning   FailedScheduling        pod/dx-deployment-web-engine-0                                      0/6 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/6 nodes are available: 6 Preemption is not helpful for scheduling.
+60m         Normal    ExternalProvisioning    persistentvolumeclaim/log-dx-deployment-web-engine-0                Waiting for a volume to be created either by the external provisioner 'cluster.local/nfs-client-nfs-subdir-external-provisioner' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+60m         Normal    Provisioning            persistentvolumeclaim/log-dx-deployment-web-engine-0                External provisioner is provisioning volume for claim "digital-experience/log-dx-deployment-web-engine-0"
+60m         Normal    ProvisioningSucceeded   persistentvolumeclaim/log-dx-deployment-web-engine-0                Successfully provisioned volume pvc-ea21104a-d4f1-4d40-ab48-50d9ec236706
+60m         Normal    ProvisioningSucceeded   persistentvolumeclaim/customization-dx-deployment-web-engine-0      Successfully provisioned volume pvc-649e4a1f-6fb4-4436-8cf1-64b699bc424c
+60m         Normal    Provisioning            persistentvolumeclaim/customization-dx-deployment-web-engine-0      External provisioner is provisioning volume for claim "digital-experience/customization-dx-deployment-web-engine-0"
+60m         Normal    Pulled                  pod/dx-deployment-image-processor-747c9457fc-jjxfr                  Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-image-processor:v1.44.0_20251024-1405" already present on machine
+60m         Normal    AddedInterface          pod/dx-deployment-persistence-connection-pool-7c47cc988f-swklz      Add eth0 [10.129.2.146/23] from ovn-kubernetes
+60m         Normal    Started                 pod/dx-deployment-image-processor-747c9457fc-jjxfr                  Started container image-processor
+60m         Normal    AddedInterface          pod/dx-deployment-web-engine-0                                      Add eth0 [10.129.2.151/23] from ovn-kubernetes
+60m         Normal    Pulled                  pod/dx-deployment-web-engine-0                                      Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-webengine:CF231_20251025-2351" already present on machine
+60m         Normal    Created                 pod/dx-deployment-web-engine-0                                      Created container: web-engine
+60m         Normal    Created                 pod/dx-deployment-digital-asset-management-0                        Created container: prereqs-checker
+60m         Normal    Started                 pod/dx-deployment-runtime-controller-7b474b9bbf-j4npp               Started container runtime-controller
+60m         Normal    Created                 pod/dx-deployment-runtime-controller-7b474b9bbf-j4npp               Created container: runtime-controller
+60m         Normal    Pulled                  pod/dx-deployment-runtime-controller-7b474b9bbf-j4npp               Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-runtime-controller:v95_CF231_20251024-1351" already present on machine
+60m         Normal    AddedInterface          pod/dx-deployment-runtime-controller-7b474b9bbf-j4npp               Add eth0 [10.129.2.148/23] from ovn-kubernetes
+60m         Normal    Started                 pod/dx-deployment-web-engine-0                                      Started container web-engine
+60m         Normal    Pulled                  pod/dx-deployment-web-engine-0                                      Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-logging-sidecar:v1.0.0_20251024-1349" already present on machine
+60m         Normal    Created                 pod/dx-deployment-web-engine-0                                      Created container: system-out-log
+60m         Normal    Started                 pod/dx-deployment-web-engine-0                                      Started container system-out-log
+60m         Normal    Pulled                  pod/dx-deployment-web-engine-0                                      Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-logging-sidecar:v1.0.0_20251024-1349" already present on machine
+60m         Normal    Created                 pod/dx-deployment-web-engine-0                                      Created container: trace-log
+60m         Warning   Unhealthy               pod/dx-deployment-haproxy-8cc95c9c9-x6jsd                           Readiness probe failed: Get "http://10.129.2.147:10001/": dial tcp 10.129.2.147:10001: connect: connection refused
+60m         Normal    Started                 pod/dx-deployment-digital-asset-management-0                        Started container prereqs-checker
+60m         Normal    Started                 pod/dx-deployment-ring-api-69d69497d5-74j5k                         Started container ring-api
+60m         Normal    Created                 pod/dx-deployment-image-processor-747c9457fc-jjxfr                  Created container: image-processor
+60m         Normal    Created                 pod/dx-deployment-ring-api-69d69497d5-74j5k                         Created container: ring-api
+60m         Normal    Started                 pod/dx-deployment-web-engine-0                                      Started container trace-log
+59m         Normal    Pulled                  pod/dx-deployment-persistence-node-0                                Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-prereqs-checker:v1.0.0_20251024-1353" already present on machine
+59m         Normal    AddedInterface          pod/dx-deployment-persistence-node-0                                Add eth0 [10.131.1.72/23] from ovn-kubernetes
+59m         Normal    Created                 pod/dx-deployment-persistence-node-0                                Created container: prereqs-checker
+59m         Normal    Pulled                  pod/dx-deployment-persistence-node-0                                Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-persistence-metrics-exporter:v1.39.0_20251024-1357" already present on machine
+59m         Normal    Created                 pod/dx-deployment-persistence-node-0                                Created container: persistence-metrics-exporter
+59m         Normal    Started                 pod/dx-deployment-persistence-node-0                                Started container persistence-metrics-exporter
+59m         Normal    Started                 pod/dx-deployment-persistence-node-0                                Started container prereqs-checker
+59m         Normal    Created                 pod/dx-deployment-persistence-node-0                                Created container: persistence-repmgr-log
+59m         Normal    Pulled                  pod/dx-deployment-persistence-node-0                                Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-logging-sidecar:v1.0.0_20251024-1349" already present on machine
+59m         Normal    Started                 pod/dx-deployment-persistence-node-0                                Started container persistence-repmgr-log
+59m         Warning   Unhealthy               pod/dx-deployment-persistence-connection-pool-7c47cc988f-swklz      Liveness probe failed: NEW_DB_MANAGEMENT not enabled - pgPool will not be managed via the runtime controller
+[38;5;6mpgpool [38;5;5m18:31:19.20 [0m[38;5;2mINFO [0m ==> Checking pgpool health...
+psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: FATAL:  failed to create a backend connection
+DETAIL:  executing failover on backend
+59m         Warning   Unhealthy               pod/dx-deployment-runtime-controller-7b474b9bbf-j4npp               Liveness probe failed: Get "http://10.129.2.148:3000/q/health/live": dial tcp 10.129.2.148:3000: connect: connection refused
+59m         Warning   Unhealthy               pod/dx-deployment-persistence-connection-pool-7c47cc988f-swklz      Readiness probe failed: NEW_DB_MANAGEMENT not enabled - pgPool will not be managed via the runtime controller
+[38;5;6mpgpool [38;5;5m18:31:22.55 [0m[38;5;2mINFO [0m ==> Checking pgpool health...
+psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: FATAL:  failed to create a backend connection
+DETAIL:  executing failover on backend
+59m         Warning   Unhealthy               pod/dx-deployment-persistence-node-0                                Readiness probe failed: Postgres Server is not ready
+psql: error: connection to server on socket "/run/postgresql/.s.PGSQL.5432" failed: No such file or directory
+            Is the server running locally and accepting connections on that socket?
+59m         Normal    Created                 pod/dx-deployment-persistence-node-0                                Created container: persistence-node
+59m         Normal    Pulled                  pod/dx-deployment-persistence-node-0                                Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-persistence-node:v1.31_20251024-1354" already present on machine
+59m         Normal    Started                 pod/dx-deployment-persistence-node-0                                Started container persistence-node
+59m         Warning   Unhealthy               pod/dx-deployment-ring-api-69d69497d5-74j5k                         Liveness probe failed: Get "http://10.129.2.150:3000/probe/live": dial tcp 10.129.2.150:3000: connect: connection refused
+58m         Warning   Unhealthy               pod/dx-deployment-ring-api-69d69497d5-74j5k                         Readiness probe failed: Get "http://10.129.2.150:3000/probe/ready": dial tcp 10.129.2.150:3000: connect: connection refused
+58m         Warning   BackOff                 pod/dx-deployment-digital-asset-management-0                        Back-off restarting failed container digital-asset-management in pod dx-deployment-digital-asset-management-0_digital-experience(c1ff7f3c-3300-4141-86d4-2ca6902067a4)
+58m         Normal    Created                 pod/dx-deployment-digital-asset-management-0                        Created container: digital-asset-management
+58m         Normal    Started                 pod/dx-deployment-digital-asset-management-0                        Started container digital-asset-management
+58m         Normal    Pulled                  pod/dx-deployment-digital-asset-management-0                        Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-digital-asset-manager:v1.43.0_20251024-1357" already present on machine
+58m         Warning   Unhealthy               pod/dx-deployment-web-engine-0                                      Liveness probe failed:
+57m         Warning   Unhealthy               pod/dx-deployment-web-engine-0                                      Readiness probe failed:
+57m         Normal    Killing                 pod/dx-deployment-web-engine-0                                      Stopping container system-out-log
+57m         Normal    SuccessfulDelete        statefulset/dx-deployment-web-engine                                delete Pod dx-deployment-web-engine-0 in StatefulSet dx-deployment-web-engine successful
+57m         Normal    Killing                 pod/dx-deployment-web-engine-0                                      Stopping container trace-log
+57m         Normal    Killing                 pod/dx-deployment-web-engine-0                                      Stopping container web-engine
+57m         Normal    Scheduled               pod/dx-deployment-web-engine-0                                      Successfully assigned digital-experience/dx-deployment-web-engine-0 to worker-1
+57m         Normal    SuccessfulCreate        statefulset/dx-deployment-web-engine                                create Pod dx-deployment-web-engine-0 in StatefulSet dx-deployment-web-engine successful
+57m         Normal    AddedInterface          pod/dx-deployment-web-engine-0                                      Add eth0 [10.129.2.152/23] from ovn-kubernetes
+57m         Normal    Started                 pod/dx-deployment-web-engine-0                                      Started container trace-log
+57m         Normal    Created                 pod/dx-deployment-web-engine-0                                      Created container: trace-log
+57m         Normal    Pulled                  pod/dx-deployment-web-engine-0                                      Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-logging-sidecar:v1.0.0_20251024-1349" already present on machine
+57m         Normal    Started                 pod/dx-deployment-web-engine-0                                      Started container web-engine
+57m         Normal    Pulled                  pod/dx-deployment-web-engine-0                                      Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-webengine:CF231_20251025-2351" already present on machine
+57m         Normal    Created                 pod/dx-deployment-web-engine-0                                      Created container: system-out-log
+57m         Normal    Pulled                  pod/dx-deployment-web-engine-0                                      Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-logging-sidecar:v1.0.0_20251024-1349" already present on machine
+57m         Normal    Created                 pod/dx-deployment-web-engine-0                                      Created container: web-engine
+57m         Normal    Started                 pod/dx-deployment-web-engine-0                                      Started container system-out-log
+55m         Warning   Unhealthy               pod/dx-deployment-web-engine-0                                      Liveness probe failed:
+54m         Warning   Unhealthy               pod/dx-deployment-web-engine-0                                      Readiness probe failed:
+43m         Normal    Killing                 pod/dx-deployment-web-engine-0                                      Stopping container trace-log
+43m         Normal    Killing                 pod/dx-deployment-image-processor-747c9457fc-jjxfr                  Stopping container image-processor
+43m         Normal    Killing                 pod/dx-deployment-digital-asset-management-0                        Stopping container prereqs-checker
+43m         Normal    Killing                 pod/dx-deployment-digital-asset-management-0                        Stopping container digital-asset-management
+43m         Normal    Killing                 pod/dx-deployment-haproxy-8cc95c9c9-x6jsd                           Stopping container haproxy
+43m         Normal    Killing                 pod/dx-deployment-content-composer-79d7fd546f-zd78t                 Stopping container content-composer
+43m         Normal    Killing                 pod/dx-deployment-persistence-node-0                                Stopping container prereqs-checker
+43m         Normal    Killing                 pod/dx-deployment-persistence-connection-pool-7c47cc988f-swklz      Stopping container persistence-connection-pool
+43m         Normal    Killing                 pod/dx-deployment-persistence-node-0                                Stopping container persistence-repmgr-log
+43m         Normal    Killing                 pod/dx-deployment-ring-api-69d69497d5-74j5k                         Stopping container ring-api
+43m         Normal    Killing                 pod/dx-deployment-web-engine-0                                      Stopping container system-out-log
+43m         Normal    Killing                 pod/dx-deployment-web-engine-0                                      Stopping container web-engine
+43m         Normal    Killing                 pod/dx-deployment-persistence-node-0                                Stopping container persistence-node
+43m         Normal    Killing                 pod/dx-deployment-runtime-controller-7b474b9bbf-j4npp               Stopping container runtime-controller
+43m         Normal    Killing                 pod/dx-deployment-persistence-node-0                                Stopping container persistence-metrics-exporter
+43m         Warning   Unhealthy               pod/dx-deployment-web-engine-0                                      Readiness probe errored and resulted in unknown state: rpc error: code = Unknown desc = command error: cannot register an exec PID: container is stopping, stdout: , stderr: , exit code -1
+43m         Warning   Unhealthy               pod/dx-deployment-persistence-connection-pool-7c47cc988f-swklz      Readiness probe errored and resulted in unknown state: rpc error: code = Unknown desc = command error: cannot register an exec PID: container is stopping, stdout: , stderr: , exit code -1
+43m         Warning   Unhealthy               pod/dx-deployment-content-composer-79d7fd546f-zd78t                 Readiness probe failed: HTTP probe failed with statuscode: 500
+43m         Warning   Unhealthy               pod/dx-deployment-ring-api-69d69497d5-74j5k                         Readiness probe failed: HTTP probe failed with statuscode: 500
+43m         Warning   Unhealthy               pod/dx-deployment-digital-asset-management-0                        Readiness probe failed: HTTP probe failed with statuscode: 503
+42m         Normal    SuccessfulCreate        statefulset/dx-deployment-web-engine                                create Pod dx-deployment-web-engine-0 in StatefulSet dx-deployment-web-engine successful
+42m         Normal    ExternalProvisioning    persistentvolumeclaim/customization-dx-deployment-web-engine-0      Waiting for a volume to be created either by the external provisioner 'cluster.local/nfs-client-nfs-subdir-external-provisioner' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+42m         Normal    Provisioning            persistentvolumeclaim/customization-dx-deployment-web-engine-0      External provisioner is provisioning volume for claim "digital-experience/customization-dx-deployment-web-engine-0"
+42m         Normal    ExternalProvisioning    persistentvolumeclaim/log-dx-deployment-web-engine-0                Waiting for a volume to be created either by the external provisioner 'cluster.local/nfs-client-nfs-subdir-external-provisioner' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+42m         Normal    Scheduled               pod/dx-deployment-persistence-connection-pool-7c47cc988f-wqwvv      Successfully assigned digital-experience/dx-deployment-persistence-connection-pool-7c47cc988f-wqwvv to worker-2
+42m         Normal    SuccessfulCreate        statefulset/dx-deployment-digital-asset-management                  create Pod dx-deployment-digital-asset-management-0 in StatefulSet dx-deployment-digital-asset-management successful
+42m         Normal    SuccessfulCreate        replicaset/dx-deployment-ring-api-69d69497d5                        Created pod: dx-deployment-ring-api-69d69497d5-wn7pc
+42m         Normal    ProvisioningSucceeded   persistentvolumeclaim/dx-deployment-digital-asset-management        Successfully provisioned volume pvc-fd885356-2671-4c37-af6f-959ebdeb6379
+42m         Normal    SuccessfulCreate        replicaset/dx-deployment-content-composer-79d7fd546f                Created pod: dx-deployment-content-composer-79d7fd546f-f5nn5
+42m         Normal    Provisioning            persistentvolumeclaim/log-dx-deployment-web-engine-0                External provisioner is provisioning volume for claim "digital-experience/log-dx-deployment-web-engine-0"
+42m         Normal    Provisioning            persistentvolumeclaim/dx-deployment-digital-asset-management        External provisioner is provisioning volume for claim "digital-experience/dx-deployment-digital-asset-management"
+42m         Normal    ScalingReplicaSet       deployment/dx-deployment-content-composer                           Scaled up replica set dx-deployment-content-composer-79d7fd546f from 0 to 1
+42m         Normal    Provisioning            persistentvolumeclaim/database-dx-deployment-persistence-node-0     External provisioner is provisioning volume for claim "digital-experience/database-dx-deployment-persistence-node-0"
+42m         Normal    ScalingReplicaSet       deployment/dx-deployment-runtime-controller                         Scaled up replica set dx-deployment-runtime-controller-7b474b9bbf from 0 to 1
+42m         Normal    ExternalProvisioning    persistentvolumeclaim/dx-deployment-digital-asset-management        Waiting for a volume to be created either by the external provisioner 'cluster.local/nfs-client-nfs-subdir-external-provisioner' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+42m         Normal    ProvisioningSucceeded   persistentvolumeclaim/log-dx-deployment-web-engine-0                Successfully provisioned volume pvc-c17cd0eb-e16c-433e-a285-d218fd3446fa
+42m         Normal    SuccessfulCreate        statefulset/dx-deployment-web-engine                                create Claim customization-dx-deployment-web-engine-0 Pod dx-deployment-web-engine-0 in StatefulSet dx-deployment-web-engine success
+42m         Normal    SuccessfulCreate        statefulset/dx-deployment-persistence-node                          create Claim database-dx-deployment-persistence-node-0 Pod dx-deployment-persistence-node-0 in StatefulSet dx-deployment-persistence-node success
+42m         Normal    Scheduled               pod/dx-deployment-digital-asset-management-0                        Successfully assigned digital-experience/dx-deployment-digital-asset-management-0 to worker-0
+42m         Normal    SuccessfulCreate        statefulset/dx-deployment-persistence-node                          create Pod dx-deployment-persistence-node-0 in StatefulSet dx-deployment-persistence-node successful
+42m         Normal    Scheduled               pod/dx-deployment-ring-api-69d69497d5-wn7pc                         Successfully assigned digital-experience/dx-deployment-ring-api-69d69497d5-wn7pc to worker-1
+42m         Normal    Scheduled               pod/dx-deployment-web-engine-0                                      Successfully assigned digital-experience/dx-deployment-web-engine-0 to worker-1
+42m         Normal    ProvisioningSucceeded   persistentvolumeclaim/customization-dx-deployment-web-engine-0      Successfully provisioned volume pvc-b64e0fe6-b2c4-4054-97fc-ecc0a3ff9aa0
+42m         Normal    SuccessfulCreate        replicaset/dx-deployment-persistence-connection-pool-7c47cc988f     Created pod: dx-deployment-persistence-connection-pool-7c47cc988f-wqwvv
+42m         Normal    SuccessfulCreate        replicaset/dx-deployment-haproxy-8cc95c9c9                          Created pod: dx-deployment-haproxy-8cc95c9c9-q827d
+42m         Normal    ScalingReplicaSet       deployment/dx-deployment-image-processor                            Scaled up replica set dx-deployment-image-processor-747c9457fc from 0 to 1
+42m         Normal    ScalingReplicaSet       deployment/dx-deployment-persistence-connection-pool                Scaled up replica set dx-deployment-persistence-connection-pool-7c47cc988f from 0 to 1
+42m         Normal    Scheduled               pod/dx-deployment-runtime-controller-7b474b9bbf-wx2kr               Successfully assigned digital-experience/dx-deployment-runtime-controller-7b474b9bbf-wx2kr to worker-1
+42m         Normal    ScalingReplicaSet       deployment/dx-deployment-haproxy                                    Scaled up replica set dx-deployment-haproxy-8cc95c9c9 from 0 to 1
+42m         Normal    Scheduled               pod/dx-deployment-image-processor-747c9457fc-7tjrp                  Successfully assigned digital-experience/dx-deployment-image-processor-747c9457fc-7tjrp to worker-1
+42m         Normal    SuccessfulCreate        replicaset/dx-deployment-runtime-controller-7b474b9bbf              Created pod: dx-deployment-runtime-controller-7b474b9bbf-wx2kr
+42m         Normal    ExternalProvisioning    persistentvolumeclaim/database-dx-deployment-persistence-node-0     Waiting for a volume to be created either by the external provisioner 'cluster.local/nfs-client-nfs-subdir-external-provisioner' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+42m         Normal    ScalingReplicaSet       deployment/dx-deployment-ring-api                                   Scaled up replica set dx-deployment-ring-api-69d69497d5 from 0 to 1
+42m         Normal    Scheduled               pod/dx-deployment-content-composer-79d7fd546f-f5nn5                 Successfully assigned digital-experience/dx-deployment-content-composer-79d7fd546f-f5nn5 to worker-0
+42m         Normal    Scheduled               pod/dx-deployment-haproxy-8cc95c9c9-q827d                           Successfully assigned digital-experience/dx-deployment-haproxy-8cc95c9c9-q827d to worker-1
+42m         Warning   FailedScheduling        pod/dx-deployment-web-engine-0                                      0/6 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/6 nodes are available: 6 Preemption is not helpful for scheduling.
+42m         Normal    SuccessfulCreate        replicaset/dx-deployment-image-processor-747c9457fc                 Created pod: dx-deployment-image-processor-747c9457fc-7tjrp
+42m         Normal    SuccessfulCreate        statefulset/dx-deployment-web-engine                                create Claim log-dx-deployment-web-engine-0 Pod dx-deployment-web-engine-0 in StatefulSet dx-deployment-web-engine success
+42m         Normal    ProvisioningSucceeded   persistentvolumeclaim/database-dx-deployment-persistence-node-0     Successfully provisioned volume pvc-16f058bd-97b3-452b-9caf-1387ac3eac7c
+42m         Normal    Created                 pod/dx-deployment-runtime-controller-7b474b9bbf-wx2kr               Created container: runtime-controller
+42m         Normal    Started                 pod/dx-deployment-runtime-controller-7b474b9bbf-wx2kr               Started container runtime-controller
+42m         Normal    Pulled                  pod/dx-deployment-runtime-controller-7b474b9bbf-wx2kr               Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-runtime-controller:v95_CF231_20251024-1351" already present on machine
+42m         Normal    Pulled                  pod/dx-deployment-digital-asset-management-0                        Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-prereqs-checker:v1.0.0_20251024-1353" already present on machine
+42m         Normal    Started                 pod/dx-deployment-image-processor-747c9457fc-7tjrp                  Started container image-processor
+42m         Normal    Created                 pod/dx-deployment-image-processor-747c9457fc-7tjrp                  Created container: image-processor
+42m         Normal    Pulled                  pod/dx-deployment-image-processor-747c9457fc-7tjrp                  Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-image-processor:v1.44.0_20251024-1405" already present on machine
+42m         Normal    AddedInterface          pod/dx-deployment-image-processor-747c9457fc-7tjrp                  Add eth0 [10.129.2.156/23] from ovn-kubernetes
+42m         Normal    AddedInterface          pod/dx-deployment-content-composer-79d7fd546f-f5nn5                 Add eth0 [10.128.3.197/23] from ovn-kubernetes
+42m         Normal    AddedInterface          pod/dx-deployment-runtime-controller-7b474b9bbf-wx2kr               Add eth0 [10.129.2.153/23] from ovn-kubernetes
+42m         Normal    Pulled                  pod/dx-deployment-content-composer-79d7fd546f-f5nn5                 Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-content-composer:v1.44.0_20251024-1345" already present on machine
+42m         Normal    AddedInterface          pod/dx-deployment-digital-asset-management-0                        Add eth0 [10.128.3.198/23] from ovn-kubernetes
+42m         Normal    Created                 pod/dx-deployment-digital-asset-management-0                        Created container: prereqs-checker
+42m         Normal    AddedInterface          pod/dx-deployment-haproxy-8cc95c9c9-q827d                           Add eth0 [10.129.2.155/23] from ovn-kubernetes
+42m         Warning   FailedScheduling        pod/dx-deployment-persistence-node-0                                0/6 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/6 nodes are available: 6 Preemption is not helpful for scheduling.
+42m         Normal    Scheduled               pod/dx-deployment-persistence-node-0                                Successfully assigned digital-experience/dx-deployment-persistence-node-0 to worker-2
+42m         Normal    Created                 pod/dx-deployment-haproxy-8cc95c9c9-q827d                           Created container: haproxy
+42m         Normal    Started                 pod/dx-deployment-digital-asset-management-0                        Started container prereqs-checker
+42m         Normal    AddedInterface          pod/dx-deployment-ring-api-69d69497d5-wn7pc                         Add eth0 [10.129.2.154/23] from ovn-kubernetes
+42m         Normal    Pulled                  pod/dx-deployment-ring-api-69d69497d5-wn7pc                         Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-ringapi:v1.44.0_20251024-1347" already present on machine
+42m         Normal    Created                 pod/dx-deployment-ring-api-69d69497d5-wn7pc                         Created container: ring-api
+42m         Normal    Started                 pod/dx-deployment-haproxy-8cc95c9c9-q827d                           Started container haproxy
+42m         Normal    Started                 pod/dx-deployment-ring-api-69d69497d5-wn7pc                         Started container ring-api
+42m         Normal    Created                 pod/dx-deployment-content-composer-79d7fd546f-f5nn5                 Created container: content-composer
+42m         Warning   Unhealthy               pod/dx-deployment-haproxy-8cc95c9c9-q827d                           Readiness probe failed: Get "http://10.129.2.155:10001/": dial tcp 10.129.2.155:10001: connect: connection refused
+42m         Normal    Started                 pod/dx-deployment-content-composer-79d7fd546f-f5nn5                 Started container content-composer
+42m         Normal    Created                 pod/dx-deployment-web-engine-0                                      Created container: web-engine
+42m         Normal    Started                 pod/dx-deployment-web-engine-0                                      Started container web-engine
+42m         Normal    Pulled                  pod/dx-deployment-web-engine-0                                      Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-logging-sidecar:v1.0.0_20251024-1349" already present on machine
+42m         Normal    Created                 pod/dx-deployment-web-engine-0                                      Created container: system-out-log
+42m         Normal    Started                 pod/dx-deployment-web-engine-0                                      Started container system-out-log
+42m         Normal    Pulled                  pod/dx-deployment-web-engine-0                                      Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-logging-sidecar:v1.0.0_20251024-1349" already present on machine
+42m         Normal    Created                 pod/dx-deployment-web-engine-0                                      Created container: trace-log
+42m         Normal    Pulled                  pod/dx-deployment-web-engine-0                                      Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-webengine:CF231_20251025-2351" already present on machine
+42m         Normal    AddedInterface          pod/dx-deployment-web-engine-0                                      Add eth0 [10.129.2.157/23] from ovn-kubernetes
+42m         Normal    Pulled                  pod/dx-deployment-haproxy-8cc95c9c9-q827d                           Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-haproxy:v1.27.0_20251024-1338" already present on machine
+42m         Normal    Created                 pod/dx-deployment-persistence-node-0                                Created container: prereqs-checker
+42m         Normal    AddedInterface          pod/dx-deployment-persistence-connection-pool-7c47cc988f-wqwvv      Add eth0 [10.131.1.73/23] from ovn-kubernetes
+42m         Normal    Pulled                  pod/dx-deployment-persistence-node-0                                Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-logging-sidecar:v1.0.0_20251024-1349" already present on machine
+42m         Normal    AddedInterface          pod/dx-deployment-persistence-node-0                                Add eth0 [10.131.1.74/23] from ovn-kubernetes
+42m         Normal    Pulled                  pod/dx-deployment-persistence-node-0                                Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-persistence-metrics-exporter:v1.39.0_20251024-1357" already present on machine
+42m         Normal    Started                 pod/dx-deployment-web-engine-0                                      Started container trace-log
+42m         Normal    Pulled                  pod/dx-deployment-persistence-node-0                                Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-prereqs-checker:v1.0.0_20251024-1353" already present on machine
+42m         Normal    Created                 pod/dx-deployment-persistence-node-0                                Created container: persistence-metrics-exporter
+42m         Normal    Created                 pod/dx-deployment-persistence-node-0                                Created container: persistence-repmgr-log
+42m         Normal    Started                 pod/dx-deployment-persistence-node-0                                Started container persistence-repmgr-log
+42m         Normal    Started                 pod/dx-deployment-persistence-node-0                                Started container prereqs-checker
+42m         Normal    Started                 pod/dx-deployment-persistence-node-0                                Started container persistence-metrics-exporter
+42m         Warning   Unhealthy               pod/dx-deployment-persistence-node-0                                Readiness probe failed: Postgres Server is not ready
+psql: error: connection to server on socket "/run/postgresql/.s.PGSQL.5432" failed: No such file or directory
+            Is the server running locally and accepting connections on that socket?
+42m         Warning   Unhealthy               pod/dx-deployment-persistence-connection-pool-7c47cc988f-wqwvv      Readiness probe failed: NEW_DB_MANAGEMENT not enabled - pgPool will not be managed via the runtime controller
+[38;5;6mpgpool [38;5;5m18:48:29.56 [0m[38;5;2mINFO [0m ==> Checking pgpool health...
+psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: FATAL:  failed to create a backend connection
+DETAIL:  executing failover on backend
+42m         Normal    Started                 pod/dx-deployment-persistence-node-0                                Started container persistence-node
+42m         Normal    Created                 pod/dx-deployment-persistence-node-0                                Created container: persistence-node
+42m         Normal    Pulled                  pod/dx-deployment-persistence-node-0                                Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-persistence-node:v1.31_20251024-1354" already present on machine
+41m         Warning   Unhealthy               pod/dx-deployment-ring-api-69d69497d5-wn7pc                         Liveness probe failed: Get "http://10.129.2.154:3000/probe/live": dial tcp 10.129.2.154:3000: connect: connection refused
+41m         Warning   Unhealthy               pod/dx-deployment-persistence-connection-pool-7c47cc988f-wqwvv      Liveness probe failed: NEW_DB_MANAGEMENT not enabled - pgPool will not be managed via the runtime controller
+[38;5;6mpgpool [38;5;5m18:48:56.99 [0m[38;5;2mINFO [0m ==> Checking pgpool health...
+psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: ERROR:  pgpool is not accepting any new connections
+DETAIL:  all backend nodes are down, pgpool requires at least one valid node
+HINT:  repair the backend nodes and restart pgpool
+41m         Warning   Unhealthy               pod/dx-deployment-ring-api-69d69497d5-wn7pc                         Readiness probe failed: Get "http://10.129.2.154:3000/probe/ready": dial tcp 10.129.2.154:3000: connect: connection refused
+41m         Warning   Unhealthy               pod/dx-deployment-persistence-connection-pool-7c47cc988f-wqwvv      Readiness probe failed: NEW_DB_MANAGEMENT not enabled - pgPool will not be managed via the runtime controller
+[38;5;6mpgpool [38;5;5m18:48:59.56 [0m[38;5;2mINFO [0m ==> Checking pgpool health...
+psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: ERROR:  pgpool is not accepting any new connections
+DETAIL:  all backend nodes are down, pgpool requires at least one valid node
+HINT:  repair the backend nodes and restart pgpool
+41m         Warning   Unhealthy               pod/dx-deployment-persistence-connection-pool-7c47cc988f-wqwvv      Readiness probe failed: NEW_DB_MANAGEMENT not enabled - pgPool will not be managed via the runtime controller
+[38;5;6mpgpool [38;5;5m18:49:13.57 [0m[38;5;2mINFO [0m ==> Checking pgpool health...
+psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: ERROR:  pgpool is not accepting any new connections
+DETAIL:  all backend nodes are down, pgpool requires at least one valid node
+HINT:  repair the backend nodes and restart pgpool
+41m         Warning   Unhealthy               pod/dx-deployment-persistence-connection-pool-7c47cc988f-wqwvv      Liveness probe failed: NEW_DB_MANAGEMENT not enabled - pgPool will not be managed via the runtime controller
+[38;5;6mpgpool [38;5;5m18:49:27.00 [0m[38;5;2mINFO [0m ==> Checking pgpool health...
+psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: ERROR:  pgpool is not accepting any new connections
+DETAIL:  all backend nodes are down, pgpool requires at least one valid node
+HINT:  repair the backend nodes and restart pgpool
+41m         Warning   Unhealthy               pod/dx-deployment-persistence-connection-pool-7c47cc988f-wqwvv      Readiness probe failed: NEW_DB_MANAGEMENT not enabled - pgPool will not be managed via the runtime controller
+[38;5;6mpgpool [38;5;5m18:49:43.58 [0m[38;5;2mINFO [0m ==> Checking pgpool health...
+psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: ERROR:  pgpool is not accepting any new connections
+DETAIL:  all backend nodes are down, pgpool requires at least one valid node
+HINT:  repair the backend nodes and restart pgpool
+40m         Warning   Unhealthy               pod/dx-deployment-persistence-connection-pool-7c47cc988f-wqwvv      Liveness probe failed: NEW_DB_MANAGEMENT not enabled - pgPool will not be managed via the runtime controller
+[38;5;6mpgpool [38;5;5m18:49:56.92 [0m[38;5;2mINFO [0m ==> Checking pgpool health...
+psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: ERROR:  pgpool is not accepting any new connections
+DETAIL:  all backend nodes are down, pgpool requires at least one valid node
+HINT:  repair the backend nodes and restart pgpool
+40m         Warning   Unhealthy               pod/dx-deployment-persistence-connection-pool-7c47cc988f-wqwvv      Readiness probe failed: NEW_DB_MANAGEMENT not enabled - pgPool will not be managed via the runtime controller
+[38;5;6mpgpool [38;5;5m18:50:13.58 [0m[38;5;2mINFO [0m ==> Checking pgpool health...
+psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: ERROR:  pgpool is not accepting any new connections
+DETAIL:  all backend nodes are down, pgpool requires at least one valid node
+HINT:  repair the backend nodes and restart pgpool
+40m         Warning   Unhealthy               pod/dx-deployment-persistence-connection-pool-7c47cc988f-wqwvv      Readiness probe failed: NEW_DB_MANAGEMENT not enabled - pgPool will not be managed via the runtime controller
+[38;5;6mpgpool [38;5;5m18:50:22.58 [0m[38;5;2mINFO [0m ==> Checking pgpool health...
+psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: ERROR:  pgpool is not accepting any new connections
+DETAIL:  all backend nodes are down, pgpool requires at least one valid node
+HINT:  repair the backend nodes and restart pgpool
+40m         Normal    Killing                 pod/dx-deployment-persistence-connection-pool-7c47cc988f-wqwvv      Container persistence-connection-pool failed liveness probe, will be restarted
+40m         Warning   Unhealthy               pod/dx-deployment-persistence-connection-pool-7c47cc988f-wqwvv      (combined from similar events): Readiness probe errored and resulted in unknown state: rpc error: code = Unknown desc = command error: cannot register an exec PID: container is stopping, stdout: , stderr: , exit code -1
+40m         Normal    Pulled                  pod/dx-deployment-persistence-connection-pool-7c47cc988f-wqwvv      Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-persistence-connection-pool:v1.41.0_20251024-1356" already present on machine
+40m         Normal    Created                 pod/dx-deployment-persistence-connection-pool-7c47cc988f-wqwvv      Created container: persistence-connection-pool
+40m         Normal    Started                 pod/dx-deployment-persistence-connection-pool-7c47cc988f-wqwvv      Started container persistence-connection-pool
+39m         Warning   BackOff                 pod/dx-deployment-digital-asset-management-0                        Back-off restarting failed container digital-asset-management in pod dx-deployment-digital-asset-management-0_digital-experience(2ab7b9b3-c0b3-407e-beec-11922ddfbc29)
+39m         Normal    Pulled                  pod/dx-deployment-digital-asset-management-0                        Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-digital-asset-manager:v1.43.0_20251024-1357" already present on machine
+39m         Normal    Created                 pod/dx-deployment-digital-asset-management-0                        Created container: digital-asset-management
+39m         Normal    Started                 pod/dx-deployment-digital-asset-management-0                        Started container digital-asset-management
+22m         Warning   Unhealthy               pod/dx-deployment-ring-api-69d69497d5-wn7pc                         Readiness probe failed: HTTP probe failed with statuscode: 500
+22m         Warning   Unhealthy               pod/dx-deployment-web-engine-0                                      Readiness probe failed:
+22m         Warning   Unhealthy               pod/dx-deployment-content-composer-79d7fd546f-f5nn5                 Readiness probe failed: HTTP probe failed with statuscode: 500
+21m         Normal    Killing                 pod/dx-deployment-haproxy-8cc95c9c9-q827d                           Stopping container haproxy
+21m         Normal    Killing                 pod/dx-deployment-persistence-node-0                                Stopping container persistence-repmgr-log
+21m         Normal    Killing                 pod/dx-deployment-runtime-controller-7b474b9bbf-wx2kr               Stopping container runtime-controller
+21m         Normal    Killing                 pod/dx-deployment-persistence-node-0                                Stopping container persistence-metrics-exporter
+21m         Normal    Killing                 pod/dx-deployment-ring-api-69d69497d5-wn7pc                         Stopping container ring-api
+21m         Normal    Killing                 pod/dx-deployment-content-composer-79d7fd546f-f5nn5                 Stopping container content-composer
+21m         Normal    Killing                 pod/dx-deployment-persistence-node-0                                Stopping container persistence-node
+21m         Normal    Killing                 pod/dx-deployment-web-engine-0                                      Stopping container web-engine
+21m         Normal    Killing                 pod/dx-deployment-web-engine-0                                      Stopping container trace-log
+21m         Normal    Killing                 pod/dx-deployment-image-processor-747c9457fc-7tjrp                  Stopping container image-processor
+21m         Normal    Killing                 pod/dx-deployment-persistence-connection-pool-7c47cc988f-wqwvv      Stopping container persistence-connection-pool
+21m         Normal    Killing                 pod/dx-deployment-web-engine-0                                      Stopping container system-out-log
+21m         Warning   Unhealthy               pod/dx-deployment-runtime-controller-7b474b9bbf-wx2kr               Readiness probe failed: Get "http://10.129.2.153:3000/q/health/ready": dial tcp 10.129.2.153:3000: connect: connection refused
+21m         Normal    Killing                 pod/dx-deployment-digital-asset-management-0                        Stopping container prereqs-checker
+21m         Normal    Killing                 pod/dx-deployment-persistence-node-0                                Stopping container prereqs-checker
+21m         Normal    Killing                 pod/dx-deployment-digital-asset-management-0                        Stopping container digital-asset-management
+21m         Warning   Unhealthy               pod/dx-deployment-persistence-connection-pool-7c47cc988f-wqwvv      Readiness probe errored and resulted in unknown state: rpc error: code = Unknown desc = command error: cannot register an exec PID: container is stopping, stdout: , stderr: , exit code -1
+21m         Warning   Unhealthy               pod/dx-deployment-digital-asset-management-0                        Readiness probe failed: HTTP probe failed with statuscode: 503
+18m         Normal    SuccessfulCreate        replicaset/dx-deployment-content-composer-79d7fd546f                Created pod: dx-deployment-content-composer-79d7fd546f-vljjr
+18m         Normal    ScalingReplicaSet       deployment/dx-deployment-ring-api                                   Scaled up replica set dx-deployment-ring-api-69d69497d5 from 0 to 1
+18m         Normal    ProvisioningSucceeded   persistentvolumeclaim/dx-deployment-digital-asset-management        Successfully provisioned volume pvc-5fb0cbe5-01ea-47bc-8992-e2fb822e2568
+18m         Normal    Provisioning            persistentvolumeclaim/dx-deployment-digital-asset-management        External provisioner is provisioning volume for claim "digital-experience/dx-deployment-digital-asset-management"
+18m         Normal    ExternalProvisioning    persistentvolumeclaim/dx-deployment-digital-asset-management        Waiting for a volume to be created either by the external provisioner 'cluster.local/nfs-client-nfs-subdir-external-provisioner' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+18m         Normal    SuccessfulCreate        replicaset/dx-deployment-ring-api-69d69497d5                        Created pod: dx-deployment-ring-api-69d69497d5-zg9mj
+18m         Normal    SuccessfulCreate        statefulset/dx-deployment-digital-asset-management                  create Pod dx-deployment-digital-asset-management-0 in StatefulSet dx-deployment-digital-asset-management successful
+18m         Normal    Scheduled               pod/dx-deployment-content-composer-79d7fd546f-vljjr                 Successfully assigned digital-experience/dx-deployment-content-composer-79d7fd546f-vljjr to worker-1
+18m         Normal    Scheduled               pod/dx-deployment-ring-api-69d69497d5-zg9mj                         Successfully assigned digital-experience/dx-deployment-ring-api-69d69497d5-zg9mj to worker-0
+18m         Normal    Scheduled               pod/dx-deployment-haproxy-8cc95c9c9-gj2gl                           Successfully assigned digital-experience/dx-deployment-haproxy-8cc95c9c9-gj2gl to worker-0
+18m         Normal    SuccessfulCreate        statefulset/dx-deployment-persistence-node                          create Claim database-dx-deployment-persistence-node-0 Pod dx-deployment-persistence-node-0 in StatefulSet dx-deployment-persistence-node success
+18m         Normal    SuccessfulCreate        replicaset/dx-deployment-haproxy-8cc95c9c9                          Created pod: dx-deployment-haproxy-8cc95c9c9-gj2gl
+18m         Normal    ScalingReplicaSet       deployment/dx-deployment-haproxy                                    Scaled up replica set dx-deployment-haproxy-8cc95c9c9 from 0 to 1
+18m         Normal    Scheduled               pod/dx-deployment-image-processor-747c9457fc-d4w8l                  Successfully assigned digital-experience/dx-deployment-image-processor-747c9457fc-d4w8l to worker-1
+18m         Normal    SuccessfulCreate        statefulset/dx-deployment-web-engine                                create Claim customization-dx-deployment-web-engine-0 Pod dx-deployment-web-engine-0 in StatefulSet dx-deployment-web-engine success
+18m         Normal    SuccessfulCreate        statefulset/dx-deployment-web-engine                                create Claim log-dx-deployment-web-engine-0 Pod dx-deployment-web-engine-0 in StatefulSet dx-deployment-web-engine success
+18m         Normal    SuccessfulCreate        replicaset/dx-deployment-image-processor-747c9457fc                 Created pod: dx-deployment-image-processor-747c9457fc-d4w8l
+18m         Normal    ScalingReplicaSet       deployment/dx-deployment-image-processor                            Scaled up replica set dx-deployment-image-processor-747c9457fc from 0 to 1
+18m         Normal    Scheduled               pod/dx-deployment-persistence-connection-pool-7c47cc988f-nkfr2      Successfully assigned digital-experience/dx-deployment-persistence-connection-pool-7c47cc988f-nkfr2 to worker-1
+18m         Normal    ProvisioningSucceeded   persistentvolumeclaim/customization-dx-deployment-web-engine-0      Successfully provisioned volume pvc-2b23f3bd-83ca-40ac-beb4-1233d69bd544
+18m         Normal    SuccessfulCreate        replicaset/dx-deployment-runtime-controller-7b474b9bbf              Created pod: dx-deployment-runtime-controller-7b474b9bbf-dvkkm
+18m         Normal    ExternalProvisioning    persistentvolumeclaim/customization-dx-deployment-web-engine-0      Waiting for a volume to be created either by the external provisioner 'cluster.local/nfs-client-nfs-subdir-external-provisioner' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+18m         Normal    ScalingReplicaSet       deployment/dx-deployment-persistence-connection-pool                Scaled up replica set dx-deployment-persistence-connection-pool-7c47cc988f from 0 to 1
+18m         Normal    ScalingReplicaSet       deployment/dx-deployment-runtime-controller                         Scaled up replica set dx-deployment-runtime-controller-7b474b9bbf from 0 to 1
+18m         Normal    Provisioning            persistentvolumeclaim/customization-dx-deployment-web-engine-0      External provisioner is provisioning volume for claim "digital-experience/customization-dx-deployment-web-engine-0"
+18m         Normal    SuccessfulCreate        replicaset/dx-deployment-persistence-connection-pool-7c47cc988f     Created pod: dx-deployment-persistence-connection-pool-7c47cc988f-nkfr2
+18m         Normal    ScalingReplicaSet       deployment/dx-deployment-content-composer                           Scaled up replica set dx-deployment-content-composer-79d7fd546f from 0 to 1
+18m         Normal    Provisioning            persistentvolumeclaim/log-dx-deployment-web-engine-0                External provisioner is provisioning volume for claim "digital-experience/log-dx-deployment-web-engine-0"
+18m         Normal    ProvisioningSucceeded   persistentvolumeclaim/log-dx-deployment-web-engine-0                Successfully provisioned volume pvc-860eebba-81d3-48e5-bc99-dad89621a45c
+18m         Normal    Scheduled               pod/dx-deployment-digital-asset-management-0                        Successfully assigned digital-experience/dx-deployment-digital-asset-management-0 to worker-0
+18m         Normal    Scheduled               pod/dx-deployment-runtime-controller-7b474b9bbf-dvkkm               Successfully assigned digital-experience/dx-deployment-runtime-controller-7b474b9bbf-dvkkm to worker-1
+18m         Normal    ExternalProvisioning    persistentvolumeclaim/log-dx-deployment-web-engine-0                Waiting for a volume to be created either by the external provisioner 'cluster.local/nfs-client-nfs-subdir-external-provisioner' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+18m         Normal    ProvisioningSucceeded   persistentvolumeclaim/database-dx-deployment-persistence-node-0     Successfully provisioned volume pvc-39698831-d55c-48fb-9321-2a557afe9982
+18m         Normal    AddedInterface          pod/dx-deployment-persistence-connection-pool-7c47cc988f-nkfr2      Add eth0 [10.129.2.160/23] from ovn-kubernetes
+18m         Normal    Started                 pod/dx-deployment-image-processor-747c9457fc-d4w8l                  Started container image-processor
+18m         Warning   FailedScheduling        pod/dx-deployment-web-engine-0                                      0/6 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/6 nodes are available: 6 Preemption is not helpful for scheduling.
+18m         Normal    Created                 pod/dx-deployment-image-processor-747c9457fc-d4w8l                  Created container: image-processor
+18m         Normal    Pulled                  pod/dx-deployment-digital-asset-management-0                        Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-prereqs-checker:v1.0.0_20251024-1353" already present on machine
+18m         Normal    Created                 pod/dx-deployment-digital-asset-management-0                        Created container: prereqs-checker
+18m         Normal    AddedInterface          pod/dx-deployment-digital-asset-management-0                        Add eth0 [10.128.3.202/23] from ovn-kubernetes
+18m         Normal    Pulled                  pod/dx-deployment-image-processor-747c9457fc-d4w8l                  Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-image-processor:v1.44.0_20251024-1405" already present on machine
+18m         Normal    AddedInterface          pod/dx-deployment-image-processor-747c9457fc-d4w8l                  Add eth0 [10.129.2.158/23] from ovn-kubernetes
+18m         Normal    Started                 pod/dx-deployment-runtime-controller-7b474b9bbf-dvkkm               Started container runtime-controller
+18m         Normal    Created                 pod/dx-deployment-runtime-controller-7b474b9bbf-dvkkm               Created container: runtime-controller
+18m         Normal    Scheduled               pod/dx-deployment-web-engine-0                                      Successfully assigned digital-experience/dx-deployment-web-engine-0 to worker-1
+18m         Normal    AddedInterface          pod/dx-deployment-runtime-controller-7b474b9bbf-dvkkm               Add eth0 [10.129.2.159/23] from ovn-kubernetes
+18m         Warning   FailedScheduling        pod/dx-deployment-persistence-node-0                                0/6 nodes are available: pod has unbound immediate PersistentVolumeClaims. preemption: 0/6 nodes are available: 6 Preemption is not helpful for scheduling.
+18m         Normal    Scheduled               pod/dx-deployment-persistence-node-0                                Successfully assigned digital-experience/dx-deployment-persistence-node-0 to worker-2
+18m         Normal    Provisioning            persistentvolumeclaim/database-dx-deployment-persistence-node-0     External provisioner is provisioning volume for claim "digital-experience/database-dx-deployment-persistence-node-0"
+18m         Normal    Started                 pod/dx-deployment-content-composer-79d7fd546f-vljjr                 Started container content-composer
+18m         Normal    Created                 pod/dx-deployment-content-composer-79d7fd546f-vljjr                 Created container: content-composer
+18m         Normal    Pulled                  pod/dx-deployment-content-composer-79d7fd546f-vljjr                 Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-content-composer:v1.44.0_20251024-1345" already present on machine
+18m         Normal    AddedInterface          pod/dx-deployment-content-composer-79d7fd546f-vljjr                 Add eth0 [10.129.2.161/23] from ovn-kubernetes
+18m         Normal    ExternalProvisioning    persistentvolumeclaim/database-dx-deployment-persistence-node-0     Waiting for a volume to be created either by the external provisioner 'cluster.local/nfs-client-nfs-subdir-external-provisioner' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+18m         Normal    Started                 pod/dx-deployment-ring-api-69d69497d5-zg9mj                         Started container ring-api
+18m         Normal    Created                 pod/dx-deployment-ring-api-69d69497d5-zg9mj                         Created container: ring-api
+18m         Normal    Pulled                  pod/dx-deployment-ring-api-69d69497d5-zg9mj                         Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-ringapi:v1.44.0_20251024-1347" already present on machine
+18m         Normal    AddedInterface          pod/dx-deployment-ring-api-69d69497d5-zg9mj                         Add eth0 [10.128.3.201/23] from ovn-kubernetes
+18m         Normal    AddedInterface          pod/dx-deployment-haproxy-8cc95c9c9-gj2gl                           Add eth0 [10.128.3.200/23] from ovn-kubernetes
+18m         Normal    Pulled                  pod/dx-deployment-haproxy-8cc95c9c9-gj2gl                           Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-haproxy:v1.27.0_20251024-1338" already present on machine
+18m         Normal    Created                 pod/dx-deployment-haproxy-8cc95c9c9-gj2gl                           Created container: haproxy
+18m         Normal    Started                 pod/dx-deployment-haproxy-8cc95c9c9-gj2gl                           Started container haproxy
+18m         Warning   Unhealthy               pod/dx-deployment-haproxy-8cc95c9c9-gj2gl                           Readiness probe failed: Get "http://10.128.3.200:10001/": dial tcp 10.128.3.200:10001: connect: connection refused
+18m         Normal    SuccessfulCreate        statefulset/dx-deployment-persistence-node                          create Pod dx-deployment-persistence-node-0 in StatefulSet dx-deployment-persistence-node successful
+18m         Normal    Pulled                  pod/dx-deployment-runtime-controller-7b474b9bbf-dvkkm               Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-runtime-controller:v95_CF231_20251024-1351" already present on machine
+18m         Normal    Started                 pod/dx-deployment-web-engine-0                                      Started container trace-log
+18m         Normal    Started                 pod/dx-deployment-persistence-node-0                                Started container prereqs-checker
+18m         Normal    Created                 pod/dx-deployment-persistence-node-0                                Created container: prereqs-checker
+18m         Normal    Pulled                  pod/dx-deployment-persistence-node-0                                Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-prereqs-checker:v1.0.0_20251024-1353" already present on machine
+18m         Normal    Started                 pod/dx-deployment-persistence-node-0                                Started container persistence-repmgr-log
+18m         Normal    Created                 pod/dx-deployment-persistence-node-0                                Created container: persistence-repmgr-log
+18m         Normal    Pulled                  pod/dx-deployment-persistence-node-0                                Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-logging-sidecar:v1.0.0_20251024-1349" already present on machine
+18m         Normal    Started                 pod/dx-deployment-persistence-node-0                                Started container persistence-metrics-exporter
+18m         Normal    Created                 pod/dx-deployment-persistence-node-0                                Created container: persistence-metrics-exporter
+18m         Normal    Pulled                  pod/dx-deployment-persistence-node-0                                Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-persistence-metrics-exporter:v1.39.0_20251024-1357" already present on machine
+18m         Normal    Created                 pod/dx-deployment-web-engine-0                                      Created container: trace-log
+18m         Normal    Pulled                  pod/dx-deployment-web-engine-0                                      Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-logging-sidecar:v1.0.0_20251024-1349" already present on machine
+18m         Normal    Started                 pod/dx-deployment-web-engine-0                                      Started container system-out-log
+18m         Normal    AddedInterface          pod/dx-deployment-persistence-node-0                                Add eth0 [10.131.1.75/23] from ovn-kubernetes
+18m         Normal    Created                 pod/dx-deployment-web-engine-0                                      Created container: system-out-log
+18m         Normal    AddedInterface          pod/dx-deployment-web-engine-0                                      Add eth0 [10.129.2.162/23] from ovn-kubernetes
+18m         Normal    Pulled                  pod/dx-deployment-web-engine-0                                      Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-webengine:CF231_20251025-2351" already present on machine
+18m         Normal    Started                 pod/dx-deployment-digital-asset-management-0                        Started container prereqs-checker
+18m         Normal    Started                 pod/dx-deployment-web-engine-0                                      Started container web-engine
+18m         Normal    Pulled                  pod/dx-deployment-web-engine-0                                      Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-logging-sidecar:v1.0.0_20251024-1349" already present on machine
+18m         Normal    Created                 pod/dx-deployment-web-engine-0                                      Created container: web-engine
+18m         Warning   Unhealthy               pod/dx-deployment-persistence-connection-pool-7c47cc988f-nkfr2      Liveness probe failed: NEW_DB_MANAGEMENT not enabled - pgPool will not be managed via the runtime controller
+[38;5;6mpgpool [38;5;5m19:12:38.04 [0m[38;5;2mINFO [0m ==> Checking pgpool health...
+psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: FATAL:  failed to create a backend connection
+DETAIL:  executing failover on backend
+18m         Warning   Unhealthy               pod/dx-deployment-runtime-controller-7b474b9bbf-dvkkm               Readiness probe failed: Get "http://10.129.2.159:3000/q/health/ready": dial tcp 10.129.2.159:3000: connect: connection refused
+18m         Warning   Unhealthy               pod/dx-deployment-persistence-connection-pool-7c47cc988f-nkfr2      Readiness probe failed: NEW_DB_MANAGEMENT not enabled - pgPool will not be managed via the runtime controller
+[38;5;6mpgpool [38;5;5m19:12:41.40 [0m[38;5;2mINFO [0m ==> Checking pgpool health...
+psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: ERROR:  pgpool is not accepting any new connections
+DETAIL:  all backend nodes are down, pgpool requires at least one valid node
+HINT:  repair the backend nodes and restart pgpool
+18m         Warning   Unhealthy               pod/dx-deployment-persistence-node-0                                Readiness probe failed: Postgres Server is not ready
+psql: error: connection to server on socket "/run/postgresql/.s.PGSQL.5432" failed: No such file or directory
+            Is the server running locally and accepting connections on that socket?
+17m         Normal    Pulled                  pod/dx-deployment-persistence-node-0                                Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-persistence-node:v1.31_20251024-1354" already present on machine
+17m         Normal    Created                 pod/dx-deployment-persistence-node-0                                Created container: persistence-node
+17m         Normal    Started                 pod/dx-deployment-persistence-node-0                                Started container persistence-node
+17m         Warning   Unhealthy               pod/dx-deployment-ring-api-69d69497d5-zg9mj                         Liveness probe failed: Get "http://10.128.3.201:3000/probe/live": dial tcp 10.128.3.201:3000: connect: connection refused
+17m         Warning   Unhealthy               pod/dx-deployment-persistence-connection-pool-7c47cc988f-nkfr2      Liveness probe failed: NEW_DB_MANAGEMENT not enabled - pgPool will not be managed via the runtime controller
+[38;5;6mpgpool [38;5;5m19:13:08.05 [0m[38;5;2mINFO [0m ==> Checking pgpool health...
+psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: ERROR:  pgpool is not accepting any new connections
+DETAIL:  all backend nodes are down, pgpool requires at least one valid node
+HINT:  repair the backend nodes and restart pgpool
+17m         Warning   Unhealthy               pod/dx-deployment-ring-api-69d69497d5-zg9mj                         Readiness probe failed: Get "http://10.128.3.201:3000/probe/ready": dial tcp 10.128.3.201:3000: connect: connection refused
+17m         Warning   Unhealthy               pod/dx-deployment-persistence-connection-pool-7c47cc988f-nkfr2      Readiness probe failed: NEW_DB_MANAGEMENT not enabled - pgPool will not be managed via the runtime controller
+[38;5;6mpgpool [38;5;5m19:13:11.38 [0m[38;5;2mINFO [0m ==> Checking pgpool health...
+psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: ERROR:  pgpool is not accepting any new connections
+DETAIL:  all backend nodes are down, pgpool requires at least one valid node
+HINT:  repair the backend nodes and restart pgpool
+17m         Warning   Unhealthy               pod/dx-deployment-persistence-connection-pool-7c47cc988f-nkfr2      Readiness probe failed: NEW_DB_MANAGEMENT not enabled - pgPool will not be managed via the runtime controller
+[38;5;6mpgpool [38;5;5m19:13:15.97 [0m[38;5;2mINFO [0m ==> Checking pgpool health...
+psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: ERROR:  pgpool is not accepting any new connections
+DETAIL:  all backend nodes are down, pgpool requires at least one valid node
+HINT:  repair the backend nodes and restart pgpool
+17m         Warning   Unhealthy               pod/dx-deployment-persistence-connection-pool-7c47cc988f-nkfr2      Liveness probe failed: NEW_DB_MANAGEMENT not enabled - pgPool will not be managed via the runtime controller
+[38;5;6mpgpool [38;5;5m19:13:38.03 [0m[38;5;2mINFO [0m ==> Checking pgpool health...
+psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: ERROR:  pgpool is not accepting any new connections
+DETAIL:  all backend nodes are down, pgpool requires at least one valid node
+HINT:  repair the backend nodes and restart pgpool
+17m         Warning   Unhealthy               pod/dx-deployment-persistence-connection-pool-7c47cc988f-nkfr2      Readiness probe failed: NEW_DB_MANAGEMENT not enabled - pgPool will not be managed via the runtime controller
+[38;5;6mpgpool [38;5;5m19:13:45.97 [0m[38;5;2mINFO [0m ==> Checking pgpool health...
+psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: ERROR:  pgpool is not accepting any new connections
+DETAIL:  all backend nodes are down, pgpool requires at least one valid node
+HINT:  repair the backend nodes and restart pgpool
+16m         Warning   Unhealthy               pod/dx-deployment-web-engine-0                                      Readiness probe failed:
+16m         Warning   Unhealthy               pod/dx-deployment-persistence-connection-pool-7c47cc988f-nkfr2      Liveness probe failed: NEW_DB_MANAGEMENT not enabled - pgPool will not be managed via the runtime controller
+[38;5;6mpgpool [38;5;5m19:14:08.03 [0m[38;5;2mINFO [0m ==> Checking pgpool health...
+psql: error: connection to server on socket "/tmp/.s.PGSQL.5432" failed: ERROR:  pgpool is not accepting any new connections
+DETAIL:  all backend nodes are down, pgpool requires at least one valid node
+HINT:  repair the backend nodes and restart pgpool
+16m         Normal    Created                 pod/dx-deployment-persistence-connection-pool-7c47cc988f-nkfr2      Created container: persistence-connection-pool
+16m         Normal    Pulled                  pod/dx-deployment-persistence-connection-pool-7c47cc988f-nkfr2      Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-persistence-connection-pool:v1.41.0_20251024-1356" already present on machine
+16m         Warning   Unhealthy               pod/dx-deployment-persistence-connection-pool-7c47cc988f-nkfr2      Readiness probe errored and resulted in unknown state: rpc error: code = Unknown desc = command error: cannot register an exec PID: container is stopping, stdout: , stderr: , exit code -1
+16m         Normal    Killing                 pod/dx-deployment-persistence-connection-pool-7c47cc988f-nkfr2      Container persistence-connection-pool failed liveness probe, will be restarted
+16m         Warning   Unhealthy               pod/dx-deployment-web-engine-0                                      Liveness probe failed:
+16m         Normal    Started                 pod/dx-deployment-persistence-connection-pool-7c47cc988f-nkfr2      Started container persistence-connection-pool
+15m         Warning   BackOff                 pod/dx-deployment-digital-asset-management-0                        Back-off restarting failed container digital-asset-management in pod dx-deployment-digital-asset-management-0_digital-experience(19f6d77c-349b-4e05-b214-933033fe5b4b)
+15m         Normal    Pulled                  pod/dx-deployment-digital-asset-management-0                        Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-digital-asset-manager:v1.43.0_20251024-1357" already present on machine
+15m         Normal    Started                 pod/dx-deployment-digital-asset-management-0                        Started container digital-asset-management
+15m         Normal    Created                 pod/dx-deployment-digital-asset-management-0                        Created container: digital-asset-management
+2m56s       Normal    Killing                 pod/dx-deployment-web-engine-0                                      Stopping container web-engine
+2m56s       Normal    Killing                 pod/dx-deployment-web-engine-0                                      Stopping container trace-log
+2m56s       Normal    Killing                 pod/dx-deployment-web-engine-0                                      Stopping container system-out-log
+2m56s       Normal    SuccessfulDelete        statefulset/dx-deployment-web-engine                                delete Pod dx-deployment-web-engine-0 in StatefulSet dx-deployment-web-engine successful
+2m50s       Warning   Unhealthy               pod/dx-deployment-web-engine-0                                      Readiness probe errored and resulted in unknown state: rpc error: code = Unknown desc = command error: cannot register an exec PID: container is stopping, stdout: , stderr: , exit code -1
+2m47s       Normal    Scheduled               pod/dx-deployment-web-engine-0                                      Successfully assigned digital-experience/dx-deployment-web-engine-0 to worker-1
+2m47s       Normal    SuccessfulCreate        statefulset/dx-deployment-web-engine                                create Pod dx-deployment-web-engine-0 in StatefulSet dx-deployment-web-engine successful
+2m46s       Normal    Pulled                  pod/dx-deployment-web-engine-0                                      Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-logging-sidecar:v1.0.0_20251024-1349" already present on machine
+2m46s       Normal    Created                 pod/dx-deployment-web-engine-0                                      Created container: system-out-log
+2m46s       Normal    Pulled                  pod/dx-deployment-web-engine-0                                      Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-logging-sidecar:v1.0.0_20251024-1349" already present on machine
+2m46s       Normal    Started                 pod/dx-deployment-web-engine-0                                      Started container web-engine
+2m46s       Normal    Created                 pod/dx-deployment-web-engine-0                                      Created container: web-engine
+2m46s       Normal    AddedInterface          pod/dx-deployment-web-engine-0                                      Add eth0 [10.129.2.163/23] from ovn-kubernetes
+2m46s       Normal    Started                 pod/dx-deployment-web-engine-0                                      Started container system-out-log
+2m46s       Normal    Pulled                  pod/dx-deployment-web-engine-0                                      Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-webengine:CF231_20251025-2351" already present on machine
+2m46s       Normal    Created                 pod/dx-deployment-web-engine-0                                      Created container: trace-log
+2m46s       Normal    Started                 pod/dx-deployment-web-engine-0                                      Started container trace-log
+106s        Warning   Unhealthy               pod/dx-deployment-web-engine-0                                      Startup probe failed:
+99s         Warning   Unhealthy               pod/dx-deployment-ring-api-69d69497d5-zg9mj                         Readiness probe failed: HTTP probe failed with statuscode: 500
+75s         Warning   Unhealthy               pod/dx-deployment-content-composer-79d7fd546f-vljjr                 Readiness probe failed: HTTP probe failed with statuscode: 500

@@ -1,0 +1,16 @@
+Name:         digital-experience
+Labels:       kubernetes.io/metadata.name=digital-experience
+              pod-security.kubernetes.io/audit=restricted
+              pod-security.kubernetes.io/audit-version=latest
+              pod-security.kubernetes.io/enforce=privileged
+              pod-security.kubernetes.io/warn=restricted
+              pod-security.kubernetes.io/warn-version=latest
+Annotations:  openshift.io/sa.scc.mcs: s0:c24,c4
+              openshift.io/sa.scc.supplemental-groups: 1001/10000
+              openshift.io/sa.scc.uid-range: 1000/10000
+              security.openshift.io/MinimallySufficientPodSecurityStandard: restricted
+Status:       Active
+
+No resource quota.
+
+No LimitRange resource.

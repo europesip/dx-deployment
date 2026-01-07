@@ -64,16 +64,25 @@ applications:
 peopleservice:
   enabled: false
   #configuration.search.middleware.enabled: true
-  image:  # ->  Not working lines, for overriding values needed for People Service.
-   registry: "image-registry.openshift-image-registry.svc:5000/openshift"
-   repository: "dx-people-service"
-   tag: "v1.0.0_20251024-1349"
+  #image:  # ->  Overriding values needed for People Service.
+  registry: "image-registry.openshift-image-registry.svc:5000/openshift"
+  repository: "dx-people-service"
+  tag: "v1.0.0_20251024-1349"
   volumes:
    # Data persistence for People Service using PVC
    data:
      # -- (string) PVC Storage Class for People Service data volume
      # @section -- Persistence Volume configuration
-     storageClassName: "stg-deploy-rwx"
+    storageClassName: "dx-deploy-rwx"
+  networking:
+    host: "dx.apps.promox.europesip-lab.com"
+    #port: 443
+    #ssl: true   We comment this parameter since we got an error if we setup it.
+    ingress:
+      enabled: false # Disabled, because we are using OpenShift Routes instead
+    contextRoot:
+      api: "/people/api/v1"
+      ui: "/people/ui"
 
   
 # Networking specific configuration
@@ -88,7 +97,7 @@ networking:
   webEngine:
     # Host of webEngine, must be specified as a FQDN
     host: "dx.apps.promox.europesip-lab.com"
-
+  
 # Security related configuration, e.g. default credentials
 security:
   # Security configuration for webEngine
@@ -96,8 +105,8 @@ security:
     # Credentials for the WebEngine Server administrative user
     # Note: Be aware of the out-of-the-box additional "admin1" adminsitrative user
     # Also, be aware that if we want to use custom-secrets, we must also unset webEngineUser & webEnginePassword values
-    webEngineUser: null
-    webEnginePassword: null
+    webEngineUser: ""
+    webEnginePassword: ""
     customWebEngineSecret: "web-engine-secret" # secret only is taken if previous values are empty.
 
 

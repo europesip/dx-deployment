@@ -1,0 +1,563 @@
+#********************************************************************
+#* Licensed Materials - Property of HCL                             *
+#*                                                                  *
+#* Copyright HCL Technologies Ltd. 2023, 2024. All Rights Reserved. *
+#*                                                                  *
+#* Note to US Government Users Restricted Rights:                   *
+#*                                                                  *
+#* Use, duplication or disclosure restricted by GSA ADP Schedule    *
+#********************************************************************
+
+# Default values for hcl-people-service.
+
+# Image configuration
+image:
+  # -- (enum) People Service image pull policy. Accepted values are `Always`, `Never`, and `IfNotPresent`
+  # @section -- Image configuration
+  pullPolicy: IfNotPresent
+  # -- (array) People Service image pull secrets used for accessing the image registry
+  # @section -- Image configuration
+  imagePullSecrets: []
+  # Example:
+  # imagePullSecrets:
+  #   - name: "myregistrykey"
+  # -- (string) People Service container image registry
+  # @section -- Image configuration
+  registry: ""
+  # -- (string) People Service container image repository
+  # @section -- Image configuration
+  repository: "dx-compose/people-service"
+  # -- (string) People Service container image tag
+  # @section -- Image configuration
+  tag: "v1.0.0_20251024-1349"
+
+# Application configuration
+configuration:
+  # -- (boolean) Specifies whether you are running in production mode or not
+  # @section -- Application configuration
+  production: true
+  # -- (string) AWS Service Account Name for EKS deployments
+  # @section -- Application configuration
+  serviceAccountName: ""
+  # -- (string) Authentication strategy. Accepted values are `OIDC`, `DX`, and `none`
+  # @section -- Application configuration
+  authStrategy: "DX"
+  # -- (string) Identifier that uniquely distinguishes a user
+  # @section -- Application configuration
+  uniqueUserIdentifier: "guid"
+  # Integration configuration
+  integration:
+    # -- (boolean) Indicates if DX integration is enabled
+    # @section -- Application configuration
+    dx: false
+  # JWT configuration
+  jwt:
+    # -- (int) JWT token expiration time in milliseconds
+    # @section -- Application configuration
+    tokenExpiration: 3600000
+    # -- (string) JWT secret
+    # @section -- Application configuration
+    secret: ""
+    # -- (string) Existing secret for JWT secret
+    # @section -- Application configuration
+    existingSecret: ""
+    # -- (string) Existing secret key for jwtSecret, if not specified, defaults to "jwtSecret"
+    # @section -- Application configuration
+    existingSecretJwtSecretKey: ""
+  # OIDC configuration
+  oidc:
+    # -- (string) Issuer url
+    # @section -- OIDC configuration
+    issuer: ""
+    # -- (string) Client ID
+    # @section -- OIDC configuration
+    clientId: ""
+    # -- (string) Client secret
+    # @section -- OIDC configuration
+    clientSecret: ""
+    # -- (string) Redirect uri
+    # @section -- OIDC configuration
+    redirectURI: ""
+    # -- (string) OIDC scopes
+    # @section -- OIDC configuration
+    scopes: "openid profile email"
+    # -- (string) Existing secret for OIDC configuration
+    # @section -- OIDC configuration
+    existingSecret: ""
+    # -- (string) Existing secret key for clientSecret. Defaults to `clientSecret` if not specified
+    # @section -- OIDC configuration
+    existingSecretClientSecretKey: ""
+  # Authencation configuration for DX integration
+  dx:
+    # -- (string) Session cookie name
+    # @section -- DX configuration
+    sessionCookieName: "LtpaToken2"
+    # -- (string) User validation endpoint that confirms if the user is still authenticated
+    # @section -- DX configuration
+    userValidationEndpoint: "/auth/validate"
+    # -- (string) Current user access endpoint that identifies the current user's access level information. This information is used to determine the user's role. Accepted values are `Privileged`, `Authenticated`, or `Unauthenticated`
+    # @section -- DX configuration
+    currentUserAccessEndpoint: "/dxmyrest/access/current-user?resourceId=wps.USERS"
+    # -- (string) List of privileged roles separated by commas
+    # @section -- DX configuration
+    userAccessPrivilegedRoles: "Administrator,Privileged User,Editor"
+    # -- (int) Cache time to live for current user access endpoints response in milliseconds
+    # @section -- DX configuration
+    cacheTTL: 3600000
+    # -- (int) Maximum number of entries in the cache that stores the user's role
+    # @section -- DX configuration
+    cacheMaxEntries: 1000
+    # -- (string) Context root for the People Service portlet page
+    # @section -- DX configuration
+    portletPageContextRoot: "/wps/myportal/Practitioner/PeopleService"
+  # Schema configuration
+  schema:
+    # -- (array) List of profile fields that should be marked as read-only
+    # @section -- Schema configuration
+    readonlyFields:
+      - id
+      - firstName
+      - lastName
+      - displayName
+      - organization
+      - email
+      - dn
+      - managerId
+    # -- (array) List of custom fields that need to be created while deployment
+    # @section -- Schema configuration
+    customFields: []
+    # Example:
+    # customFields:
+    #  - customField1 
+    #  - customField2
+  # Search Configuration
+  search:
+    # Search middleware configuration. This configuration is ignore in case People Service is running in DX integration mode. In DX integration mode, the configuration is picked from DX Core/Webengine configmaps.
+    middleware:
+      ## -- (boolean) Enable/Disable Search Middleware.
+      ## @section -- Search configuration
+      enabled: false
+      ## -- (string) Host of Search middleware
+      ## @section -- Search configuration
+      host: ""
+      ## -- (number) Port of Search middleware
+      ## @section -- Search configuration
+      port:
+      ## -- (boolean) Setting if SSL is enabled for Search Middleware
+      ## @section -- Search configuration
+      ssl: false
+      ## -- (string) Username of the push administrator
+      ## @section -- Search configuration
+      pushAdminUser: "pushadmin"
+      ## -- (string) Password of the push administrator
+      ## @section -- Search configuration
+      pushAdminPassword: "adminpush"
+      ## -- (string) Provide a existing secret that will be used to set credentials for push administration. If customPushAdminSecret is provided then pushAdminUser & pushAdminPassword values are ignored
+      ## @section -- Search configuration
+      existingPushAdminSecret: ""
+    ## -- (string) Content Source ID for People Service
+    ## @section -- Search configuration
+    contentSourceId: ""
+# Networking configuration
+networking:
+  # SSL configuration for the application
+  ssl:
+    # -- (boolean) Indicates if the application is accessible on http or https
+    # @section -- Networking configuration
+    enabled: false
+  # -- (string) Public qualified host name. For example: "example.com". If `networking.ssl.enabled` is `true`, this key will be prefixed with `https://`, and `http://` if `false`
+  # @section -- Networking configuration
+  host: ""
+  # Context root for the API and UI
+  contextRoot:
+    # -- (string) Context root for the API
+    # @section -- Networking configuration
+    api: "/dx/api/people/v1"
+    # -- (string) Context root for the UI
+    # @section -- Networking configuration
+    ui: "/dx/ui/people"
+  # Ingress configuration
+  ingress:
+    # -- (boolean) Enable ingress for the application
+    # @section -- Networking configuration
+    enabled: false
+    # -- (string) Class name for the ingress
+    # @section -- Networking configuration
+    ingressClassName: ""
+    # -- (string) Path type for the ingress
+    # @section -- Networking configuration
+    pathType: Prefix
+    # -- (boolean) Enable auto generation of self-signed certificate for the ingress
+    # @section -- Networking configuration
+    autoGenerateSelfSignedCert: false
+    # -- (string) Existing secret for TLS certificate
+    # @section -- Networking configuration
+    existingSecret: ""
+    # -- (object) Annotations for Ingress route
+    # @section -- Networking configuration
+    annotations:
+      nginx.ingress.kubernetes.io/proxy-body-size: 50m
+
+# LDAP configuration
+ldap:
+  # -- (boolean) Indicates if LDAP is enabled. If set to `true`, ensure that the values for required parameter `ldap.host` is provided
+  # @section -- LDAP configuration
+  enabled: false
+  # -- (string) LDAP server URL
+  # @section -- LDAP configuration
+  host: ""
+  # -- (string) LDAP Bind dn
+  # @section -- LDAP configuration
+  bindDn: "cn=admin,dc=dx,dc=com"
+  # -- (string) LDAP Bind password
+  # @section -- LDAP configuration
+  bindPassword: "password"
+  # -- (string) LDAP search base
+  # @section -- LDAP configuration
+  searchBase: "ou=users,dc=dx,dc=com"
+  # -- (string) LDAP search filter for all users
+  # @section -- LDAP configuration
+  searchFilterAllUsers: "(objectClass=inetOrgPerson)"
+  # -- (string) LDAP search filter for a specific user
+  # @section -- LDAP configuration
+  searchFilterUser: "(&(objectClass=inetOrgPerson)(uid=*))"
+  # -- (string) LDAP search scope. Accepted values are `base`, `one`, and `sub`
+  # @section -- LDAP configuration
+  searchScope: "sub"
+  # -- (array) LDAP search attributes
+  # @section -- LDAP configuration
+  searchAttributes:
+    - dn
+    - uid
+    - givenName
+    - sn
+    - mail
+    - manager
+    - ou
+    - displayName
+    - telephoneNumber
+    - street
+    - l
+    - st
+    - postalCode
+    - preferredLanguage
+    - title
+    - description
+    - jpegPhoto
+  # -- (string) LDAP user image attribute
+  # @section -- LDAP configuration
+  userImageAttribute: "jpegPhoto"
+  # -- (object) LDAP attribute mapping
+  # @section -- LDAP configuration
+  attributeMapping:
+    guid: uid
+    dn: dn
+    email: mail
+    firstName: givenName
+    lastName: sn
+    managerId: manager
+    organization: ou
+    displayName: displayName
+    phone: telephoneNumber
+    streetAddress: street
+    city: l
+    state: st
+    zipCode: postalCode
+    language: preferredLanguage
+    role: title
+    professionalSummary: description
+  # -- (string) Existing secret for LDAP configuration
+  # @section -- LDAP configuration
+  existingSecret: ""
+  # -- (string) Existing secret key for bindPassword. Defaults to `bindPassword` if not specified
+  # @section -- LDAP configuration
+  existingSecretBindPasswordKey: ""
+
+# User synchronization configuration
+userSynchronization:
+  # -- (boolean) Indicates if user synchronization is enabled
+  # @section -- User synchronization configuration
+  enabled: false
+  # -- (string) User synchronization strategy. Accepted values are `sync` and `none`
+  # @section -- User synchronization configuration
+  strategy: "sync"
+  # -- (string) Cron schedule for user synchronization
+  # @section -- User synchronization configuration
+  cronSchedule: "0 */4 * * *"
+  # -- (boolean) Indicates if user synchronization is run in mutual exlusive mode
+  # @section -- User synchronization configuration
+  preventConcurrentExecution: true
+
+# External database configuration
+externalDatabase:
+  # -- (string) PostgreSQL host
+  # @section -- External database configuration
+  host: ""
+  # -- (int) PostgreSQL port
+  # @section -- External database configuration
+  port: 5432
+  # -- (string) PostgreSQL user
+  # @section -- External database configuration
+  user: ""
+  # -- (string) PostgreSQL database
+  # @section -- External database configuration
+  database: ""
+  # -- (string) PostgreSQL password
+  # @section -- External database configuration
+  password: ""
+  # -- (string) Existing secret for external PostgreSQL configuration
+  # @section -- External database configuration
+  existingSecret: ""
+  # -- (string) Existing secret key for user. Defaults to `db-user` if not specified
+  # @section -- External database configuration
+  existingSecretUserKey: ""
+  # -- (string) Existing secret key for password. Defaults to "db-password" if not specified
+  # @section -- External database configuration
+  existingSecretPasswordKey: ""
+
+# Container ports configuration
+containerPorts:
+  # -- (int) Port exposed by the container for HTTP traffic
+  # @section -- Container ports configuration
+  http: 3000
+
+# Service configuration
+service:
+  # -- (string) Service type. Accepted values are `ClusterIP`, `NodePort`, and `LoadBalancer`
+  # @section -- Service configuration
+  type: ClusterIP
+  ports:
+    # -- (int) Port exposed by the service for HTTP traffic
+    # @section -- Service configuration
+    http: 3000
+    # -- (int) Port exposed by the service when `service.type` is set to `NodePort`
+    # @section -- Service configuration
+    nodePort: 30000
+
+# -- (array) Additional environment variables for the container
+# @section -- Application configuration
+extraEnvVars: []
+# Example:
+# extraEnvVars:
+#  - name: "EXAMPLE_ENV_VAR"
+#    value: "example-value"
+
+# -- (object) Node labels for pod assignment. Evaluated as a template
+# @section -- Node configuration
+nodeSelector: {}
+# Example:
+# nodeSelector:
+#   diskType: ssd
+
+# Logging configuration
+logging:
+  # -- (string) Log level for the application
+  # @section -- Logging configuration
+  level: "INFO:people-service:*"
+  # -- (string) Log path for the application
+  # @section -- Logging configuration
+  path: "/data/people/logs"
+  # Configuration for the sidecar
+  sidecar:
+    # -- (string) Enable or disable maintenance mode for the sidecar
+    # @section -- Logging configuration
+    maintenanceModeEnabled: "false"
+    # -- (object) Configuration for the audit logging
+    # @section -- Logging configuration
+    audit:
+      # logging.sidecar.audit.enabled -- (boolean) Enable or disable audit logging
+      # @section -- Logging configuration
+      enabled: false
+    # -- (object) Configuration for the sync logging
+    # @section -- Logging configuration
+    sync:
+      # -- (boolean) Enable or disable sync logging
+      # @section -- Logging configuration
+      enabled: false
+    image:
+      # -- (enum) Logging sidecar image pull policy. Accepted values are `Always`, `Never`, and `IfNotPresent`
+      # @section -- Logging configuration
+      pullPolicy: IfNotPresent
+      # -- (string) Logging sidecar container image registry
+      # @section -- Logging configuration
+      registry: ""
+      # -- (string) Logging sidecar container image repository
+      # @section -- Logging configuration
+      repository: "dx-compose/logging-sidecar"
+      # -- (string) Logging sidecar container image tag
+      # @section -- Logging configuration
+      tag: "v1.0.0_20251024-1349"
+
+# Resource allocation settings, definition per pod
+# Use number + unit, e.g. 1500m for CPU or 1500Mi for Memory
+resources:
+  requests:
+    # -- (string) CPU request for the pod
+    # @section -- Resource configuration
+    cpu: 250m
+    # -- (string) Memory request for the pod
+    # @section -- Resource configuration
+    memory: 256Mi
+  limits:
+    # -- (string) CPU limit for the pod
+    # @section -- Resource configuration
+    cpu: 1000m
+    # -- (string) Memory limit for the pod
+    # @section -- Resource configuration
+    memory: 1024Mi
+
+# Annotations for services and pods.
+annotations:
+  # -- (array) Service annotations
+  # @section -- Labels and Annotations configuration
+  service:
+  # -- (array) Pod annotations
+  # @section -- Labels and Annotations configuration
+  pod:
+# Example:
+# annotations:
+#   service:
+#     - key: <ANNOTATION>
+#       value: <ANNOTATION_VALUE>
+#   pod:
+#     - key: <ANNOTATION>
+#       value: <ANNOTATION_VALUE>
+
+# Labels for services and pods.
+labels:
+  # -- (array) Service labels
+  # @section -- Labels and Annotations configuration
+  service:
+  # -- (array) Pod labels
+  # @section -- Labels and Annotations configuration
+  pod:
+# Example:
+# labels:
+#   service:
+#     - key: <LABEL>
+#       value: <LABEL_VALUE>
+#   pod:
+#     - key: <LABEL>
+#       value: <LABEL_VALUE>
+
+# Relicas and Horizontal Pod Auto Scaling configuration
+scaling:
+  # -- (int) The default number of replicas for the pod
+  # @section -- Scaling configuration
+  replicaCount: 1
+  #  Automated scaling using HorizontalPodAutoScaler
+  horizontalPodAutoScaler:
+    # -- (boolean) Enable autoscaling for People Service deployment
+    # @section -- Scaling configuration
+    enabled: false
+    # -- (number) Minimum number of replicas to scale back
+    # @section -- Scaling configuration
+    minReplicas: 1
+    # -- (number) Maximum number of replicas to scale out
+    # @section -- Scaling configuration
+    maxReplicas: 3
+    # -- (number) Target CPU utilization percentage
+    # @section -- Scaling configuration
+    targetCPUUtilizationPercentage: 75
+    # -- (number) Target Memory utilization percentage
+    # @section -- Scaling configuration
+    targetMemoryUtilizationPercentage: 80
+
+# Persistence Volume Setup
+volumes:
+  # Data persistence for People Service using PVC
+  data:
+    # -- (string) PVC Storage Class for People Service data volume
+    # @section -- Persistence Volume configuration
+    storageClassName: "manual"
+    requests:
+      # -- (string) PVC Storage Request for People Service data volume
+      # @section -- Persistence Volume configuration
+      storage: "1Gi"
+    # -- (object) Selector to match an existing Persistent Volume. This value is evaluated as a template
+    # @section -- Persistence Volume configuration
+    selector: {}
+    # Example:
+    # selector:
+    #   matchLabels:
+    #     app: people-service
+    # volumes.data.volumeName -- (string) Name of the volume to bind to the PVC
+    # @section -- Persistence Volume configuration
+    volumeName: ""
+  # -- (object) List of optional additional PVCs for customer applications. Each list element must include a unique `name`, one or more `accessModes` from the options `ReadWriteOnce`, `ReadOnlyMany` or `ReadWriteMany`, a `mountPath` specifying where in the core container it should be mounted, a `storageClassName` and a size in `requests/storage`. It may also optionally include a `selector` section to select specific PVs based on their labels. It may also optionally include a `volumeName` to select a specific PV
+  # @section -- Persistence Volume configuration
+  customPVCs: []
+  # Example:
+  # customPVCs:
+  #   - name: "test1"
+  #     accessModes:
+  #       - "ReadWriteMany"
+  #     mountPath: "/opt/HCL/test1"
+  #     storageClassName: "manual"
+  #     requests:
+  #       storage: "20Gi"
+  #     selector:
+  #       matchLabels:
+  #         label: test
+  #       matchExpressions:
+  #         - key: name
+  #           operator: In
+  #           values:
+  #             - test1
+  #             - test2
+  #     volumeName: "test-pv"
+
+# Kubernetes probe configuration for application Pods
+probes:
+  # Liveness probe using the applications HTTP probe endpoint
+  livenessProbe:
+    # -- (boolean) Enable liveness probe on containers
+    # @section -- Probes configuration
+    enabled: true
+    # -- (int) Number of times the probe should be retried before marking the container as unhealthy
+    # @section -- Probes configuration
+    failureThreshold: 10
+    # -- (int) Number of seconds after the container has started before liveness probes are initiated
+    # @section -- Probes configuration
+    initialDelaySeconds: 30
+    # -- (int) How often the probe is performed. Measured in seconds
+    # @section -- Probes configuration
+    periodSeconds: 30
+    # -- (int) Minimum consecutive successes for the probe to be considered successful after failing
+    # @section -- Probes configuration
+    successThreshold: 1
+    # -- (int) Number of seconds before the probe times out
+    # @section -- Probes configuration
+    timeoutSeconds: 15
+  # Readiness probe using the applications HTTP probe endpoint
+  readinessProbe:
+    # -- (boolean) Enable readiness probe on containers
+    # @section -- Probes configuration
+    enabled: true
+    # -- (number) Number of times the probe should be retried before marking the container as unhealthy
+    # @section -- Probes configuration
+    failureThreshold: 3
+    # -- (number) Number of seconds after the container has started before readiness probes are initiated
+    # @section -- Probes configuration
+    initialDelaySeconds: 30
+    # -- (number) How often the probe is performed. Measured in seconds
+    # @section -- Probes configuration
+    periodSeconds: 15
+    # -- (number) Minimum consecutive successes for the probe to be considered successful after failing
+    # @section -- Probes configuration
+    successThreshold: 1
+    # -- (number) Number of seconds before the probe times out
+    # @section -- Probes configuration
+    timeoutSeconds: 10
+
+# Global configurations
+# This configuration is only relevant for the SoFy deployments
+# @ignore
+global:
+  serviceAccountName:
+  hclImagePullSecret:
+  hclImageRegistry: "hclcr.io/sofy"
+  persistence:
+    rwxStorageClassV3:
+  emissaryID:
+  ambassadorID:

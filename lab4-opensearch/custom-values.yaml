@@ -77,11 +77,18 @@ networking:
   webEngine:
     # Host of webEngine, must be specified as a FQDN
     host: "dx.apps.promox.europesip-lab.com"
+
 # Security related configuration, e.g. default credentials
 security:
   # Security configuration for webEngine
   webEngine:
-    webEnginePassword: "Passw0rd"
+    # Credentials for the WebEngine Server administrative user
+    # Note: Be aware of the out-of-the-box additional "admin1" adminsitrative user
+    # Also, be aware that if we want to use custom-secrets, we must also unset webEngineUser & webEnginePassword values
+    webEngineUser: ""
+    webEnginePassword: ""
+    customWebEngineSecret: "web-engine-secret" # secret only is taken if previous values are empty.
+
 
 # Application configuration
 configuration:
@@ -92,9 +99,12 @@ configuration:
     # Enable/Disable Search Middleware
     enabled: true
     # Security related configuration, e.g. default credentials
-    pushAdminUser: "pushadmin"
+    pushAdminUser: ""
     # Password of the push administrator
-    pushAdminPassword: "adminpush"  
+    pushAdminPassword: ""  
+    # Provide user&password on a secret
+    customPushAdminSecret: "pushcreadentials"
+    
   webEngine:
 
   # ------------------------------------------------

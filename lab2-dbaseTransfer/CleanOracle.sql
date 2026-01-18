@@ -12,6 +12,7 @@ ALTER SESSION SET CONTAINER = WPSDB;
 --------------------------------------------------------------------------------
 
 -- Intentar borrar usuarios. Si sale "User does not exist", ignóralo.
+
 DROP USER wpsuser CASCADE;
 DROP USER jcr CASCADE;
 DROP USER release CASCADE;

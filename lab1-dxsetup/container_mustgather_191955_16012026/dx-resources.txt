@@ -1,0 +1,48 @@
+W0116 19:20:16.710630    1652 warnings.go:70] apps.openshift.io/v1 DeploymentConfig is deprecated in v4.14+, unavailable in v4.10000+
+NAME                                                             READY   STATUS    RESTARTS      AGE
+pod/dx-deployment-content-composer-79d7fd546f-v75fl              1/1     Running   0             24m
+pod/dx-deployment-digital-asset-management-0                     2/2     Running   5 (21m ago)   24m
+pod/dx-deployment-haproxy-8cc95c9c9-4f25c                        1/1     Running   0             24m
+pod/dx-deployment-image-processor-747c9457fc-hx6cq               1/1     Running   0             24m
+pod/dx-deployment-persistence-connection-pool-7c47cc988f-9jc6g   1/1     Running   1 (21m ago)   24m
+pod/dx-deployment-persistence-node-0                             4/4     Running   1 (23m ago)   24m
+pod/dx-deployment-ring-api-69d69497d5-rxk72                      1/1     Running   0             24m
+pod/dx-deployment-runtime-controller-7b474b9bbf-lk89f            1/1     Running   0             24m
+pod/dx-deployment-web-engine-0                                   3/3     Running   0             19m
+
+NAME                                             TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)             AGE
+service/dx-deployment-content-composer           ClusterIP   172.30.253.214   <none>        3000/TCP            24m
+service/dx-deployment-digital-asset-management   ClusterIP   172.30.179.17    <none>        3000/TCP            24m
+service/dx-deployment-haproxy                    ClusterIP   172.30.121.153   <none>        443/TCP,10203/TCP   24m
+service/dx-deployment-haproxy-headless           ClusterIP   None             <none>        8081/TCP            24m
+service/dx-deployment-image-processor            ClusterIP   172.30.127.117   <none>        3000/TCP            24m
+service/dx-deployment-persistence                ClusterIP   172.30.86.215    <none>        5432/TCP            24m
+service/dx-deployment-persistence-headless-svc   ClusterIP   None             <none>        5432/TCP            24m
+service/dx-deployment-ring-api                   ClusterIP   172.30.219.29    <none>        3000/TCP            24m
+service/dx-deployment-runtime-controller         ClusterIP   172.30.174.170   <none>        3000/TCP            24m
+service/dx-deployment-web-engine                 ClusterIP   172.30.80.248    <none>        9080/TCP,9443/TCP   24m
+service/dx-deployment-web-engine-headless        ClusterIP   None             <none>        9080/TCP,9443/TCP   24m
+
+NAME                                                        READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/dx-deployment-content-composer              1/1     1            1           24m
+deployment.apps/dx-deployment-haproxy                       1/1     1            1           24m
+deployment.apps/dx-deployment-image-processor               1/1     1            1           24m
+deployment.apps/dx-deployment-persistence-connection-pool   1/1     1            1           24m
+deployment.apps/dx-deployment-ring-api                      1/1     1            1           24m
+deployment.apps/dx-deployment-runtime-controller            1/1     1            1           24m
+
+NAME                                                                   DESIRED   CURRENT   READY   AGE
+replicaset.apps/dx-deployment-content-composer-79d7fd546f              1         1         1       24m
+replicaset.apps/dx-deployment-haproxy-8cc95c9c9                        1         1         1       24m
+replicaset.apps/dx-deployment-image-processor-747c9457fc               1         1         1       24m
+replicaset.apps/dx-deployment-persistence-connection-pool-7c47cc988f   1         1         1       24m
+replicaset.apps/dx-deployment-ring-api-69d69497d5                      1         1         1       24m
+replicaset.apps/dx-deployment-runtime-controller-7b474b9bbf            1         1         1       24m
+
+NAME                                                      READY   AGE
+statefulset.apps/dx-deployment-digital-asset-management   1/1     24m
+statefulset.apps/dx-deployment-persistence-node           1/1     24m
+statefulset.apps/dx-deployment-web-engine                 1/1     24m
+
+NAME                                                 HOST/PORT                          PATH   SERVICES                PORT      TERMINATION        WILDCARD
+route.route.openshift.io/dx-deployment-passthrough   dx.apps.promox.europesip-lab.com          dx-deployment-haproxy   haproxy   passthrough/None   None

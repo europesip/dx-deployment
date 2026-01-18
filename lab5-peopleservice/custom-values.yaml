@@ -1,0 +1,240 @@
+images:  # Section used ON MAIN CUSTOM_VALUES.YAML
+  # Container repository used to retrieve the images
+  repository: "image-registry.openshift-image-registry.svc:5000/openshift"
+  
+  # Image name for each application
+  names:
+    contentComposer: "dx-content-composer"
+    core: "dx-core"
+    damPluginGoogleVision: "dx-dam-plugin-google-vision"
+    digitalAssetManagement: "dx-digital-asset-manager"
+    imageProcessor: "dx-image-processor"
+    openLdap: "dx-openldap"
+    persistenceConnectionPool: "dx-persistence-connection-pool"
+    persistenceNode: "dx-persistence-node"
+    persistenceMetricsExporter: "dx-persistence-metrics-exporter"
+    remoteSearch: "dx-remote-search"
+    ringApi: "dx-ringapi"
+    runtimeController: "dx-runtime-controller"
+    loggingSidecar: "dx-logging-sidecar"
+    haproxy: "dx-haproxy"
+    damPluginKaltura: "dx-dam-plugin-kaltura"
+    licenseManager: "dx-license-manager"
+    prereqsChecker: "dx-prereqs-checker"
+    webEngine: "dx-webengine"
+
+# Persistent Volume Setup
+volumes:
+  digitalAssetManagement:
+    # Binary storage PVC, shared by all Digital Asset Management Pods - RWX
+    binaries:
+      storageClassName: "dx-deploy-rwx"
+  # Persistent Volumes for Persistence Node
+  persistenceNode:
+    # Database PVC, one per Persistence Node
+    database:
+      storageClassName: "dx-deploy-rwo"
+  # Persistent Volumes for License-Manager Node
+  licenseManager:
+    # Database PVC, one per license-manager Node
+    data:
+      storageClassName: "dx-deploy-rwo"
+  # Persistent Volumes for webEngine
+  webEngine:
+    # Customization PVC one per webEngine pod - RWO
+    customization:
+      storageClassName: "dx-deploy-rwo"
+    # Application Log PVC, one per webEngine pod - RWO
+    log:
+      storageClassName: "dx-deploy-rwo"
+
+# Controls which application is deployed and configured
+applications:
+  # Deploy Open LDAP (set to false for external LDAP)
+  openLdap: false
+  # Deploys the Remote Search
+  remoteSearch: false
+  # Do not install Core DX, install WebEngine (Compose) instead
+  core: false
+  # Install Compose
+  webEngine: true
+
+# Configuration for the peopleservice sub-chart.
+# Set `enabled` to `true` to enable the peopleservice sub-chart, or `false` to disable it.
+peopleservice:
+  enabled: true
+  image:  # ->  Overriding values needed for People Service.
+   registry: "image-registry.openshift-image-registry.svc:5000/openshift"
+   repository: "dx-people-service"
+   tag: "v1.0.0_20251024-1349"
+  volumes:
+    # Data persistence for People Service using PVC
+   data:
+    storageClassName: "dx-deploy-rwx"
+  configuration:
+    # Authentication strategy to be used. If set to DX, people-service leverages the same authentication mechanism that DX uses.
+    authStrategy: DX
+    # Integration configuration
+    integration:
+      # Indicates that people-service is running in an integration mode for HCL Digital Experience.
+      dx: true
+    search:
+      middleware:
+        enabled: false  # Dependence of previous search
+  externalDatabase:
+    # -- (string) PostgreSQL host
+    # @section -- External database configuration
+    host: "dx-deployment-persistence"
+    # -- (int) PostgreSQL port
+    # @section -- External database configuration
+    port: 5432
+    # -- (string) PostgreSQL database
+    # @section -- External database configuration
+    database: "peopledb"
+    # -- (string) Existing secret for external PostgreSQL configuration
+    # @section -- External database configuration
+    existingSecret: "dx-deployment-persistence-user"
+    # -- (string) Existing secret key for user. Defaults to `db-user` if not specified
+    # @section -- External database configuration
+    existingSecretUserKey: "username"
+    # -- (string) Existing secret key for password. Defaults to "db-password" if not specified
+    # @section -- External database configuration
+    existingSecretPasswordKey: "password"
+  # LDAP configuration
+  ldap:
+    # -- (boolean) Indicates if LDAP is enabled. If set to `true`, ensure that the values for required parameter `ldap.host` is provided
+    # @section -- LDAP configuration
+    enabled: true
+    # -- (string) LDAP server URL
+    # @section -- LDAP configuration
+    host: "ldap.europesip-lab.com"
+    # -- (string) LDAP Bind dn
+    # @section -- LDAP configuration
+    bindDn: "uid=wpsbind,ou=People,dc=europesip,dc=com"
+    # -- (string) LDAP Bind password
+    # @section -- LDAP configuration
+    bindPassword: "Passw0rd"
+    # -- (string) LDAP search base
+    # @section -- LDAP configuration
+    searchBase: "dc=europesip,dc=com"
+    
+    # -- (string) Existing secret for LDAP configuration
+    # @section -- LDAP configuration
+    existingSecret: ""
+    # -- (string) Existing secret key for bindPassword. Defaults to `bindPassword` if not specified
+    # @section -- LDAP configuration
+    existingSecretBindPasswordKey: ""
+
+    # User synchronization configuration
+  userSynchronization:
+    # -- (boolean) Indicates if user synchronization is enabled
+    # @section -- User synchronization configuration
+    enabled: true
+    # -- (string) User synchronization strategy. Accepted values are `sync` and `none`
+    # @section -- User synchronization configuration
+    strategy: "sync"
+    # -- (string) Cron schedule for user synchronization
+    # @section -- User synchronization configuration
+    cronSchedule: "0 */4 * * *"
+    # -- (boolean) Indicates if user synchronization is run in mutual exlusive mode
+    # @section -- User synchronization configuration
+    preventConcurrentExecution: true
+  
+  #   # JWT configuration
+  jwt:
+    # -- (string) JWT secret
+    # @section -- Application configuration
+    secret: "dx-deployment-peopleservice-jwt"
+
+  networking:
+    host: "dx.apps.promox.europesip-lab.com"
+    #port: 443
+    ssl: 
+      enabled: true 
+    ingress:
+      enabled: false # Disabled, because we are using OpenShift Routes instead
+  
+# Networking specific configuration
+networking:
+  # Networking configurations specific to HAProxy
+  haproxy:
+    # Configuration to set the type Service type for the HAProxy Service
+    serviceType: "ClusterIP"
+  # TLS Certificate secret used for HAProxy
+  tlsCertSecret: "dx-tls-cert"
+  # Networking configuration specific to webEngine
+  webEngine:
+    # Host of webEngine, must be specified as a FQDN
+    host: "dx.apps.promox.europesip-lab.com"
+  
+# Security related configuration, e.g. default credentials
+security:
+  # Security configuration for webEngine
+  webEngine:
+    # Credentials for the WebEngine Server administrative user
+    # Note: Be aware of the out-of-the-box additional "admin1" adminsitrative user
+    # Also, be aware that if we want to use custom-secrets, we must also unset webEngineUser & webEnginePassword values
+    webEngineUser: ""
+    webEnginePassword: ""
+    customWebEngineSecret: "web-engine-secret" # secret only is taken if previous values are empty.
+
+
+configuration:
+  containerTimezone: "Europe/Madrid"
+  webEngine:
+    customTruststoreSecrets:
+      ca-secret-1: "dx-custom-certs"
+    customSecrets:
+      ldap-credentials: "ldap-credentials"
+
+    configOverrideFiles:
+      user-overrides.xml: |
+          <server description="DX Web Engine server">
+          <basicRegistry id="basic" realm="defaultWIMFileBasedRealm">
+          <user name="wpsadmin" password="Passw0rd" id="uid=wpsadmin,o=defaultWIMFileBasedRealm" />
+          <user name="admin1" password="admin2pwd" id="uid=admin1,o=defaultWIMFileBasedRealm"/>
+          <group name="wpsadmins" id="cn=wpsadmins,o=defaultWIMFileBasedRealm">
+             <member name="andres"/>
+             <member name="wpsadmin" />
+          </group>
+          </basicRegistry>
+          </server>
+      ldapOverride.xml: |
+          <server description="WebEngineServer">
+            <ldapRegistry id="ldap" realm="SampleLdapIDSRealm"
+              host="ldap.europesip-lab.com" port="636" ignoreCase="true"
+              baseDN="dc=europesip,dc=com"
+              ldapType="Custom"
+              sslEnabled="true"
+              sslRef="customSSLConfig"
+              bindDN="${LDAP_USERNAME}"
+              bindPassword="${LDAP_PASSWORD}">
+
+              <customFilters
+                userFilter="(&amp;(|(uid=%v)(mail=%v))(objectclass=inetOrgPerson))"
+                groupFilter="(&amp;(cn=%v)(|(objectclass=groupOfNames)(objectclass=groupOfUniqueNames)))"
+                userIdMap="*:uid"
+                groupIdMap="*:cn"
+                groupMemberIdMap="ibm-allGroups:member;ibm-allGroups:uniqueMember;groupOfNames:member;groupOfUniqueNames:uniqueMember">
+              </customFilters>
+
+              <attributeConfiguration>
+                <attribute name="mail" propertyName="ibm-primaryEmail" entityType="PersonAccount"/>
+                <attribute name="title" propertyName="ibm-jobTitle" entityType="PersonAccount"/>
+              </attributeConfiguration>
+
+            </ldapRegistry>
+            <federatedRepository>
+               <primaryRealm name="FederatedRealm" allowOpIfRepoDown="true">
+                  <participatingBaseEntry name="o=defaultWIMFileBasedRealm"/>
+                  <participatingBaseEntry name="dc=europesip,dc=com"/>
+               </primaryRealm>
+            </federatedRepository>
+          </server>
+  # Digital asset management configurations
+  digitalAssetManagement:
+    # Example:
+    # friendlyUrlContextRoot: "/assets"
+    # will make the assets accessible at:
+    # "/assets/{collection name/unique id}/{asset name/unique id}?binary={true/false}&rendition={rendition type}&version={version id}"
+    friendlyUrlContextRoot: "/assets"

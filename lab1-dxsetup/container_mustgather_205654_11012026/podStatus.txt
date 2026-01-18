@@ -1,0 +1,12 @@
+NAME                                                         READY   STATUS      RESTARTS        AGE     IP             NODE       NOMINATED NODE   READINESS GATES
+dx-deployment-content-composer-79d7fd546f-9cjbr              1/1     Running     0               16m     10.128.2.51    worker-0   <none>           <none>
+dx-deployment-digital-asset-management-0                     2/2     Running     5 (14m ago)     16m     10.128.2.54    worker-0   <none>           <none>
+dx-deployment-haproxy-76594d558b-5x5v4                       0/1     Completed   7 (5m12s ago)   11m     10.131.1.192   worker-2   <none>           <none>
+dx-deployment-haproxy-8cc95c9c9-htz5g                        1/1     Running     0               16m     10.128.2.53    worker-0   <none>           <none>
+dx-deployment-image-processor-747c9457fc-9wc9v               1/1     Running     0               16m     10.129.3.67    worker-1   <none>           <none>
+dx-deployment-peopleservice-5649799f47-9np4d                 0/1     Running     2 (19s ago)     11m     10.128.2.56    worker-0   <none>           <none>
+dx-deployment-persistence-connection-pool-7c47cc988f-pfld9   1/1     Running     1 (14m ago)     16m     10.129.3.68    worker-1   <none>           <none>
+dx-deployment-persistence-node-0                             4/4     Running     1 (15m ago)     16m     10.131.1.191   worker-2   <none>           <none>
+dx-deployment-ring-api-69d69497d5-wh42c                      1/1     Running     0               16m     10.129.3.66    worker-1   <none>           <none>
+dx-deployment-runtime-controller-7b474b9bbf-rxqlh            1/1     Running     0               16m     10.129.3.65    worker-1   <none>           <none>
+dx-deployment-web-engine-0                                   3/3     Running     0               9m57s   10.129.3.71    worker-1   <none>           <none>

@@ -1,0 +1,12 @@
+NAME                                                         READY   STATUS             RESTARTS         AGE     IP             NODE       NOMINATED NODE   READINESS GATES
+dx-deployment-content-composer-79d7fd546f-gqdpn              1/1     Running            0                6h13m   10.128.2.45    worker-0   <none>           <none>
+dx-deployment-digital-asset-management-0                     2/2     Running            3 (6h13m ago)    6h13m   10.129.3.38    worker-1   <none>           <none>
+dx-deployment-haproxy-76594d558b-b4xf4                       0/1     CrashLoopBackOff   10 (2m23s ago)   28m     10.129.3.63    worker-1   <none>           <none>
+dx-deployment-haproxy-8cc95c9c9-xdrsr                        1/1     Running            0                6h13m   10.131.1.188   worker-2   <none>           <none>
+dx-deployment-image-processor-747c9457fc-lsh5d               1/1     Running            0                6h13m   10.129.3.36    worker-1   <none>           <none>
+dx-deployment-peopleservice-6b76659cc9-wlrdz                 0/1     Running            5 (66s ago)      28m     10.129.3.62    worker-1   <none>           <none>
+dx-deployment-persistence-connection-pool-7c47cc988f-d49bg   1/1     Running            0                6h13m   10.129.3.37    worker-1   <none>           <none>
+dx-deployment-persistence-node-0                             4/4     Running            1 (6h12m ago)    6h13m   10.131.1.189   worker-2   <none>           <none>
+dx-deployment-ring-api-69d69497d5-ws76n                      1/1     Running            0                6h13m   10.128.2.46    worker-0   <none>           <none>
+dx-deployment-runtime-controller-7b474b9bbf-2z244            1/1     Running            0                6h13m   10.128.2.47    worker-0   <none>           <none>
+dx-deployment-web-engine-0                                   3/3     Running            0                28m     10.128.2.50    worker-0   <none>           <none>

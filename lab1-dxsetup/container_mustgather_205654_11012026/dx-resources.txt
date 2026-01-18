@@ -1,0 +1,56 @@
+W0111 20:57:21.580992   22308 warnings.go:70] apps.openshift.io/v1 DeploymentConfig is deprecated in v4.14+, unavailable in v4.10000+
+NAME                                                             READY   STATUS             RESTARTS       AGE
+pod/dx-deployment-content-composer-79d7fd546f-9cjbr              1/1     Running            0              16m
+pod/dx-deployment-digital-asset-management-0                     2/2     Running            5 (14m ago)    16m
+pod/dx-deployment-haproxy-76594d558b-5x5v4                       0/1     CrashLoopBackOff   6 (5m6s ago)   10m
+pod/dx-deployment-haproxy-8cc95c9c9-htz5g                        1/1     Running            0              16m
+pod/dx-deployment-image-processor-747c9457fc-9wc9v               1/1     Running            0              16m
+pod/dx-deployment-peopleservice-5649799f47-9np4d                 0/1     Running            2 (13s ago)    10m
+pod/dx-deployment-persistence-connection-pool-7c47cc988f-pfld9   1/1     Running            1 (14m ago)    16m
+pod/dx-deployment-persistence-node-0                             4/4     Running            1 (15m ago)    16m
+pod/dx-deployment-ring-api-69d69497d5-wh42c                      1/1     Running            0              16m
+pod/dx-deployment-runtime-controller-7b474b9bbf-rxqlh            1/1     Running            0              16m
+pod/dx-deployment-web-engine-0                                   3/3     Running            0              9m51s
+
+NAME                                             TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)             AGE
+service/dx-deployment-content-composer           ClusterIP   172.30.22.93     <none>        3000/TCP            16m
+service/dx-deployment-digital-asset-management   ClusterIP   172.30.184.245   <none>        3000/TCP            16m
+service/dx-deployment-haproxy                    ClusterIP   172.30.46.0      <none>        443/TCP,10203/TCP   16m
+service/dx-deployment-haproxy-headless           ClusterIP   None             <none>        8081/TCP            16m
+service/dx-deployment-image-processor            ClusterIP   172.30.137.176   <none>        3000/TCP            16m
+service/dx-deployment-peopleservice              ClusterIP   172.30.11.158    <none>        3000/TCP            10m
+service/dx-deployment-persistence                ClusterIP   172.30.60.251    <none>        5432/TCP            16m
+service/dx-deployment-persistence-headless-svc   ClusterIP   None             <none>        5432/TCP            16m
+service/dx-deployment-ring-api                   ClusterIP   172.30.215.19    <none>        3000/TCP            16m
+service/dx-deployment-runtime-controller         ClusterIP   172.30.144.144   <none>        3000/TCP            16m
+service/dx-deployment-web-engine                 ClusterIP   172.30.68.183    <none>        9080/TCP,9443/TCP   16m
+service/dx-deployment-web-engine-headless        ClusterIP   None             <none>        9080/TCP,9443/TCP   16m
+
+NAME                                                        READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/dx-deployment-content-composer              1/1     1            1           16m
+deployment.apps/dx-deployment-haproxy                       1/1     1            1           16m
+deployment.apps/dx-deployment-image-processor               1/1     1            1           16m
+deployment.apps/dx-deployment-peopleservice                 0/1     1            0           10m
+deployment.apps/dx-deployment-persistence-connection-pool   1/1     1            1           16m
+deployment.apps/dx-deployment-ring-api                      1/1     1            1           16m
+deployment.apps/dx-deployment-runtime-controller            1/1     1            1           16m
+
+NAME                                                                   DESIRED   CURRENT   READY   AGE
+replicaset.apps/dx-deployment-content-composer-79d7fd546f              1         1         1       16m
+replicaset.apps/dx-deployment-haproxy-76594d558b                       1         1         0       10m
+replicaset.apps/dx-deployment-haproxy-8cc95c9c9                        1         1         1       16m
+replicaset.apps/dx-deployment-image-processor-747c9457fc               1         1         1       16m
+replicaset.apps/dx-deployment-peopleservice-5649799f47                 1         1         0       10m
+replicaset.apps/dx-deployment-persistence-connection-pool-7c47cc988f   1         1         1       16m
+replicaset.apps/dx-deployment-ring-api-69d69497d5                      1         1         1       16m
+replicaset.apps/dx-deployment-runtime-controller-7b474b9bbf            1         1         1       16m
+
+NAME                                                      READY   AGE
+statefulset.apps/dx-deployment-digital-asset-management   1/1     16m
+statefulset.apps/dx-deployment-persistence-node           1/1     16m
+statefulset.apps/dx-deployment-web-engine                 1/1     16m
+
+NAME                                                         HOST/PORT                          PATH                SERVICES                      PORT      TERMINATION        WILDCARD
+route.route.openshift.io/dx-deployment-passthrough           dx.apps.promox.europesip-lab.com                       dx-deployment-haproxy         haproxy   passthrough/None   None
+route.route.openshift.io/dx-deployment-peopleservice-fphwh   dx.apps.promox.europesip-lab.com   /dx/api/people/v1   dx-deployment-peopleservice   http                         None
+route.route.openshift.io/dx-deployment-peopleservice-v2gfk   dx.apps.promox.europesip-lab.com   /dx/ui/people       dx-deployment-peopleservice   http                         None

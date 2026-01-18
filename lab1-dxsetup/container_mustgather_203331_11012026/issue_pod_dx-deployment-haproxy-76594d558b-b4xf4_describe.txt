@@ -1,0 +1,111 @@
+Name:         dx-deployment-haproxy-76594d558b-b4xf4
+Namespace:    digital-experience
+Priority:     0
+Node:         worker-1/192.168.100.105
+Start Time:   Sun, 11 Jan 2026 20:05:15 +0100
+Labels:       app=dx-deployment-haproxy
+              app.kubernetes.io/instance=dx-deployment
+              app.kubernetes.io/managed-by=Helm
+              app.kubernetes.io/name=hcl-dx-deployment
+              app.kubernetes.io/version=95_CF231
+              helm.sh/chart=hcl-dx-deployment-2.42.1
+              pod-template-hash=76594d558b
+              release=dx-deployment
+Annotations:  checksum/config-haproxy: 96584fec5b25afa4a8d6b0c0b20829c238b50a03adad512423550143c161a1e5
+              k8s.ovn.org/pod-networks:
+                {"default":{"ip_addresses":["10.129.3.63/23"],"mac_address":"0a:58:0a:81:03:3f","gateway_ips":["10.129.2.1"],"routes":[{"dest":"10.128.0.0...
+              k8s.v1.cni.cncf.io/network-status:
+                [{
+                    "name": "ovn-kubernetes",
+                    "interface": "eth0",
+                    "ips": [
+                        "10.129.3.63"
+                    ],
+                    "mac": "0a:58:0a:81:03:3f",
+                    "default": true,
+                    "dns": {}
+                }]
+              openshift.io/scc: anyuid
+              prometheus.io/path: /metrics
+              prometheus.io/port: 8404
+              prometheus.io/scrape: true
+              security.openshift.io/validated-scc-subject-type: serviceaccount
+Status:       Running
+IP:           10.129.3.63
+IPs:
+  IP:           10.129.3.63
+Controlled By:  ReplicaSet/dx-deployment-haproxy-76594d558b
+Containers:
+  haproxy:
+    Container ID:   cri-o://990dcf81612ba94b8313f84ce86beab505945a5f987bedd5da5b582f0728ffb5
+    Image:          image-registry.openshift-image-registry.svc:5000/openshift/dx-haproxy:v1.27.0_20251024-1338
+    Image ID:       image-registry.openshift-image-registry.svc:5000/openshift/dx-haproxy@sha256:5d481d5730d6cca3d02b4b4ebf0535974528da2857544e32e94000c60e87d6ab
+    Ports:          8081/TCP, 9999/TCP, 10203/TCP, 8404/TCP
+    Host Ports:     0/TCP, 0/TCP, 0/TCP, 0/TCP
+    State:          Waiting
+      Reason:       CrashLoopBackOff
+    Last State:     Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Sun, 11 Jan 2026 20:31:37 +0100
+      Finished:     Sun, 11 Jan 2026 20:31:38 +0100
+    Ready:          False
+    Restart Count:  10
+    Limits:
+      cpu:     200m
+      memory:  300Mi
+    Requests:
+      cpu:      200m
+      memory:   300Mi
+    Liveness:   http-get http://:10001/ delay=0s timeout=5s period=5s #success=1 #failure=4
+    Readiness:  http-get http://:10001/ delay=0s timeout=5s period=5s #success=1 #failure=2
+    Environment:
+      TZ:                Europe/Madrid
+      MAINTENANCE_MODE:  false
+    Mounts:
+      /etc/global-config from global-config (rw)
+      /etc/ssl/certs from haproxy-ssl (ro)
+      /usr/local/etc/haproxy from haproxy-conf (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-q6hrt (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  haproxy-conf:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      dx-deployment-haproxy
+    Optional:  false
+  haproxy-ssl:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  dx-tls-cert
+    Optional:    false
+  global-config:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      dx-deployment-global
+    Optional:  false
+  kube-api-access-q6hrt:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+    ConfigMapName:           openshift-service-ca.crt
+    ConfigMapOptional:       <nil>
+QoS Class:                   Guaranteed
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/memory-pressure:NoSchedule op=Exists
+                             node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason          Age                    From               Message
+  ----     ------          ----                   ----               -------
+  Normal   Scheduled       28m                    default-scheduler  Successfully assigned digital-experience/dx-deployment-haproxy-76594d558b-b4xf4 to worker-1
+  Normal   AddedInterface  28m                    multus             Add eth0 [10.129.3.63/23] from ovn-kubernetes
+  Normal   Started         12m (x9 over 28m)      kubelet            Started container haproxy
+  Normal   Created         7m33s (x10 over 28m)   kubelet            Created container: haproxy
+  Warning  BackOff         3m33s (x129 over 28m)  kubelet            Back-off restarting failed container haproxy in pod dx-deployment-haproxy-76594d558b-b4xf4_digital-experience(9a50b086-fb45-4bf3-abfc-90d54bc1e8b9)
+  Normal   Pulled          2m25s (x11 over 28m)   kubelet            Container image "image-registry.openshift-image-registry.svc:5000/openshift/dx-haproxy:v1.27.0_20251024-1338" already present on machine

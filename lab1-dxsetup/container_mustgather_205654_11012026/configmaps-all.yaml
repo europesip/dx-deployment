@@ -17,7 +17,7 @@ items:
     annotations:
       meta.helm.sh/release-name: dx-deployment
       meta.helm.sh/release-namespace: digital-experience
-    creationTimestamp: "2026-01-05T18:12:07Z"
+    creationTimestamp: "2026-01-11T19:40:46Z"
     labels:
       app: dx-deployment-content-composer
       app.kubernetes.io/instance: dx-deployment
@@ -58,11 +58,11 @@ items:
             f:release: {}
       manager: helm
       operation: Update
-      time: "2026-01-05T18:12:07Z"
+      time: "2026-01-11T19:40:46Z"
     name: dx-deployment-content-composer
     namespace: digital-experience
-    resourceVersion: "24370409"
-    uid: 8f18585e-51b0-4bd5-86f4-400dd095c626
+    resourceVersion: "27097341"
+    uid: 0fc0cfad-66ef-4116-b765-1d20ee114667
 - apiVersion: v1
   data:
     dam.config.dam.acl_cache_ttl: "10"
@@ -708,7 +708,7 @@ items:
     annotations:
       meta.helm.sh/release-name: dx-deployment
       meta.helm.sh/release-namespace: digital-experience
-    creationTimestamp: "2026-01-05T18:12:07Z"
+    creationTimestamp: "2026-01-11T19:40:46Z"
     labels:
       app: dx-deployment-digital-asset-management
       app.kubernetes.io/instance: dx-deployment
@@ -812,11 +812,11 @@ items:
             f:release: {}
       manager: helm
       operation: Update
-      time: "2026-01-05T18:12:07Z"
+      time: "2026-01-11T19:40:46Z"
     name: dx-deployment-digital-asset-management
     namespace: digital-experience
-    resourceVersion: "24370413"
-    uid: 67928d72-bb92-4405-a954-01428285db0a
+    resourceVersion: "27097338"
+    uid: 602e9c5d-80d4-4506-a4e1-ff6e37180786
 - apiVersion: v1
   data:
     log.contentComposer: api:server-v1:*=info
@@ -836,7 +836,7 @@ items:
     annotations:
       meta.helm.sh/release-name: dx-deployment
       meta.helm.sh/release-namespace: digital-experience
-    creationTimestamp: "2026-01-05T18:12:07Z"
+    creationTimestamp: "2026-01-11T19:40:46Z"
     labels:
       app.kubernetes.io/instance: dx-deployment
       app.kubernetes.io/managed-by: Helm
@@ -877,20 +877,20 @@ items:
             f:release: {}
       manager: helm
       operation: Update
-      time: "2026-01-05T18:12:07Z"
+      time: "2026-01-11T19:40:46Z"
     name: dx-deployment-global
     namespace: digital-experience
-    resourceVersion: "24370410"
-    uid: 53c0ba2b-ee12-468d-9571-bfdcaebd77d9
+    resourceVersion: "27097340"
+    uid: ab23d34a-3337-4b87-8064-b322605f640b
 - apiVersion: v1
   data:
-    dx.config.haproxy.cfg: "global\n  stats socket ipv4@*:9999 mode 660 level admin expose-fd listeners\n  maxconn 50000\n  log stdout format raw local0 info\n  nbthread 4\n\ndefaults\n  timeout connect 10s\n  timeout client 1200s\n  timeout server 1200s\n  log global\n  mode http\n  option httplog\n  # If a core server goes down we allow connecting to other servers even if stickyness would prevent that\n  option redispatch\n  balance leastconn\n  # Default http log format with IP removed\n  log-format \"[%tr] %ft %b/%s %TR/%Tw/%Tc/%Tr/%Ta %ST %B %CC %CS %tsc %ac/%fc/%bc/%sc/%rc %sq/%bq %hr %hs %{+Q}r\"\n\n# Mock frontend returning a 200 code for the probes once HAProxy is up\nfrontend probe\n  # We disable logging for the probe frontend to not pollute the log\n  no log\n  bind :10001\n  http-request return status 200 content-type \"text/plain\" string \"OK\"\n\nfrontend metrics\n  bind *:8404\n  http-request use-service prometheus-exporter if { path /metrics }\n  stats enable\n  stats uri /stats\n  stats refresh 10s\n\n# We create a peer section only pointing to the current instance. This persists stick tables during a config reload as the new process reads the tables from the old process\npeers localPeer\n  peer local 127.0.0.1:10000\n\nfrontend dx\n  bind :8081 ssl crt /etc/ssl/certs/tls.crt \n\n  # HTTP Strict Transport Security(HSTS)\n  http-response set-header Strict-Transport-Security \"max-age=31536000;\"\n\n  use_backend dam if { path -m reg ^/dx/(api|ui)/dam/ }\n  use_backend dam if { path_beg /dx/ui/picker/ }\n  use_backend content if { path_beg /dx/ui/content/ }\n  use_backend image-processor if { path_beg /dx/api/image-processor/ }\n  use_backend ring-api if { path_beg /dx/api/core/ }\n  stick-table type string len 180 size 32m expire 30m store http_req_rate(30m),gpc0 peers localPeer\n  http-request set-header X-Concat --%[src]_%[req.fhdr(User-Agent)]_%[req.fhdr(X-Forwarded-For,-1)]--\n  http-request track-sc0 req.fhdr(X-Concat)\n\n\n  use_backend runtime-controller  if { path_beg /dx/api/runtime-controller/ }\n\n  default_backend web-engine-dx-home\n\n# Define DNS resolver for core headless services\nresolvers kube-dns\n  # Use the Pod's /etc/resolv.conf file (created by Kubernetes) to define the nameserver\n  parse-resolv-conf\n  accepted_payload_size 8192\n\nbackend web-engine-dx-home\n  acl has_oidc_set_cookie res.hdr(Set-Cookie) -m reg ^OIDCSTATE\n  acl has_saml_set_cookie res.hdr(Set-Cookie) -m reg ^WasSamlAcsID\n  dynamic-cookie-key dx-deployment\n  acl path_metrics path -i /metrics\n  http-request deny if path_metrics\n  # Set CSP frame-ancestors if URLs are provided\n  # We use this workaround to create a second cookie when certain cookies are present\n  # The new cookie will be used to handle the stickyness. This prevents the actual cookie value from being altered.\n  # The cookie is created with a placeholder value and is rewritten by HAProxy\n  http-response add-header Set-Cookie DxSessionAffinity=placeholder_value;\\ path=/;\\ HttpOnly;\\ Secure;\\ SameSite= if { res.cook(JSESSIONID) -m found } || has_oidc_set_cookie || has_saml_set_cookie\n  cookie DxSessionAffinity rewrite dynamic  nocache\n  default-server ssl check verify none\n  # Setting server template \"num\" parameter to highest number among `maxReplica`, `replica`, and 99. `maxReplica` and `replica` would be considered from the Helm values.\n  # The purpose to set the higher number of server template is to cover for auto-scaling of the core pods.\n  # We do not want to set this number too high as Prometheus is scraping all servers which are specified to `server-template` whether it's assigned to any pods or not.\n  server-template web-engine-dx-home 99 dx-deployment-web-engine-headless.digital-experience.svc.cluster.local:9443 check resolvers kube-dns init-addr none\n\nbackend core-dx-home\n  acl has_oidc_set_cookie res.hdr(Set-Cookie) -m reg ^OIDCSTATE\n  acl has_saml_set_cookie res.hdr(Set-Cookie) -m reg ^WasSamlAcsID\n  dynamic-cookie-key dx-deployment\n  # Set CSP frame-ancestors if URLs are provided\n  # We use this workaround to create a second cookie when certain cookies are present\n  # The new cookie will be used to handle the stickyness. This prevents the actual cookie value from being altered.\n  # The cookie is created with a placeholder value and is rewritten by HAProxy\n  http-response add-header Set-Cookie DxSessionAffinity=placeholder_value;\\ path=/;\\ HttpOnly;\\ Secure;\\ SameSite= if { res.cook(JSESSIONID) -m found } || has_oidc_set_cookie || has_saml_set_cookie\n  cookie DxSessionAffinity rewrite dynamic  nocache\n  default-server ssl check verify none\n  # Setting server template \"num\" parameter to highest number among `maxReplica`, `replica`, and 99. `maxReplica` and `replica` would be considered from the Helm values.\n  # The purpose to set the higher number of server template is to cover for auto-scaling of the core pods.\n  # We do not want to set this number too high as Prometheus is scraping all servers which are specified to `server-template` whether it's assigned to any pods or not.\n  server-template core-dx-home 99 dx-deployment-core-headless.digital-experience.svc.cluster.local:10042 check resolvers kube-dns init-addr none\nbackend core-was-admin\n  dynamic-cookie-key dx-deployment\n  # We use this workaround to create a second cookie when JSESSIONID is present\n  # The new cookie will be used to handle the stickyness. This prevents the actual JSESSIONID value from being altered\n  http-response add-header Set-cookie DxSessionAffinity=placeholder_value;\\ path=/;\\ HttpOnly;\\ Secure;\\ SameSite= if { res.cook(JSESSIONID) -m found }\n  cookie DxSessionAffinity rewrite dynamic  nocache\n  default-server ssl check verify none\n  # Setting server template \"num\" parameter to highest number among `maxReplica`, `replica`, and 99. `maxReplica` and `replica` would be considered from the Helm values.\n  # The purpose to set the higher number of server template is to cover for auto-scaling of the core pods.\n  # We do not want to set this number too high as Prometheus is scraping all servers which are specified to `server-template` whether it's assigned to any pods or not.\n  server-template core-was-admin 99 dx-deployment-core-headless.digital-experience.svc.cluster.local:10041 check resolvers kube-dns init-addr none\nbackend core-dxconnect\n  dynamic-cookie-key dx-deployment\n  # We use this workaround to create a second cookie when CWSession4 is present\n  # The new cookie will be used to handle the stickyness. This prevents the actual CWSession4 value from being altered\n  http-response add-header Set-cookie CwSessionAffinity=%[res.cook(CWSession4)];\\ path=/ if { res.cook(CWSession4) -m found }\n  cookie CwSessionAffinity rewrite dynamic nocache\n  default-server ssl check verify none\n  # Setting server template \"num\" parameter to highest number among `maxReplica`, `replica`, and 99. `maxReplica` and `replica` would be considered from the Helm values.\n  # The purpose to set the higher number of server template is to cover for auto-scaling of the core pods.\n  # We do not want to set this number too high as Prometheus is scraping all servers which are specified to `server-template` whether it's assigned to any pods or not.\n  server-template core-dxconnect 99 dx-deployment-core-headless.digital-experience.svc.cluster.local:10202 check resolvers kube-dns init-addr none\n\nbackend core-cw-home\n  default-server ssl check verify none\n  # For Config Wizard we always connect to the first Core Pod (core-0). Requests will be forwarded even when the Pod is unready to allow Config Wizard to keep communicating during restarts.\n  server-template core-cw-home 1 dx-deployment-core-unready-pod-0.digital-experience.svc.cluster.local:10202 check resolvers kube-dns init-addr none\n\nfrontend cw-admin-sec\n  mode tcp\n  option tcplog\n  # Default tcp log format with IP removed\n  log-format \"[%t] %ft %b/%s %Tw/%Tc/%Tt %B %ts %ac/%fc/%bc/%sc/%rc %sq/%bq\"\n  bind :10203 ssl crt /etc/ssl/certs/tls.crt \n  default_backend cw-admin-sec\n\nbackend cw-admin-sec\n  dynamic-cookie-key dx-deployment\n  # We use this workaround to create a second cookie when JSESSIONID is present\n  # The new cookie will be used to handle the stickyness. This prevents the actual JSESSIONID value from being altered\n  http-response add-header Set-cookie CwAdminSessionAffinity=%[res.cook(JSESSIONID)];\\ path=/ if { res.cook(JSESSIONID) -m found }\n  cookie CwAdminSessionAffinity rewrite dynamic nocache\n  default-server ssl check verify none\n  # Setting server template \"num\" parameter to highest number among `maxReplica`, `replica`, and 99. `maxReplica` and `replica` would be considered from the Helm values.\n  # The purpose to set the higher number of server template is to cover for auto-scaling of the core pods.\n  # We do not want to set this number too high as Prometheus is scraping all servers which are specified to `server-template` whether it's assigned to any pods or not.\n  server-template cw-admin-sec 99 dx-deployment-core-headless.digital-experience.svc.cluster.local:10203 check resolvers kube-dns init-addr none\nfrontend remote-search-frontend\n  mode tcp\n  option tcplog\n  # Default tcp log format with IP removed\n  log-format \"[%t] %ft %b/%s %Tw/%Tc/%Tt %B %ts %ac/%fc/%bc/%sc/%rc %sq/%bq\"\n  bind :9043 ssl crt /etc/ssl/certs/tls.crt \n  default_backend remote-search\n\nbackend remote-search\n  server-template remote-search 1 dx-deployment-remote-search.digital-experience.svc.cluster.local:9043 ssl check verify none resolvers kube-dns init-addr none\n\ndefaults\n  timeout connect 10s\n  timeout client 1200s\n  timeout server 1200s\n  log global\n  mode http\n  option httplog\nbackend dam\n  server-template dam 1 dx-deployment-digital-asset-management.digital-experience.svc.cluster.local:3000 check resolvers kube-dns init-addr none\n\nbackend content\n  server-template content 1 dx-deployment-content-composer.digital-experience.svc.cluster.local:3000 check resolvers kube-dns init-addr none\n\nbackend image-processor\n  server-template image-processor 1 dx-deployment-image-processor.digital-experience.svc.cluster.local:3000 check resolvers kube-dns init-addr none\n\nbackend runtime-controller\n  server-template runtime-controller 1 dx-deployment-runtime-controller.digital-experience.svc.cluster.local:3000 check resolvers kube-dns init-addr none\n\nbackend ring-api\n  server-template ring-api 1 dx-deployment-ring-api.digital-experience.svc.cluster.local:3000 check resolvers kube-dns init-addr none\n"
+    dx.config.haproxy.cfg: "global\n  stats socket ipv4@*:9999 mode 660 level admin expose-fd listeners\n  maxconn 50000\n  log stdout format raw local0 info\n  nbthread 4\n\ndefaults\n  timeout connect 10s\n  timeout client 1200s\n  timeout server 1200s\n  log global\n  mode http\n  option httplog\n  # If a core server goes down we allow connecting to other servers even if stickyness would prevent that\n  option redispatch\n  balance leastconn\n  # Default http log format with IP removed\n  log-format \"[%tr] %ft %b/%s %TR/%Tw/%Tc/%Tr/%Ta %ST %B %CC %CS %tsc %ac/%fc/%bc/%sc/%rc %sq/%bq %hr %hs %{+Q}r\"\n\n# Mock frontend returning a 200 code for the probes once HAProxy is up\nfrontend probe\n  # We disable logging for the probe frontend to not pollute the log\n  no log\n  bind :10001\n  http-request return status 200 content-type \"text/plain\" string \"OK\"\n\nfrontend metrics\n  bind *:8404\n  http-request use-service prometheus-exporter if { path /metrics }\n  stats enable\n  stats uri /stats\n  stats refresh 10s\n\n# We create a peer section only pointing to the current instance. This persists stick tables during a config reload as the new process reads the tables from the old process\npeers localPeer\n  peer local 127.0.0.1:10000\n\nfrontend dx\n  bind :8081 ssl crt /etc/ssl/certs/tls.crt \n\n  # HTTP Strict Transport Security(HSTS)\n  http-response set-header Strict-Transport-Security \"max-age=31536000;\"\n\n  use_backend dam if { path -m reg ^/dx/(api|ui)/dam/ }\n  use_backend dam if { path_beg /dx/ui/picker/ }\n  use_backend content if { path_beg /dx/ui/content/ }\n  use_backend image-processor if { path_beg /dx/api/image-processor/ }\n  use_backend ring-api if { path_beg /dx/api/core/ }\n  stick-table type string len 180 size 32m expire 30m store http_req_rate(30m),gpc0 peers localPeer\n  http-request set-header X-Concat --%[src]_%[req.fhdr(User-Agent)]_%[req.fhdr(X-Forwarded-For,-1)]--\n  http-request track-sc0 req.fhdr(X-Concat)\n\n\n  use_backend runtime-controller  if { path_beg /dx/api/runtime-controller/ }\n  use_backend people-service-ui if is_custom_people_ui_path\n  use_backend people-service-api if is_custom_people_api_path\n\n  default_backend web-engine-dx-home\n\n# Define DNS resolver for core headless services\nresolvers kube-dns\n  # Use the Pod's /etc/resolv.conf file (created by Kubernetes) to define the nameserver\n  parse-resolv-conf\n  accepted_payload_size 8192\n\nbackend web-engine-dx-home\n  acl has_oidc_set_cookie res.hdr(Set-Cookie) -m reg ^OIDCSTATE\n  acl has_saml_set_cookie res.hdr(Set-Cookie) -m reg ^WasSamlAcsID\n  dynamic-cookie-key dx-deployment\n  acl path_metrics path -i /metrics\n  http-request deny if path_metrics\n  # Set CSP frame-ancestors if URLs are provided\n  # We use this workaround to create a second cookie when certain cookies are present\n  # The new cookie will be used to handle the stickyness. This prevents the actual cookie value from being altered.\n  # The cookie is created with a placeholder value and is rewritten by HAProxy\n  http-response add-header Set-Cookie DxSessionAffinity=placeholder_value;\\ path=/;\\ HttpOnly;\\ Secure;\\ SameSite= if { res.cook(JSESSIONID) -m found } || has_oidc_set_cookie || has_saml_set_cookie\n  cookie DxSessionAffinity rewrite dynamic  nocache\n  default-server ssl check verify none\n  # Setting server template \"num\" parameter to highest number among `maxReplica`, `replica`, and 99. `maxReplica` and `replica` would be considered from the Helm values.\n  # The purpose to set the higher number of server template is to cover for auto-scaling of the core pods.\n  # We do not want to set this number too high as Prometheus is scraping all servers which are specified to `server-template` whether it's assigned to any pods or not.\n  server-template web-engine-dx-home 99 dx-deployment-web-engine-headless.digital-experience.svc.cluster.local:9443 check resolvers kube-dns init-addr none\n\nbackend core-dx-home\n  acl has_oidc_set_cookie res.hdr(Set-Cookie) -m reg ^OIDCSTATE\n  acl has_saml_set_cookie res.hdr(Set-Cookie) -m reg ^WasSamlAcsID\n  dynamic-cookie-key dx-deployment\n  # Set CSP frame-ancestors if URLs are provided\n  # We use this workaround to create a second cookie when certain cookies are present\n  # The new cookie will be used to handle the stickyness. This prevents the actual cookie value from being altered.\n  # The cookie is created with a placeholder value and is rewritten by HAProxy\n  http-response add-header Set-Cookie DxSessionAffinity=placeholder_value;\\ path=/;\\ HttpOnly;\\ Secure;\\ SameSite= if { res.cook(JSESSIONID) -m found } || has_oidc_set_cookie || has_saml_set_cookie\n  cookie DxSessionAffinity rewrite dynamic  nocache\n  default-server ssl check verify none\n  # Setting server template \"num\" parameter to highest number among `maxReplica`, `replica`, and 99. `maxReplica` and `replica` would be considered from the Helm values.\n  # The purpose to set the higher number of server template is to cover for auto-scaling of the core pods.\n  # We do not want to set this number too high as Prometheus is scraping all servers which are specified to `server-template` whether it's assigned to any pods or not.\n  server-template core-dx-home 99 dx-deployment-core-headless.digital-experience.svc.cluster.local:10042 check resolvers kube-dns init-addr none\nbackend core-was-admin\n  dynamic-cookie-key dx-deployment\n  # We use this workaround to create a second cookie when JSESSIONID is present\n  # The new cookie will be used to handle the stickyness. This prevents the actual JSESSIONID value from being altered\n  http-response add-header Set-cookie DxSessionAffinity=placeholder_value;\\ path=/;\\ HttpOnly;\\ Secure;\\ SameSite= if { res.cook(JSESSIONID) -m found }\n  cookie DxSessionAffinity rewrite dynamic  nocache\n  default-server ssl check verify none\n  # Setting server template \"num\" parameter to highest number among `maxReplica`, `replica`, and 99. `maxReplica` and `replica` would be considered from the Helm values.\n  # The purpose to set the higher number of server template is to cover for auto-scaling of the core pods.\n  # We do not want to set this number too high as Prometheus is scraping all servers which are specified to `server-template` whether it's assigned to any pods or not.\n  server-template core-was-admin 99 dx-deployment-core-headless.digital-experience.svc.cluster.local:10041 check resolvers kube-dns init-addr none\nbackend core-dxconnect\n  dynamic-cookie-key dx-deployment\n  # We use this workaround to create a second cookie when CWSession4 is present\n  # The new cookie will be used to handle the stickyness. This prevents the actual CWSession4 value from being altered\n  http-response add-header Set-cookie CwSessionAffinity=%[res.cook(CWSession4)];\\ path=/ if { res.cook(CWSession4) -m found }\n  cookie CwSessionAffinity rewrite dynamic nocache\n  default-server ssl check verify none\n  # Setting server template \"num\" parameter to highest number among `maxReplica`, `replica`, and 99. `maxReplica` and `replica` would be considered from the Helm values.\n  # The purpose to set the higher number of server template is to cover for auto-scaling of the core pods.\n  # We do not want to set this number too high as Prometheus is scraping all servers which are specified to `server-template` whether it's assigned to any pods or not.\n  server-template core-dxconnect 99 dx-deployment-core-headless.digital-experience.svc.cluster.local:10202 check resolvers kube-dns init-addr none\n\nbackend core-cw-home\n  default-server ssl check verify none\n  # For Config Wizard we always connect to the first Core Pod (core-0). Requests will be forwarded even when the Pod is unready to allow Config Wizard to keep communicating during restarts.\n  server-template core-cw-home 1 dx-deployment-core-unready-pod-0.digital-experience.svc.cluster.local:10202 check resolvers kube-dns init-addr none\n\nfrontend cw-admin-sec\n  mode tcp\n  option tcplog\n  # Default tcp log format with IP removed\n  log-format \"[%t] %ft %b/%s %Tw/%Tc/%Tt %B %ts %ac/%fc/%bc/%sc/%rc %sq/%bq\"\n  bind :10203 ssl crt /etc/ssl/certs/tls.crt \n  default_backend cw-admin-sec\n\nbackend cw-admin-sec\n  dynamic-cookie-key dx-deployment\n  # We use this workaround to create a second cookie when JSESSIONID is present\n  # The new cookie will be used to handle the stickyness. This prevents the actual JSESSIONID value from being altered\n  http-response add-header Set-cookie CwAdminSessionAffinity=%[res.cook(JSESSIONID)];\\ path=/ if { res.cook(JSESSIONID) -m found }\n  cookie CwAdminSessionAffinity rewrite dynamic nocache\n  default-server ssl check verify none\n  # Setting server template \"num\" parameter to highest number among `maxReplica`, `replica`, and 99. `maxReplica` and `replica` would be considered from the Helm values.\n  # The purpose to set the higher number of server template is to cover for auto-scaling of the core pods.\n  # We do not want to set this number too high as Prometheus is scraping all servers which are specified to `server-template` whether it's assigned to any pods or not.\n  server-template cw-admin-sec 99 dx-deployment-core-headless.digital-experience.svc.cluster.local:10203 check resolvers kube-dns init-addr none\nfrontend remote-search-frontend\n  mode tcp\n  option tcplog\n  # Default tcp log format with IP removed\n  log-format \"[%t] %ft %b/%s %Tw/%Tc/%Tt %B %ts %ac/%fc/%bc/%sc/%rc %sq/%bq\"\n  bind :9043 ssl crt /etc/ssl/certs/tls.crt \n  default_backend remote-search\n\nbackend remote-search\n  server-template remote-search 1 dx-deployment-remote-search.digital-experience.svc.cluster.local:9043 ssl check verify none resolvers kube-dns init-addr none\n\ndefaults\n  timeout connect 10s\n  timeout client 1200s\n  timeout server 1200s\n  log global\n  mode http\n  option httplog\nbackend dam\n  server-template dam 1 dx-deployment-digital-asset-management.digital-experience.svc.cluster.local:3000 check resolvers kube-dns init-addr none\n\nbackend content\n  server-template content 1 dx-deployment-content-composer.digital-experience.svc.cluster.local:3000 check resolvers kube-dns init-addr none\n\nbackend image-processor\n  server-template image-processor 1 dx-deployment-image-processor.digital-experience.svc.cluster.local:3000 check resolvers kube-dns init-addr none\n\nbackend runtime-controller\n  server-template runtime-controller 1 dx-deployment-runtime-controller.digital-experience.svc.cluster.local:3000 check resolvers kube-dns init-addr none\n\nbackend ring-api\n  server-template ring-api 1 dx-deployment-ring-api.digital-experience.svc.cluster.local:3000 check resolvers kube-dns init-addr none\n\nbackend people-service-ui\n   server-template people-server-ui 1 dx-deployment-peopleservice.digital-experience.svc.cluster.local:3000 check resolvers kube-dns init-addr none\n\nbackend people-service-api\n  server-template people-server-api 1 dx-deployment-peopleservice.digital-experience.svc.cluster.local:3000 check resolvers kube-dns init-addr none\n"
   kind: ConfigMap
   metadata:
     annotations:
       meta.helm.sh/release-name: dx-deployment
       meta.helm.sh/release-namespace: digital-experience
-    creationTimestamp: "2026-01-05T18:12:07Z"
+    creationTimestamp: "2026-01-11T19:40:46Z"
     labels:
       app: dx-deployment-haproxy
       app.kubernetes.io/instance: dx-deployment
@@ -922,11 +922,11 @@ items:
             f:release: {}
       manager: helm
       operation: Update
-      time: "2026-01-05T18:12:07Z"
+      time: "2026-01-11T19:46:24Z"
     name: dx-deployment-haproxy
     namespace: digital-experience
-    resourceVersion: "24370412"
-    uid: 40c19514-c9c8-4791-9212-3f75819a5881
+    resourceVersion: "27099548"
+    uid: ccda3448-9fcf-45a3-8327-3c00cf9b836e
 - apiVersion: v1
   data:
     dam.config.dam.imgprocessor.cors_origin: ""
@@ -935,7 +935,7 @@ items:
     annotations:
       meta.helm.sh/release-name: dx-deployment
       meta.helm.sh/release-namespace: digital-experience
-    creationTimestamp: "2026-01-05T18:12:07Z"
+    creationTimestamp: "2026-01-11T19:40:46Z"
     labels:
       app: dx-deployment-image-processor
       app.kubernetes.io/instance: dx-deployment
@@ -967,11 +967,92 @@ items:
             f:release: {}
       manager: helm
       operation: Update
-      time: "2026-01-05T18:12:07Z"
+      time: "2026-01-11T19:40:46Z"
     name: dx-deployment-image-processor
     namespace: digital-experience
-    resourceVersion: "24370411"
-    uid: e831caa3-4a8d-4582-ab47-324244e4fd73
+    resourceVersion: "27097339"
+    uid: a5e80f30-33b7-446d-a1f8-0dbd9ce6400d
+- apiVersion: v1
+  data:
+    API_SERVICE_CONTEXT: /dx/api/people/v1
+    AUTH_STRATEGY: DX
+    BASE_CUSTOM_FIELDS_STRING: ""
+    CLIENT_CONTEXT: /dx/ui/people
+    DEBUG: INFO:people-service:*
+    DX_CURRENT_USER_ACCESS_ENDPOINT: /dxmyrest/access/current-user?resourceId=wps.USERS
+    DX_INTEGRATION_ENABLED: "false"
+    DX_PORTLET_PAGE_CONTEXT: /wps/myportal/Practitioner/PeopleService
+    DX_SESSION_COOKIE_NAME: JSESSIONID
+    DX_USER_ACCESS_CACHE_MAX_ENTRIES: "1000"
+    DX_USER_ACCESS_CACHE_TTL: "3600000"
+    DX_USER_ACCESS_PRIVILEDGED_ROLES_STRING: Administrator,Privileged User,Editor
+    DX_USER_VALIDATION_ENDPOINT: /auth/validate
+    EXTERNAL_HOST: https://dx.apps.promox.europesip-lab.com
+    HTTP_SCHEME: https
+    JWT_TOKEN_EXPIRY: "3600000"
+    NODE_ENV: production
+    PROFILE_READONLY_FIELDS_STRING: id,firstName,lastName,displayName,organization,email,dn,managerId
+    USER_UNIQUE_IDENTIFIER: guid
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: dx-deployment
+      meta.helm.sh/release-namespace: digital-experience
+    creationTimestamp: "2026-01-11T19:46:23Z"
+    labels:
+      app: dx-deployment-peopleservice
+      app.kubernetes.io/instance: dx-deployment
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: peopleservice
+      app.kubernetes.io/version: 1.0.0
+      helm.sh/chart: peopleservice-1.0.0
+      release: dx-deployment
+    managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:data:
+          .: {}
+          f:API_SERVICE_CONTEXT: {}
+          f:AUTH_STRATEGY: {}
+          f:BASE_CUSTOM_FIELDS_STRING: {}
+          f:CLIENT_CONTEXT: {}
+          f:DEBUG: {}
+          f:DX_CURRENT_USER_ACCESS_ENDPOINT: {}
+          f:DX_INTEGRATION_ENABLED: {}
+          f:DX_PORTLET_PAGE_CONTEXT: {}
+          f:DX_SESSION_COOKIE_NAME: {}
+          f:DX_USER_ACCESS_CACHE_MAX_ENTRIES: {}
+          f:DX_USER_ACCESS_CACHE_TTL: {}
+          f:DX_USER_ACCESS_PRIVILEDGED_ROLES_STRING: {}
+          f:DX_USER_VALIDATION_ENDPOINT: {}
+          f:EXTERNAL_HOST: {}
+          f:HTTP_SCHEME: {}
+          f:JWT_TOKEN_EXPIRY: {}
+          f:NODE_ENV: {}
+          f:PROFILE_READONLY_FIELDS_STRING: {}
+          f:USER_UNIQUE_IDENTIFIER: {}
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:meta.helm.sh/release-name: {}
+            f:meta.helm.sh/release-namespace: {}
+          f:labels:
+            .: {}
+            f:app: {}
+            f:app.kubernetes.io/instance: {}
+            f:app.kubernetes.io/managed-by: {}
+            f:app.kubernetes.io/name: {}
+            f:app.kubernetes.io/version: {}
+            f:helm.sh/chart: {}
+            f:release: {}
+      manager: helm
+      operation: Update
+      time: "2026-01-11T19:46:23Z"
+    name: dx-deployment-peopleservice-env-vars-configmap
+    namespace: digital-experience
+    resourceVersion: "27099545"
+    uid: 47b657d0-88fb-48ab-aaf9-ad4672a65fa5
 - apiVersion: v1
   data:
     dam.config.dam.persistence.postgres_db: dxmediadb
@@ -981,7 +1062,7 @@ items:
     annotations:
       helm.sh/hook: pre-upgrade
       helm.sh/hook-weight: "-5"
-    creationTimestamp: "2026-01-05T18:27:49Z"
+    creationTimestamp: "2026-01-11T19:46:21Z"
     labels:
       app: dx-deployment-persistence
       app.kubernetes.io/instance: dx-deployment
@@ -1014,11 +1095,11 @@ items:
             f:release: {}
       manager: helm
       operation: Update
-      time: "2026-01-05T18:27:49Z"
+      time: "2026-01-11T19:46:21Z"
     name: dx-deployment-persistence
     namespace: digital-experience
-    resourceVersion: "24375883"
-    uid: 71d80e2d-8228-42e3-8c55-a486fe9d656e
+    resourceVersion: "27099529"
+    uid: 0daae7d3-4843-450e-a635-c2220d4af603
 - apiVersion: v1
   data:
     dam.config.dam.persistence.pgpool_max_pool: "15"
@@ -1029,7 +1110,7 @@ items:
     annotations:
       meta.helm.sh/release-name: dx-deployment
       meta.helm.sh/release-namespace: digital-experience
-    creationTimestamp: "2026-01-05T18:12:07Z"
+    creationTimestamp: "2026-01-11T19:40:46Z"
     labels:
       app: dx-deployment-persistence-connection-pool
       app.kubernetes.io/instance: dx-deployment
@@ -1063,11 +1144,11 @@ items:
             f:release: {}
       manager: helm
       operation: Update
-      time: "2026-01-05T18:12:07Z"
+      time: "2026-01-11T19:40:46Z"
     name: dx-deployment-persistence-connection-pool
     namespace: digital-experience
-    resourceVersion: "24370401"
-    uid: 86e9082a-f404-4466-86fc-e22dc186d203
+    resourceVersion: "27097336"
+    uid: 2ea99129-4145-4a03-8062-8f635f11b463
 - apiVersion: v1
   data:
     dam.config.dam.persistence.postgres_db: dxmediadb
@@ -1084,7 +1165,7 @@ items:
     annotations:
       meta.helm.sh/release-name: dx-deployment
       meta.helm.sh/release-namespace: digital-experience
-    creationTimestamp: "2026-01-05T18:12:07Z"
+    creationTimestamp: "2026-01-11T19:40:46Z"
     labels:
       app: dx-deployment-persistence-node
       app.kubernetes.io/instance: dx-deployment
@@ -1124,11 +1205,11 @@ items:
             f:release: {}
       manager: helm
       operation: Update
-      time: "2026-01-05T18:12:07Z"
+      time: "2026-01-11T19:40:46Z"
     name: dx-deployment-persistence-node
     namespace: digital-experience
-    resourceVersion: "24370402"
-    uid: 69bdab60-da44-4e11-8af4-1379d41ee2f4
+    resourceVersion: "27097342"
+    uid: e40b3044-bad1-4053-8300-0d00c8052057
 - apiVersion: v1
   data:
     dx.config.experienceapi.cors_origin: ""
@@ -1142,7 +1223,7 @@ items:
     annotations:
       meta.helm.sh/release-name: dx-deployment
       meta.helm.sh/release-namespace: digital-experience
-    creationTimestamp: "2026-01-05T18:12:07Z"
+    creationTimestamp: "2026-01-11T19:40:46Z"
     labels:
       app: dx-deployment-ring-api
       app.kubernetes.io/instance: dx-deployment
@@ -1179,11 +1260,11 @@ items:
             f:release: {}
       manager: helm
       operation: Update
-      time: "2026-01-05T18:12:07Z"
+      time: "2026-01-11T19:40:46Z"
     name: dx-deployment-ring-api
     namespace: digital-experience
-    resourceVersion: "24370408"
-    uid: 6988a993-1219-46e8-8819-46a3a00fff03
+    resourceVersion: "27097344"
+    uid: 3a9d6c61-d7f8-4066-8edc-d314a8bdbfae
 - apiVersion: v1
   data:
     configmapRecycle.affectedResources.deployment: content-composer,image-processor,ring-api
@@ -1198,7 +1279,7 @@ items:
     annotations:
       meta.helm.sh/release-name: dx-deployment
       meta.helm.sh/release-namespace: digital-experience
-    creationTimestamp: "2026-01-05T18:12:07Z"
+    creationTimestamp: "2026-01-11T19:40:46Z"
     labels:
       app: dx-deployment-runtime-controller
       app.kubernetes.io/instance: dx-deployment
@@ -1236,11 +1317,11 @@ items:
             f:release: {}
       manager: helm
       operation: Update
-      time: "2026-01-05T18:12:07Z"
+      time: "2026-01-11T19:40:46Z"
     name: dx-deployment-runtime-controller
     namespace: digital-experience
-    resourceVersion: "24370404"
-    uid: a8491694-92ee-4dc9-a4b5-65f96483e89a
+    resourceVersion: "27097345"
+    uid: 0e139f50-6b42-4fc3-a7e2-56527029a2f4
 - apiVersion: v1
   data:
     core.config.ai_enabled: "false"
@@ -1261,14 +1342,18 @@ items:
     core.config.ldap_attribute_mapping_ldap: mail,title,userPassword
     core.config.ldap_attribute_mapping_portal: ibm-primaryEmail,ibm-jobTitle,password
     core.config.ldap_attribute_non_supported: certificate,members
-    core.config.ldap_enabled: "false"
-    core.config.ldap_host: ""
+    core.config.ldap_enabled: "true"
+    core.config.ldap_host: ldap.europesip-lab.com
     core.config.ldap_id: dx_ldap
-    core.config.ldap_port: ""
+    core.config.ldap_port: "389"
     core.config.ldap_server_type: Custom
-    core.config.ldap_suffix: ""
+    core.config.ldap_suffix: dc=europesip,dc=com
     core.config.metrics_enabled: "true"
-    core.config.people_service_enabled: "false"
+    core.config.people_service_context_root_api: /dx/api/people/v1
+    core.config.people_service_context_root_portlet: /wps/myportal/Practitioner/PeopleService
+    core.config.people_service_context_root_ui: /dx/ui/people
+    core.config.people_service_enabled: "true"
+    core.config.people_service_webresources_uri: http://dx-deployment-peopleservice:3000/dx/ui/people
     core.config.personalized_path: myportal
     core.config.search_middleware_context_root_api: /dx/api/search
     core.config.search_middleware_context_root_picker_ui: /dx/ui/search/picker
@@ -1281,7 +1366,7 @@ items:
     annotations:
       meta.helm.sh/release-name: dx-deployment
       meta.helm.sh/release-namespace: digital-experience
-    creationTimestamp: "2026-01-05T18:12:07Z"
+    creationTimestamp: "2026-01-11T19:40:46Z"
     labels:
       app: dx-deployment-web-engine
       app.kubernetes.io/instance: dx-deployment
@@ -1321,7 +1406,11 @@ items:
           f:core.config.ldap_server_type: {}
           f:core.config.ldap_suffix: {}
           f:core.config.metrics_enabled: {}
+          f:core.config.people_service_context_root_api: {}
+          f:core.config.people_service_context_root_portlet: {}
+          f:core.config.people_service_context_root_ui: {}
           f:core.config.people_service_enabled: {}
+          f:core.config.people_service_webresources_uri: {}
           f:core.config.personalized_path: {}
           f:core.config.search_middleware_context_root_api: {}
           f:core.config.search_middleware_context_root_picker_ui: {}
@@ -1345,11 +1434,11 @@ items:
             f:release: {}
       manager: helm
       operation: Update
-      time: "2026-01-05T18:27:52Z"
+      time: "2026-01-11T19:46:25Z"
     name: dx-deployment-web-engine
     namespace: digital-experience
-    resourceVersion: "24375905"
-    uid: e216a090-7706-45e1-ae99-ee884055b610
+    resourceVersion: "27099555"
+    uid: d407ac63-c3bd-4b97-a1c2-d2ad6deee71c
 - apiVersion: v1
   data:
     jvm.options: |
@@ -1365,7 +1454,7 @@ items:
     annotations:
       meta.helm.sh/release-name: dx-deployment
       meta.helm.sh/release-namespace: digital-experience
-    creationTimestamp: "2026-01-05T18:12:07Z"
+    creationTimestamp: "2026-01-11T19:40:46Z"
     labels:
       app: dx-deployment-web-engine
       app.kubernetes.io/instance: dx-deployment
@@ -1397,18 +1486,96 @@ items:
             f:release: {}
       manager: helm
       operation: Update
-      time: "2026-01-05T18:12:07Z"
+      time: "2026-01-11T19:40:46Z"
     name: dx-deployment-web-engine-jvm-options
     namespace: digital-experience
-    resourceVersion: "24370405"
-    uid: a9a0871a-8a54-476a-95da-fba541b8eafa
+    resourceVersion: "27097346"
+    uid: 9b90ceaa-b04a-44f3-aa08-d23c45ca505d
 - apiVersion: v1
+  data:
+    ldap-config.xml: |
+      <server description="WebEngineServer">
+        <ldapRegistry id="ldap" realm="SampleLdapIDSRealm"
+          host='ldap.europesip-lab.com'
+          port='389' ignoreCase="true"
+          baseDN='dc=europesip,dc=com'
+          ldapType='Custom'
+          sslEnabled='false'
+          bindDN='${LDAP_BIND_USER}'
+          bindPassword='${LDAP_BIND_PASSWORD}'>
+          <customFilters
+            userFilter="(&amp;(uid=%v)(objectclass=inetOrgPerson))"
+            groupFilter="(&amp;(cn=%v)(objectclass=groupOfUniqueNames))"
+            userIdMap="*:uid"
+            groupIdMap="*:cn"
+            groupMemberIdMap="groupOfUniqueNames:uniqueMember">
+          </customFilters>
+          <ldapCache>
+            <attributesCache size="4000" sizeLimit="4000" timeout="2400s" />
+            <searchResultsCache resultsSizeLimit="4000" size="4000" timeout="2400s" />
+          </ldapCache>
+          <contextPool preferredSize="20"/>
+          <attributeConfiguration>
+            <attribute name="mail" propertyName="ibm-primaryEmail" entityType="PersonAccount"/>
+            <attribute name="title" propertyName="ibm-jobTitle" entityType="PersonAccount"/>
+          </attributeConfiguration>
+        </ldapRegistry>
+        <federatedRepository>
+          <primaryRealm name="FederatedRealm" allowOpIfRepoDown="true">
+            <participatingBaseEntry name="o=defaultWIMFileBasedRealm"/>
+            <participatingBaseEntry name='dc=europesip,dc=com' />
+          </primaryRealm>
+        </federatedRepository>
+      </server>
+    ldapOverride.xml: |
+      <server description="WebEngineServer">
+        <ldapRegistry id="ldap" realm="SampleLdapIDSRealm"
+          host="ldap.europesip-lab.com" port="636" ignoreCase="true"
+          baseDN="dc=europesip,dc=com"
+          ldapType="Custom"
+          sslEnabled="true"
+          sslRef="customSSLConfig"
+          bindDN="${LDAP_USERNAME}"
+          bindPassword="${LDAP_PASSWORD}">
+
+          <customFilters
+            userFilter="(&amp;(|(uid=%v)(mail=%v))(objectclass=inetOrgPerson))"
+            groupFilter="(&amp;(cn=%v)(|(objectclass=groupOfNames)(objectclass=groupOfUniqueNames)))"
+            userIdMap="*:uid"
+            groupIdMap="*:cn"
+            groupMemberIdMap="ibm-allGroups:member;ibm-allGroups:uniqueMember;groupOfNames:member;groupOfUniqueNames:uniqueMember">
+          </customFilters>
+
+          <attributeConfiguration>
+            <attribute name="mail" propertyName="ibm-primaryEmail" entityType="PersonAccount"/>
+            <attribute name="title" propertyName="ibm-jobTitle" entityType="PersonAccount"/>
+          </attributeConfiguration>
+
+        </ldapRegistry>
+        <federatedRepository>
+           <primaryRealm name="FederatedRealm" allowOpIfRepoDown="true">
+              <participatingBaseEntry name="o=defaultWIMFileBasedRealm"/>
+              <participatingBaseEntry name="dc=europesip,dc=com"/>
+           </primaryRealm>
+        </federatedRepository>
+      </server>
+    user-overrides.xml: |
+      <server description="DX Web Engine server">
+      <basicRegistry id="basic" realm="defaultWIMFileBasedRealm">
+      <user name="wpsadmin" password="Passw0rd" id="uid=wpsadmin,o=defaultWIMFileBasedRealm" />
+      <user name="admin1" password="admin2pwd" id="uid=admin1,o=defaultWIMFileBasedRealm"/>
+      <group name="wpsadmins" id="cn=wpsadmins,o=defaultWIMFileBasedRealm">
+         <member name="andres"/>
+         <member name="wpsadmin" />
+      </group>
+      </basicRegistry>
+      </server>
   kind: ConfigMap
   metadata:
     annotations:
       meta.helm.sh/release-name: dx-deployment
       meta.helm.sh/release-namespace: digital-experience
-    creationTimestamp: "2026-01-05T18:12:07Z"
+    creationTimestamp: "2026-01-11T19:40:46Z"
     labels:
       app: dx-deployment-web-engine
       app.kubernetes.io/instance: dx-deployment
@@ -1421,6 +1588,11 @@ items:
     - apiVersion: v1
       fieldsType: FieldsV1
       fieldsV1:
+        f:data:
+          .: {}
+          f:ldap-config.xml: {}
+          f:ldapOverride.xml: {}
+          f:user-overrides.xml: {}
         f:metadata:
           f:annotations:
             .: {}
@@ -1437,18 +1609,18 @@ items:
             f:release: {}
       manager: helm
       operation: Update
-      time: "2026-01-05T18:12:07Z"
+      time: "2026-01-11T19:46:25Z"
     name: dx-deployment-web-engine-overrides
     namespace: digital-experience
-    resourceVersion: "24370403"
-    uid: 000b4d82-3625-42e5-a564-7d943bbfd34c
+    resourceVersion: "27099556"
+    uid: 7cafc632-9c97-4a65-927d-10f8ccdc24d0
 - apiVersion: v1
   kind: ConfigMap
   metadata:
     annotations:
       meta.helm.sh/release-name: dx-deployment
       meta.helm.sh/release-namespace: digital-experience
-    creationTimestamp: "2026-01-05T18:12:07Z"
+    creationTimestamp: "2026-01-11T19:40:46Z"
     labels:
       app: dx-deployment-web-engine
       app.kubernetes.io/instance: dx-deployment
@@ -1477,11 +1649,11 @@ items:
             f:release: {}
       manager: helm
       operation: Update
-      time: "2026-01-05T18:12:07Z"
+      time: "2026-01-11T19:40:46Z"
     name: dx-deployment-web-engine-properties-overrides
     namespace: digital-experience
-    resourceVersion: "24370406"
-    uid: 517bca24-3650-4fb0-9c75-b7f745794d44
+    resourceVersion: "27097335"
+    uid: 99babdf5-0e0a-40ac-8c73-e37d6ef22bc6
 kind: List
 metadata:
   resourceVersion: ""

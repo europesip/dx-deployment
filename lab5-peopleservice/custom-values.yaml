@@ -1,27 +1,29 @@
-images:  # Section used ON MAIN CUSTOM_VALUES.YAML
+images:
+  imagePullSecrets:
+  - name: regcred         
   # Container repository used to retrieve the images
-  repository: "image-registry.openshift-image-registry.svc:5000/openshift"
+  repository: "p32810yz.gra7.container-registry.ovh.net"
   
   # Image name for each application
   names:
-    contentComposer: "dx-content-composer"
-    core: "dx-core"
-    damPluginGoogleVision: "dx-dam-plugin-google-vision"
-    digitalAssetManagement: "dx-digital-asset-manager"
-    imageProcessor: "dx-image-processor"
-    openLdap: "dx-openldap"
-    persistenceConnectionPool: "dx-persistence-connection-pool"
-    persistenceNode: "dx-persistence-node"
-    persistenceMetricsExporter: "dx-persistence-metrics-exporter"
-    remoteSearch: "dx-remote-search"
-    ringApi: "dx-ringapi"
-    runtimeController: "dx-runtime-controller"
-    loggingSidecar: "dx-logging-sidecar"
-    haproxy: "dx-haproxy"
-    damPluginKaltura: "dx-dam-plugin-kaltura"
-    licenseManager: "dx-license-manager"
-    prereqsChecker: "dx-prereqs-checker"
-    webEngine: "dx-webengine"
+    contentComposer: "dx/content-composer"
+    core: "dx/core"
+    damPluginGoogleVision: "dx/dam-plugin-google-vision"
+    digitalAssetManagement: "dx/digital-asset-manager"
+    imageProcessor: "dx/image-processor"
+    openLdap: "dx/openldap"
+    persistenceConnectionPool: "dx/persistence-connection-pool"
+    persistenceNode: "dx/persistence-node"
+    persistenceMetricsExporter: "dx/persistence-metrics-exporter"
+    remoteSearch: "dx/remote-search"
+    ringApi: "dx/ringapi"
+    runtimeController: "dx/runtime-controller"
+    loggingSidecar: "dx/logging-sidecar"
+    haproxy: "dx/haproxy"
+    damPluginKaltura: "dx/dam-plugin-kaltura"
+    licenseManager: "dx/license-manager"
+    prereqsChecker: "dx/prereqs-checker"
+    webEngine: "dx/webengine"
 
 # Persistent Volume Setup
 volumes:

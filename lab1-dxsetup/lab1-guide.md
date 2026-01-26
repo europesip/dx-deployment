@@ -76,7 +76,24 @@ oc adm policy add-role-to-user dx-installer-extra-perms dxadmin -n digital-exper
 
 ---
 
-## A.4 Check StorageClasses
+## A.4 Configure Registry Authentication
+
+While HCL distributes images via their official Harbor registry, air-gapped or enterprise environments typically require hosting images on a private internal registry.
+
+To enable the Kubernetes cluster to authenticate and pull images from your private registry you must create a Docker Registry secret in the target namespace.
+
+**Note:** The secret name below (`regcred`) must match the `imagePullSecrets` entry defined in your Helm `custom-values.yaml`.
+
+```bash
+oc create secret -n digital-experience docker-registry regcred \
+  --docker-server=p32810yz.gra7.container-registry.ovh.net \
+  --docker-username='robot$dx+dxuser' \
+  --docker-password='XdNaDjuuTjUd3IphHESzfDaoX0IHCZ8F' \
+  --docker-email='robot@dx.local'
+```
+
+---
+## A.5 Check StorageClasses
 
 ```bash
 oc get sc
@@ -101,33 +118,105 @@ oc login https://api.promox.europesip-lab.com:6443 -u dxadmin
 
 ## B.2 Create TLS key & secret
 
-```bash
-openssl genrsa -out my-key.pem 2048
-openssl req -x509 -key my-key.pem -out my-cert.pem -days 365 -subj '/CN=EuropeSIP'
-```
+To enable HTTPS access to the platform, a Kubernetes TLS secret containing the certificate and private key is required. Choose one of the following options based on your environment.
+
+### Option A: Self-Signed Certificate (Lab/Testing)
+
+Use this method for laboratory environments or if you do not have a valid domain certificate yet. This will generate a warning in the browser but allows the traffic to be encrypted.
+
+1.  **Generate the keys and certificate:**
+    ```bash
+    openssl genrsa -out my-key.pem 2048
+    openssl req -x509 -key my-key.pem -out my-cert.pem -days 365 -subj '/CN=EuropeSIP'
+    ```
+
+2.  **Create the Secret:**
+    ```bash
+    oc create secret tls dx-tls-cert \
+      --cert=my-cert.pem \
+      --key=my-key.pem \
+      -n digital-experience
+    ```
+
+---
+
+### Option B: Existing Commercial Certificate (Production/Client)
+
+Use this method if the client provides trusted certificates (e.g., from DigiCert, Let's Encrypt, or an internal Corporate PKI).
+
+**1. Prepare the Full Chain File**
+Kubernetes requires a **single file** containing the entire trust chain. If the client provided separate files (e.g., `domain.crt`, `intermediate.crt`, `root.crt`), you must concatenate them in the specific order shown below:
+
+* **Order:** Server Certificate -> Intermediate CA -> Root CA
 
 ```bash
-oc create secret tls dx-tls-cert --cert=my-cert.pem --key=my-key.pem -n digital-experience
+# Example command to merge certificates (Linux/Mac)
+cat domain-name.crt intermediate-ca.crt root-ca.crt > full-chain.pem
+```
+
+Create the Secret Create the secret using the full chain file and the private key.
+Note: Ensure the private key is unencrypted (no password).
+
+```bash
+oc create secret tls dx-tls-cert \
+  --cert=full-chain.pem \
+  --key=your-private-key.key \
+  -n digital-experience
 ```
 
 ---
 
-## B.3 (Optional) Create registry PullSecret
+# B.3 Create WebEngine User & Password
 
-This step is only necessary when using an image registry that requires authentication.  
-In this lab environment, the OpenShift **internal registry** is used, so no additional ImagePullSecrets are required.
-
-If your environment relies on an external or authenticated registry, you must create an appropriate PullSecret and reference it in your `custom-values.yaml`.
-
-For further details, refer to the official HCL documentation:  
-➡️ **[Optional ImagePullSecrets – HCL DX Documentation](https://help.hcl-software.com/digital-experience/dx-compose/CF231/deploy_dx/install/kubernetes_deployment/preparation/optional_tasks/optional_imagepullsecrets/)**
+```bash
+oc create secret generic web-engine-secret --from-literal=username=wpsadmin --from-literal=password=Passw0rd
+```
 
 ---
 
-## B.4 Extract and prepare Helm values
+
+## B.4 Obtain the Deployment Helm Chart
+
+To install the product and its components, we require two specific Helm Charts:
+1.  **HCL DX Deployment Helm Chart**: For the core Digital Experience platform.
+2.  **HCL Search Deployment Helm Chart**: For OpenSearch integrations and add-ons.
+
+These packages contain all the necessary Kubernetes resource definitions and configuration templates.
+
+First, ensure the destination directory exists and download the charts from the remote Harbor registry:
 
 ```bash
-helm show values ../required-assets/hcl-dx-deployment-2.42.1.tgz > values.yaml
+# 1. Create directory if it doesn't exist
+mkdir -p ../required-assets
+
+# 2. Download Core Deployment Chart
+helm pull oci://p32810yz.gra7.container-registry.ovh.net/dx/hcl-dx-deployment \
+  --version 2.43.0 \
+  -d ../required-assets
+
+# 3. Download Search Chart
+helm pull oci://p32810yz.gra7.container-registry.ovh.net/dx/hcl-dx-search \
+  --version 2.30.0 \
+  -d ../required-assets
+```
+
+> **⚠️ Authentication Required**
+> If the commands fail with an `unauthorized` error, you must authenticate with the registry first. Run the following command using the lab credentials:
+> ```bash
+> echo 'XdNaDjuuTjUd3IphHESzfDaoX0IHCZ8F' | helm registry login p32810yz.gra7.container-registry.ovh.net -u 'robot$dx+dxuser' --password-stdin
+> ```
+
+### ℹ️ Note on Local Download
+
+While downloading the charts to your local machine is technically optional (you can invoke the installation directly from the Harbor registry using OCI syntax), **it is the recommended method for this laboratory**.
+
+Downloading the charts allows you to **inspect their content** (by extracting the `.tgz` files) and understand how they are constructed. This is especially useful during the **Search configuration exercises**, where examining the structure of the `hcl-dx-search` chart and its dependencies provides valuable insight into the deployment architecture.
+---
+
+## B.5 Extract and prepare Helm values
+
+```bash
+helm show values ../required-assets/hcl-dx-deployment-2.43.0.tgz > values.yaml
 cp values.yaml custom-values.yaml
 ```
 
@@ -139,23 +228,22 @@ If you want to use the sample as-is, you can overwrite your current values:
 cp custom-values-sample.yaml custom-values.yaml 
 ```
 
-
 ---
 
-## B.5 Install DX
+## B.6 Install DX
 
 ```bash
 helm install -n digital-experience \
   -f custom-values.yaml \
   dx-deployment \
-  ../required-assets/hcl-dx-deployment-2.42.1.tgz \
+  ../required-assets/hcl-dx-deployment-2.43.0.tgz \
   --timeout 20m \
   --wait
 ```
 
 ---
 
-## B.6 Validate pod creation
+## B.7 Validate pod creation
 
 ```bash
 oc get pods
@@ -164,7 +252,7 @@ oc logs -f dx-deployment-web-engine-0 -c web-engine -n digital-experience
 
 ---
 
-## B.7 Validate HAProxy access (port-forward)
+## B.8 Validate HAProxy access (port-forward)
 
 ```bash
 oc port-forward svc/dx-deployment-haproxy 8443:443
@@ -173,10 +261,10 @@ oc port-forward svc/dx-deployment-haproxy 8443:443
 Now that you have done a "proxy" you can login trhough it  and check everyhing is running at <https://localhost:8443/wps/portal>
 ---
 
-## B.8 Apply external OpenShift Route
+## B.9 Apply external OpenShift Route
 
 ```bash
-oc apply -f dx-haproxy-route.yaml
+oc apply -f dx-haproxy-route-main.yaml
 ```
 
 You can now log in to your new DX installation by navigating to:  

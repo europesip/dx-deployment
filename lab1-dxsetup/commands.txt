@@ -68,6 +68,13 @@ oc apply -f rbac-extended.yaml
 # Vincula el rol para que dxadmin pueda gestionar los recursos sensibles.
 oc adm policy add-role-to-user dx-installer-extra-perms dxadmin -n digital-experience
 
+# Crea el Secret para bajarme las imagenes
+kubectl create secret -n digital-experience docker-registry regcred \
+  --docker-server=p32810yz.gra7.container-registry.ovh.net \
+  --docker-username='robot$dx+dxuser' \
+  --docker-password='XdNaDjuuTjUd3IphHESzfDaoX0IHCZ8F' \
+  --docker-email='robot@dx.local'
+
 Si se necesita usar certificado pre-existente, copiar .pems
 
 # Comprobar que tengo Sc

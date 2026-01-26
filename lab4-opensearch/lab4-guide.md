@@ -46,7 +46,6 @@ This guide provides the required steps to:
 oc login https://api.promox.europesip-lab.com:6443 -u dxadmin
 ```
 
-
 ## 3. Confirm DX Installation Is Running
 
 Before deploying the Search Engine, ensure that your DX Compose environment is fully operational:
@@ -58,7 +57,7 @@ oc get pods
 # All DX pods should be in Running state before continuing.
 ```
 
-Check also you can login to DX compose at 
+Check also you can login to DX compose at
 
 ## 4. Generate Certificates and Create Secrets
 
@@ -105,6 +104,7 @@ openssl x509 -req -in client.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreat
 ```
 
 ### 4.5  Create kubernetes secrets
+
 ```bash
 oc create secret generic search-admin-cert --from-file=admin.pem --from-file=admin-key.pem --from-file=root-ca.pem -n digital-experience
 oc create secret generic search-node-cert --from-file=node.pem --from-file=node-key.pem --from-file=root-ca.pem -n digital-experience
@@ -124,11 +124,12 @@ cp search-values.yaml custom-search-values.yaml
 
 ### 5.2 Customize the values file
 
-Edit the file **custom-search-values.yaml** to adjust the Search Engine configuration for your environment  
+Edit the file **custom-search-values.yaml** to adjust the Search Engine configuration for your environment
 (credentials, storage settings, resource limits, certificates, etc.).
 
 A sample configuration used in this lab is on this repository, on the file custom-search-values-sample.yaml
 If you want to use the sample as-is, you can overwrite your current values:
+
 ```bash
 cp custom-search-values-sample.yaml custom-search-values.yaml 
 ```
@@ -143,7 +144,7 @@ With your Helm values prepared, you can now install the DX Search Engine in your
 helm install -n digital-experience \
   -f custom-search-values.yaml \
   dx-search-deployment \
-  ../required-assets/hcl-dx-search-v2.29.0_20251027-1916.tgz \
+  ../required-assets/hcl-dx-search-v2.30.0.tgz \
   --timeout 20m \
   --wait
 ```
@@ -166,7 +167,6 @@ Expected results:
 - Persistent volumes should be Bound.
 - No pods should be in CrashLoopBackOff.
 
-
 ## 7. Upgrade DX Compose Helm Deployment to Use SearchMiddleware
 
 Once the DX Search Engine is installed and running correctly, integrate it with DX Compose by enabling the SearchMiddleware. This step updates the DX Compose deployment to reference the new Search Engine.
@@ -175,7 +175,7 @@ Once the DX Search Engine is installed and running correctly, integrate it with 
 
 ### 7.1 Prepare Custom Values for DX Compose
 
-Ensure you have the correct `custom-values.yaml` for the DX Compose upgrade.  
+Ensure you have the correct `custom-values.yaml` for the DX Compose upgrade.
 For example, is critical that you have the specific settings for "searchMiddlewareService" integration and "uiV2Enabled"
 
 You can use the sample provided in the lab:
@@ -196,7 +196,7 @@ Perform the Helm upgrade to integrate DX Compose with the Search Engine:
 helm upgrade dx-deployment \
   -n digital-experience \
   -f custom-values.yaml \
-  ../required-assets/hcl-dx-deployment-2.42.1.tgz \
+  ../required-assets/hcl-dx-deployment-2.43.0.tgz \
   --reuse-values \
   --timeout 20m \
   --wait
@@ -204,10 +204,9 @@ helm upgrade dx-deployment \
 
 Note:  We use the --reuse-values flag to ensure that the currently active configuration is preserved and merged with the new changes.
 
-
 ### 7.3 Verify Integration
 
 After upgrading DX Compose, ensure that the integration with the Search Engine is working correctly:
 
-Now, you shold be able to access the search API service at <https://dx.apps.promox.europesip-lab.com/dx/api/search/v2/explorer>
-You can also access the new Search interface following the instructions at <https://help.hcl-software.com/digital-experience/9.5/CF231/build_sites/search_v2/access/>
+Now, you shold be able to access the search API service at [https://dx.apps.promox.europesip-lab.com/dx/api/search/v2/explorer](https://dx.apps.promox.europesip-lab.com/dx/api/search/v2/explorer)
+You can also access the new Search interface following the instructions at [https://help.hcl-software.com/digital-experience/9.5/CF231/build_sites/search_v2/access/](https://help.hcl-software.com/digital-experience/9.5/CF231/build_sites/search_v2/access/)

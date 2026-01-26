@@ -64,8 +64,10 @@ applications:
 peopleservice:
   enabled: true
   image:  # ->  Overriding values needed for People Service.
-   registry: "image-registry.openshift-image-registry.svc:5000/openshift"
-   repository: "dx-people-service"
+   registry: "p32810yz.gra7.container-registry.ovh.net"
+   imagePullSecrets:
+    - name: regcred         
+   repository: "dx/people-service"
    tag: "v1.0.0_20251024-1349"
   volumes:
     # Data persistence for People Service using PVC
@@ -141,10 +143,10 @@ peopleservice:
     preventConcurrentExecution: true
   
   #   # JWT configuration
-  jwt:
-    # -- (string) JWT secret
-    # @section -- Application configuration
-    secret: "dx-deployment-peopleservice-jwt"
+  # jwt:
+  #   # -- (string) JWT secret
+  #   # @section -- Application configuration
+  #   secret: "dx-deployment-peopleservice-jwt"
 
   networking:
     host: "dx.apps.promox.europesip-lab.com"

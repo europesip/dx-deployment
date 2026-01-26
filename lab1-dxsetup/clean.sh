@@ -6,10 +6,3 @@ oc get pvc
 oc delete pvc --all -n digital-experience
 oc get pv
 oc get pv | grep 'digital-experience/' | awk '{print $1}' | xargs oc delete pv
-echo "Instalando lab 1"
-helm install -n digital-experience \
-  -f custom-values.yaml \
-  dx-deployment \
-  ../required-assets/hcl-dx-deployment-2.43.0.tgz \
-  --timeout 20m \
-  --wait

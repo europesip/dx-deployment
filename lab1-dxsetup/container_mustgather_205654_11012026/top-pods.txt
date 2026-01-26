@@ -1,7 +1,0 @@
-Error: unknown command "top" for "oc"
-
-Did you mean this?
-	cp
-	tag
-
-Run 'oc --help' for usage.

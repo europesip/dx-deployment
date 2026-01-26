@@ -88,7 +88,7 @@ Perform the Helm upgrade to integrate DX Compose with the Search Engine.
 helm upgrade dx-deployment \
   -n digital-experience \
   -f custom-values.yaml \
-  ../required-assets/hcl-dx-deployment-2.42.1.tgz \
+  ../required-assets/hcl-dx-deployment-2.43.0.tgz \
   --reuse-values \
   --timeout 20m \
   --wait

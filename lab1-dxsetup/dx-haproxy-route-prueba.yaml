@@ -1,0 +1,30 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  # IMPORTANTE: El nombre debe ser distinto al de la primera ruta
+  name: dx-haproxy-route-prueba
+  namespace: digital-experience
+  annotations:
+    haproxy.router.openshift.io/balance: source
+spec:
+  # ----------------------------------------------------------
+  # TU SEGUNDO DOMINIO
+  # ----------------------------------------------------------
+  host: prueba.apps.promox.europesip-lab.com
+  port:
+    targetPort: "haproxy"
+
+  # ----------------------------------------------------------
+  # Apuntamos al MISMO servicio que la ruta original
+  # ----------------------------------------------------------
+  to:
+    kind: Service
+    name: dx-deployment-haproxy
+    weight: 100
+
+  # ----------------------------------------------------------
+  # Mantenemos la configuración TLS Passthrough
+  # ----------------------------------------------------------
+  tls:
+    termination: passthrough
+    insecureEdgeTerminationPolicy: None

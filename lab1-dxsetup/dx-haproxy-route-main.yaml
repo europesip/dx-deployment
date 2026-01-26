@@ -1,0 +1,40 @@
+# ------------------------------------------------------------
+# HCL Digital Experience - OpenShift Route (TLS passthrough)
+# Based on official HCL DX 9.5 CF231 documentation
+# https://help.hcl-software.com/digital-experience/9.5/CF231/
+# ------------------------------------------------------------
+
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  # Route name updated as requested
+  name: dx-haproxy-route-main
+  namespace: digital-experience
+  annotations:
+    # Description for administrative purposes
+    description: "Main entry point for HCL DX"
+spec:
+  # ----------------------------------------------------------
+  # EXTERNAL FQDN OF THE DX PLATFORM
+  # Must match your public domain
+  # ----------------------------------------------------------
+  host: dx.apps.promox.europesip-lab.com
+  port:
+    targetPort: "haproxy"
+
+  # ----------------------------------------------------------
+  # Backend service exposing DX HAProxy
+  # ----------------------------------------------------------
+  to:
+    kind: Service
+    name: dx-deployment-haproxy
+    weight: 100
+
+  # ----------------------------------------------------------
+  # TLS passthrough:
+  # - TLS is terminated at HAProxy (NOT at OpenShift/Router)
+  # - Requires HAProxy to have REAL HTTPS configured internally
+  # ----------------------------------------------------------
+  tls:
+    termination: passthrough
+    insecureEdgeTerminationPolicy: None

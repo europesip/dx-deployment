@@ -1,13 +1,12 @@
 images:
+  imagePullSecrets:
+  - name: regcred         
   # Container repository used to retrieve the images
-  repository: "image-registry.openshift-image-registry.svc:5000/openshift"
-  
-  # Image name for each application
-  # Image name for each application
+  repository: "p32810yz.gra7.container-registry.ovh.net"
   names:
-    openSearch: "dx-opensearch"
-    searchMiddleware: "dx-search-middleware"
-    fileProcessor: "dx-file-processor"
+    openSearch: "dx/opensearch"
+    searchMiddleware: "dx/search-middleware"
+    fileProcessor: "dx/file-processor"
 # Persistent Volume Setup
 volumes:
   # Persistent Volumes for OpenSearch

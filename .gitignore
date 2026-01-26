@@ -32,6 +32,9 @@ search-values.yaml
 # Helm Charts, or other large installation binaries (licensed material).
 *.tgz
 *.tar
+*.tar.gz
+*.zip
+
 
 #######################################################
 # TEMPORARY CONFIGURATION AND LOGS
@@ -42,6 +45,7 @@ search-values.yaml
 *.xml
 *.ldif
 log*
+container_*
 
 #######################################################
 # KEY RULE: required-assets DIRECTORY

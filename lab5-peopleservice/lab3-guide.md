@@ -115,3 +115,5 @@ oc get pods -n digital-experience
 See https://help.hcl-software.com/digital-experience/dx-compose/CF232/deploy_dx/manage/working_with_compose/custom_certificates/?h=custom+certi
 oc  create secret generic dx-custom-certs   --from-file=europesip-ca.crt=/home/andres/dx-deployment/required-assets/pki_europesip/europesip-ca.pem   -n digital-experience
 
+
+https://dx.apps.promox.europesip-lab.com/dx/ui/people

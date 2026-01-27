@@ -40,7 +40,7 @@ This guide focuses on the **offline distribution approach**, demonstrating how t
 
 ---
 
-## High-Level Flow (Mermaid)
+## High-Level Flow
 
 ```mermaid
 flowchart LR
@@ -123,17 +123,15 @@ This directory will contain the container images and metadata required for uploa
 
 ### 6. Upload Images to Harbor
 
-Once the images are available locally, they can be uploaded **manually** to the internal registry using standard container tooling  
-(e.g. **podman** or **skopeo**).
+Once the images are available locally, they can be uploaded manually to the internal registry using standard container tooling
+(e.g. podman or skopeo).
+
+In addition, it is recommended to upload the existing Helm charts associated with the DX deployment to the internal repository (or chart registry), ensuring that both container images and deployment artifacts are available locally and aligned with the same version lifecycle.
 
 To simplify and automate this process, an **optional helper script** (`upload_harbor.sh`) is provided.  
 This script iterates over the extracted images and performs the **load, tag, and push** operations automatically.
 
----
-
-### 7. Optional: Upload Images Using the Helper Script
-
-Example usage:
+Sample Script Example usage:
 
 ```bash
 ../upload_harbor.sh \
@@ -142,10 +140,6 @@ Example usage:
   XdNaDjuuTjUd3IphHESzfDaoX0IHCZ8F \
   dx
 ```
-
----
-
----
 
 ---
 

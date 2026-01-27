@@ -1,24 +1,24 @@
 # HCL Digital Experience – OpenShift Installation Guide
+
 **DX 9.5 CF231 – EuropeSIP Lab Cluster**
 
 This document provides a structured and repeatable procedure to:
 
-- Prepare the OpenShift environment (as admin)  
-- Install HCL DX using Helm (as dxadmin)  
-- Validate access and configure external routing  
+- Prepare the OpenShift environment (as admin)
+- Install HCL DX using Helm (as dxadmin)
+- Validate access and configure external routing
 
 ---
 
 # IMPORTANT
 
-Before beginning the installation, the OpenShift administrator must ensure that the environment meets all required technical prerequisites.  
-This includes preparing the storage infrastructure, configuring the image registry, and providing a suitable execution environment for the installer.
+Before beginning the installation, the OpenShift administrator must ensure that the environment meets all required technical prerequisites.This includes preparing the storage infrastructure, configuring the image registry, and providing a suitable execution environment for the installer.
 
-> **Note:**  
-> This guide assumes that all required StorageClasses are already available, and that all necessary DX container images have been uploaded to the registry and are accessible to the cluster.  
+> **Note:**
+> This guide assumes that all required StorageClasses are already available, and that all necessary DX container images have been uploaded to the registry and are accessible to the cluster.
 > If you have any doubts regarding these prerequisites, please refer to **[pre-requisites.md](pre-requisites.md)**.
 
-Once these foundational requirements are met, an authorized OpenShift administrator will prepare a dedicated namespace with restricted privileges, allowing the `dxadmin` user to safely perform the DX installation.  
+Once these foundational requirements are met, an authorized OpenShift administrator will prepare a dedicated namespace with restricted privileges, allowing the `dxadmin` user to safely perform the DX installation.
 If you need to repeat the lab, you can remove the deployment and start from a clean state by following the instructions in **[clean.md](clean.md)**.
 
 This guide works with **two distinct roles**:
@@ -50,8 +50,8 @@ oc adm top nodes
 
 Requirements:
 
-- **CPU:** ≥ 2 cores available  
-- **Memory:** ≥ 8 GB free  
+- **CPU:** ≥ 2 cores available
+- **Memory:** ≥ 8 GB free
 
 ---
 
@@ -80,7 +80,9 @@ oc adm policy add-role-to-user dx-installer-extra-perms dxadmin -n digital-exper
 
 While HCL distributes images via their official Harbor registry, air-gapped or enterprise environments typically require hosting images on a private internal registry.
 
-To enable the Kubernetes cluster to authenticate and pull images from your private registry you must create a Docker Registry secret in the target namespace.
+If an internal registry is going to be used, we must have previously upload the needed images there, as described on [pre-requisites](pre-requisited.md) and detailed on the following [example](upload-harbor.md)
+
+Additionally, to enable the Kubernetes cluster to authenticate and pull images from your private registry you must create a Docker Registry secret in the target namespace.
 
 **Note:** The secret name below (`regcred`) must match the `imagePullSecrets` entry defined in your Helm `custom-values.yaml`.
 
@@ -93,6 +95,7 @@ oc create secret -n digital-experience docker-registry regcred \
 ```
 
 ---
+
 ## A.5 Check StorageClasses
 
 ```bash
@@ -103,7 +106,7 @@ oc get sc
 
 # B. INSTALLATION PROCEDURE (as dxadmin, restricted namespace privileges)
 
-Once the environment has been fully prepared and a namespace has been created where the `dxadmin` user has the required permissions, the installation can proceed.  
+Once the environment has been fully prepared and a namespace has been created where the `dxadmin` user has the required permissions, the installation can proceed.
 The user responsible for installing and managing the product will perform the following steps using the `dxadmin` account:
 
 ---
@@ -124,19 +127,20 @@ To enable HTTPS access to the platform, a Kubernetes TLS secret containing the c
 
 Use this method for laboratory environments or if you do not have a valid domain certificate yet. This will generate a warning in the browser but allows the traffic to be encrypted.
 
-1.  **Generate the keys and certificate:**
-    ```bash
-    openssl genrsa -out my-key.pem 2048
-    openssl req -x509 -key my-key.pem -out my-cert.pem -days 365 -subj '/CN=EuropeSIP'
-    ```
+1. **Generate the keys and certificate:**
 
-2.  **Create the Secret:**
-    ```bash
-    oc create secret tls dx-tls-cert \
-      --cert=my-cert.pem \
-      --key=my-key.pem \
-      -n digital-experience
-    ```
+   ```bash
+   openssl genrsa -out my-key.pem 2048
+   openssl req -x509 -key my-key.pem -out my-cert.pem -days 365 -subj '/CN=EuropeSIP'
+   ```
+2. **Create the Secret:**
+
+   ```bash
+   oc create secret tls dx-tls-cert \
+     --cert=my-cert.pem \
+     --key=my-key.pem \
+     -n digital-experience
+   ```
 
 ---
 
@@ -174,12 +178,12 @@ oc create secret generic web-engine-secret --from-literal=username=wpsadmin --fr
 
 ---
 
-
 ## B.4 Obtain the Deployment Helm Chart
 
 To install the product and its components, we require two specific Helm Charts:
-1.  **HCL DX Deployment Helm Chart**: For the core Digital Experience platform.
-2.  **HCL Search Deployment Helm Chart**: For OpenSearch integrations and add-ons.
+
+1. **HCL DX Deployment Helm Chart**: For the core Digital Experience platform.
+2. **HCL Search Deployment Helm Chart**: For OpenSearch integrations and add-ons.
 
 These packages contain all the necessary Kubernetes resource definitions and configuration templates.
 
@@ -202,6 +206,7 @@ helm pull oci://p32810yz.gra7.container-registry.ovh.net/dx/hcl-dx-search \
 
 > **⚠️ Authentication Required**
 > If the commands fail with an `unauthorized` error, you must authenticate with the registry first. Run the following command using the lab credentials:
+>
 > ```bash
 > echo 'XdNaDjuuTjUd3IphHESzfDaoX0IHCZ8F' | helm registry login p32810yz.gra7.container-registry.ovh.net -u 'robot$dx+dxuser' --password-stdin
 > ```
@@ -211,7 +216,7 @@ helm pull oci://p32810yz.gra7.container-registry.ovh.net/dx/hcl-dx-search \
 While downloading the charts to your local machine is technically optional (you can invoke the installation directly from the Harbor registry using OCI syntax), **it is the recommended method for this laboratory**.
 
 Downloading the charts allows you to **inspect their content** (by extracting the `.tgz` files) and understand how they are constructed. This is especially useful during the **Search configuration exercises**, where examining the structure of the `hcl-dx-search` chart and its dependencies provides valuable insight into the deployment architecture.
----
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## B.5 Extract and prepare Helm values
 
@@ -224,6 +229,7 @@ Modify `custom-values.yaml` as needed.
 
 OPTIONAL: A sample configuration used in this lab is on this repository, on the file custom-search-values-sample.yaml
 If you want to use the sample as-is, you can overwrite your current values:
+
 ```bash
 cp custom-values-sample.yaml custom-values.yaml 
 ```
@@ -258,8 +264,8 @@ oc logs -f dx-deployment-web-engine-0 -c web-engine -n digital-experience
 oc port-forward svc/dx-deployment-haproxy 8443:443
 ```
 
-Now that you have done a "proxy" you can login trhough it  and check everyhing is running at <https://localhost:8443/wps/portal>
----
+Now that you have done a "proxy" you can login trhough it  and check everyhing is running at [https://localhost:8443/wps/portal](https://localhost:8443/wps/portal)
+------------------------------------------------------------------------------------------------------------------------------
 
 ## B.9 Apply external OpenShift Route
 
@@ -267,8 +273,8 @@ Now that you have done a "proxy" you can login trhough it  and check everyhing i
 oc apply -f dx-haproxy-route-main.yaml
 ```
 
-You can now log in to your new DX installation by navigating to:  
-<https://dx.apps.promox.europesip-lab.com/wps/myportal/>
+You can now log in to your new DX installation by navigating to:
+[https://dx.apps.promox.europesip-lab.com/wps/myportal/](https://dx.apps.promox.europesip-lab.com/wps/myportal/)
 
 If the deployment is incomplete or you encounter any issues, refer to the troubleshooting instructions in the **[logs.md](logs.md)** document.
 

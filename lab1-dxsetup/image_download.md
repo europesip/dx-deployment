@@ -2,15 +2,16 @@
 
 ## Executive Summary
 
-Enterprise OpenShift and Kubernetes platforms commonly operate with **internal container registries** to enforce security, compliance, and operational control.  
+Enterprise OpenShift and Kubernetes platforms commonly operate with **internal container registries** to enforce security, compliance, and operational control.
 Although HCL provides a publicly accessible registry for **HCL Digital Experience (DX)** images, many customers—especially those running in **restricted or air-gapped environments**—must mirror these images into their own registries.
 
 This document describes a **simple and auditable workflow** to:
+
 - Download HCL DX Compose container images as an offline archive
 - Upload them into an **internal Harbor registry**
 - Enable their consumption during platform deployments
 
-Multiple mirroring strategies are briefly discussed, with guidance on when to use each one.  
+Multiple mirroring strategies are briefly discussed, with guidance on when to use each one.
 The guide intentionally focuses on a **low-complexity, offline approach**, suitable for a wide range of customer environments, while still allowing future evolution toward automated mirroring solutions.
 
 ---
@@ -30,8 +31,7 @@ In such scenarios, container images must be **mirrored from the vendor registry 
 
 Several supported strategies exist to achieve this:
 
-- **Transparent mirroring using oc-mirror / oc2mirror**, allowing a controlled and declarative mirror from external registries into internal ones.  
-  This approach is well suited for **OpenShift environments** and can be combined with **registry replication mechanisms** to ensure **long-term maintenance and lifecycle management** of container images.
+- **Transparent mirroring using oc-mirror / oc2mirror**, allowing a controlled and declarative mirror from external registries into internal ones.This approach is well suited for **OpenShift environments** and can be combined with **registry replication mechanisms** to ensure **long-term maintenance and lifecycle management** of container images.
 - **Direct registry-to-registry copy** using tools such as **skopeo**
 - **Harbor replication rules**, when the customer also uses Harbor, to automatically mirror vendor images and keep them synchronized over time
 - **Offline distribution**, by downloading images as an archive (ZIP) and uploading them into the internal registry
@@ -55,9 +55,9 @@ flowchart LR
 
 The process consists of:
 
-1. Downloading **HCL DX Compose** from the HCL Software Portal  
-2. Extracting the container images locally  
-3. Uploading the images to an **internal Harbor registry**  
+1. Downloading **HCL DX Compose** from the HCL Software Portal
+2. Extracting the container images locally
+3. Uploading the images to an **internal Harbor registry**
 4. Consuming the images from the registry during deployment
 
 The example used in this guide references **DX Compose version 9.5.2-232**.
@@ -81,8 +81,9 @@ https://my.hcltechsw.com/downloads/dx/compose
 Select the appropriate release version for your target environment.
 
 In this example:
-- **Major version:** 9.5  
-- **Build:** 9.5.2-232  
+
+- **Major version:** 9.5
+- **Build:** 9.5.2-232
 - **Release date:** December 15, 2025
 
 ---
@@ -90,6 +91,7 @@ In this example:
 ### 3. Generate the Download Link
 
 Locate the archive:
+
 - **File name:** `hcl-compose-kubernetes-CF232`
 - **Size:** ~6.88 GB
 
@@ -123,23 +125,20 @@ This directory will contain the container images and metadata required for uploa
 
 ### 6. Upload Images to Internal Registry (i.e, Local Harbor)
 
-Once the images are available locally, they can be uploaded manually to the internal registry using standard container tooling
-(e.g. podman or skopeo).
+Once the images are available locally, they can be uploaded manually to the internal registry using standard container tooling (e.g. **podman or skopeo**).
 
 In addition, it is recommended to upload the existing Helm charts associated with the DX deployment to the internal repository (or chart registry), ensuring that both container images and deployment artifacts are available locally and aligned with the same version lifecycle.
 
-To simplify and automate this process, an **optional helper script** (`upload_harbor.sh`) is provided.  
-This script iterates over the extracted images and performs the **load, tag, and push** operations automatically.
+To simplify and automate this process, an **optional helper script** (`upload_harbor.sh`) is provided.
 
+This script iterates over the extracted images (**tar.gz files**) and performs the load, tag, and push operations automatically. It also uploads the Helm charts required for the installation (**tgz files**) to the same location. The script takes 4 parameters: the URL of your internal registry, the authentication username, the password, and the registry project (or directory).
 Sample Script Example usage:
 
 ```bash
-../upload_harbor.sh \
-  p32810yz.gra7.container-registry.ovh.net \
-  'robot$dx+dxuser' \
-  XdNaDjuuTjUd3IphHESzfDaoX0IHCZ8FP \
-  dx
+$ ./upload_harbor.sh <MY_REGISTRY> <USER> <PASSWORD> <PROJECT>
 ```
+
+> **Note:** If the registry requires authentication to download images, you will also need to create a secret (as described later in the installation guide).
 
 ---
 
@@ -148,11 +147,12 @@ Sample Script Example usage:
 Depending on the image distribution method selected, **different access requirements apply**:
 
 - If you plan to use **online or registry-based methods** (such as oc-mirror, skopeo copy, or Harbor replication), the customer must have:
+
   - **Network access** to the HCL container registry
   - Valid **credentials for the HCL Harbor registry** located at:
     - https://hclcr.io/
-
 - If you plan to use the **offline ZIP distribution method** described in this guide, the customer must have:
+
   - Access to the **MyHCL Software Portal**
   - Valid **MyHCL credentials** to download the DX Compose archive from:
     - https://my.hcltechsw.com/
@@ -162,7 +162,6 @@ The **official and detailed HCL procedure** for downloading and handling DX cont
 - https://help.hcl-software.com/digital-experience/9.5/CF232/get_started/download/harbor_container_registry/
 
 This guide complements the official documentation by providing a **simplified, operational example** focused on customer-managed registries.
-
 
 ## Decision Guide: oc-mirror vs Offline ZIP
 
@@ -179,7 +178,7 @@ When choosing how to mirror HCL DX Compose images into an internal registry, the
   - Integration with **registry replication** strategies
 - The platform team is comfortable operating OpenShift-native tooling
 
-**Recommended for:**  
+**Recommended for:**
 Production platforms, regulated environments with structured operations, and clusters that require continuous updates.
 
 ---
@@ -192,7 +191,7 @@ Production platforms, regulated environments with structured operations, and clu
 - Operational simplicity is preferred over automation
 - The target audience includes **non-platform specialists**
 
-**Recommended for:**  
+**Recommended for:**
 Proof-of-concepts, isolated environments, initial bootstrap phases, or customer teams with limited OpenShift experience.
 
 ---

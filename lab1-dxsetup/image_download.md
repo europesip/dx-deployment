@@ -121,7 +121,7 @@ This directory will contain the container images and metadata required for uploa
 
 ---
 
-### 6. Upload Images to Harbor
+### 6. Upload Images to Internal Registry (i.e, Local Harbor)
 
 Once the images are available locally, they can be uploaded manually to the internal registry using standard container tooling
 (e.g. podman or skopeo).
@@ -137,7 +137,7 @@ Sample Script Example usage:
 ../upload_harbor.sh \
   p32810yz.gra7.container-registry.ovh.net \
   'robot$dx+dxuser' \
-  XdNaDjuuTjUd3IphHESzfDaoX0IHCZ8F \
+  XdNaDjuuTjUd3IphHESzfDaoX0IHCZ8FP \
   dx
 ```
 

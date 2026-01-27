@@ -80,7 +80,7 @@ oc adm policy add-role-to-user dx-installer-extra-perms dxadmin -n digital-exper
 
 While HCL distributes images via their official Harbor registry, air-gapped or enterprise environments typically require hosting images on a private internal registry.
 
-If an internal registry is going to be used, we must have previously upload the needed images there, as described on [pre-requisites](pre-requisited.md) and detailed on the following [example](upload-harbor.md)
+If an internal registry is going to be used, we must have previously upload the needed images there, as described on  **[pre-requisites.md](pre-requisites.md)** and detailed on the following example **[upload-harbor.md](upload-harbor)**.
 
 Additionally, to enable the Kubernetes cluster to authenticate and pull images from your private registry you must create a Docker Registry secret in the target namespace.
 

@@ -1,4 +1,4 @@
-# HCL Digital Experience (DX) Compose – Image Mirroring to Harbor
+# HCL DX Compose – Image Mirroring from/to Harbor
 
 ## Executive Summary
 

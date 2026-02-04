@@ -64,7 +64,7 @@ The OpenShift administrator must preload all required HCL DX container images in
 
 This guide assumes an **air-gapped scenario** where the OpenShift cluster does **not** have Internet access. Consequently, the cluster cannot pull images directly from the HCL Harbor registry. Instead, images must be retrieved from a local corporate registry where they have been previously mirrored or uploaded by the administrator.
 
-For a step-by-step example of how to upload images to your local registry, please refer to the instructions [here](https://www.google.com/search?q=image_download.md).
+For a step-by-step example of how to upload images to your local registry, please refer to the instructions **[here](upload-harbor.md)**.
 
 **Note:** The process linked above is provided for reference only. Registry configurations can vary significantly between customers and environments.
 

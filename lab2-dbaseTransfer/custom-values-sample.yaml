@@ -1,27 +1,27 @@
-images:
-  # Container repository used to retrieve the images
-  repository: "image-registry.openshift-image-registry.svc:5000/openshift"
+# images:
+#   # Container repository used to retrieve the images
+#   repository: "image-registry.openshift-image-registry.svc:5000/openshift"
   
-  # Image name for each application
-  names:
-    contentComposer: "dx-content-composer"
-    core: "dx-core"
-    damPluginGoogleVision: "dx-dam-plugin-google-vision"
-    digitalAssetManagement: "dx-digital-asset-manager"
-    imageProcessor: "dx-image-processor"
-    openLdap: "dx-openldap"
-    persistenceConnectionPool: "dx-persistence-connection-pool"
-    persistenceNode: "dx-persistence-node"
-    persistenceMetricsExporter: "dx-persistence-metrics-exporter"
-    remoteSearch: "dx-remote-search"
-    ringApi: "dx-ringapi"
-    runtimeController: "dx-runtime-controller"
-    loggingSidecar: "dx-logging-sidecar"
-    haproxy: "dx-haproxy"
-    damPluginKaltura: "dx-dam-plugin-kaltura"
-    licenseManager: "dx-license-manager"
-    prereqsChecker: "dx-prereqs-checker"
-    webEngine: "dx-webengine"
+#   # Image name for each application
+#   names:
+#     contentComposer: "dx-content-composer"
+#     core: "dx-core"
+#     damPluginGoogleVision: "dx-dam-plugin-google-vision"
+#     digitalAssetManagement: "dx-digital-asset-manager"
+#     imageProcessor: "dx-image-processor"
+#     openLdap: "dx-openldap"
+#     persistenceConnectionPool: "dx-persistence-connection-pool"
+#     persistenceNode: "dx-persistence-node"
+#     persistenceMetricsExporter: "dx-persistence-metrics-exporter"
+#     remoteSearch: "dx-remote-search"
+#     ringApi: "dx-ringapi"
+#     runtimeController: "dx-runtime-controller"
+#     loggingSidecar: "dx-logging-sidecar"
+#     haproxy: "dx-haproxy"
+#     damPluginKaltura: "dx-dam-plugin-kaltura"
+#     licenseManager: "dx-license-manager"
+#     prereqsChecker: "dx-prereqs-checker"
+#     webEngine: "dx-webengine"
 
 # Persistent Volume Setup
 volumes:
@@ -76,18 +76,23 @@ networking:
   webEngine:
     # Host of webEngine, must be specified as a FQDN
     host: "dx.apps.promox.europesip-lab.com"
+
 # Security related configuration, e.g. default credentials
 security:
   # Security configuration for webEngine
   webEngine:
     # Credentials for the WebEngine Server administrative user
     # Note: Be aware of the out-of-the-box additional "admin1" adminsitrative user
-    webEngineUser: "wpsadmin"
-    webEnginePassword: "Passw0rd" # Simple password for wpsadmin
+    # Also, be aware that if we want to use custom-secrets, we must also unset webEngineUser & webEnginePassword values
+    webEngineUser: null
+    webEnginePassword: null
+    customWebEngineSecret: "web-engine-secret" # secret only is taken if previous values are empty.
 
 configuration:
   containerTimezone: "Europe/Madrid"
   webEngine:
+    customTruststoreSecrets:
+      ca-secret-1: "dx-custom-certs"
     # Use a External Database, avoid Derby
     useExternalDatabase: true
     # The secrets below contains the info about the database tables to use 

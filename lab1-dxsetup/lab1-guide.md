@@ -80,7 +80,7 @@ oc adm policy add-role-to-user dx-installer-extra-perms dxadmin -n digital-exper
 
 While HCL distributes images via their official Harbor registry, air-gapped or enterprise environments typically require hosting images on a private internal registry.
 
-If an internal registry is going to be used, we must have previously upload the needed images there, as described on  **[pre-requisites.md](pre-requisites.md)** and detailed on the following example **[upload-harbor.md](upload-harbor)**.
+If an internal registry is going to be used, we must have previously upload the needed images there, as described on  **[pre-requisites.md](pre-requisites.md)** and detailed on the following **[example](upload-harbor.md)**.
 
 Additionally, to enable the Kubernetes cluster to authenticate and pull images from your private registry you must create a Docker Registry secret in the target namespace.
 
@@ -213,10 +213,9 @@ helm pull oci://p32810yz.gra7.container-registry.ovh.net/dx/hcl-dx-search \
 
 ### ℹ️ Note on Local Download
 
-While downloading the charts to your local machine is technically optional (you can invoke the installation directly from the Harbor registry using OCI syntax), **it is the recommended method for this laboratory**.
+While downloading the charts to your local machine is technically optional (you can invoke the installation directly from the Harbor registry using OCI syntax), **it is the recommended method for this laboratory.**
 
 Downloading the charts allows you to **inspect their content** (by extracting the `.tgz` files) and understand how they are constructed. This is especially useful during the **Search configuration exercises**, where examining the structure of the `hcl-dx-search` chart and its dependencies provides valuable insight into the deployment architecture.
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## B.5 Extract and prepare Helm values
 
@@ -265,7 +264,6 @@ oc port-forward svc/dx-deployment-haproxy 8443:443
 ```
 
 Now that you have done a "proxy" you can login trhough it  and check everyhing is running at [https://localhost:8443/wps/portal](https://localhost:8443/wps/portal)
-------------------------------------------------------------------------------------------------------------------------------
 
 ## B.9 Apply external OpenShift Route
 

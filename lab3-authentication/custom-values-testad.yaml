@@ -1,0 +1,96 @@
+# Security related configuration, e.g. default credentials
+security:
+  # Security configuration for webEngine
+  webEngine:
+    # Credentials for the WebEngine Server administrative user
+    # Note: Be aware of the out-of-the-box additional "admin1" adminsitrative user
+    # Also, be aware that if we want to use custom-secrets, we must also unset webEngineUser & webEnginePassword values
+    webEngineUser: ""
+    webEnginePassword: ""
+    customWebEngineSecret: "web-engine-secret" # secret only is taken if previous values are empty.
+
+configuration:
+  containerTimezone: "Europe/Madrid"
+  webEngine:
+    configOverrideFiles:
+      user-overrides.xml: |
+          <server description="DX Web Engine server">
+          <basicRegistry id="basic" realm="defaultWIMFileBasedRealm">
+          <user name="wpsadmin" password="Passw0rd" id="uid=wpsadmin,o=defaultWIMFileBasedRealm" />
+          <group name="wpsadmins" id="cn=wpsadmins,o=defaultWIMFileBasedRealm">
+             <member name="wpsadmin" />
+          </group>
+          </basicRegistry>
+          </server>
+      ldapOverride.xml: |
+        <ldapRegistry
+            id="ldap"
+            realm="SampleLdapADRealm"
+            host="ec2-18-101-177-32.eu-south-2.compute.amazonaws.com"
+            port="389"
+            ignoreCase="true"
+            baseDN="DC=desa,DC=redes,DC=aeat" 
+            bindDN="wpsbind@desa.redes.aeat"
+            bindPassword="Passw0rd"
+            ldapType="Microsoft Active Directory"
+            sslEnabled="false"
+            sslRef="customSSLConfig"
+            referral="ignore"
+            recursiveSearch="false"
+            bindAuthMechanism="simple"
+            returnToPrimaryServer="true"
+            allUserAttributes="true"
+            searchPageSize="500"
+            searchTimeLimit="15s"
+            readTimeout="30s"
+            connectTimeout="10s">
+            
+            <customFilters
+                userFilter="(&(sAMAccountName=%v)(objectcategory=person))"
+                groupFilter="(&(cn=%v)(objectcategory=group))"
+                userIdMap="user:sAMAccountName"
+                groupIdMap="*:cn"
+                groupMemberIdMap="memberOf:member">
+            </customFilters>
+
+            <attributeConfiguration>
+                <attribute name="sAMAccountName" propertyName="uid" entityType="PersonAccount"/>
+            </attributeConfiguration>
+
+            <ldapEntityType name="PersonAccount">
+                <objectClass>person</objectClass>
+            </ldapEntityType>
+
+            <ldapEntityType name="Group">
+                <objectClass>group</objectClass>
+            </ldapEntityType>
+
+            <groupProperties>
+                <memberAttribute name="member" scope="direct" objectClass="group"/>
+                <membershipAttribute name="memberOf" scope="direct"/>
+            </groupProperties>
+
+            <loginProperty name="uid">uid</loginProperty>
+        </ldapRegistry>
+
+# Logging & Trace configuration
+logging:
+  webEngine:
+    level:
+      - "*=info" # Global default log level
+      - "com.ibm.wps.logging.ExceptionLogger=all" # ExceptionLogger default level
+      - "hcl.logging.search-v2.DEBUG.client.*=all" # Search Debugging
+      - "com.ibm.ws.security.*=all" # Requerido por Thorsten para SSL/Auth
+      - "com.ibm.ws.webcontainer.security.*=all" # Requerido por Thorsten para contexto web
+    
+# JVM-Options (Optimize SSL and Timeouts)
+environment:
+  pod:
+    webEngine:
+    - name: JVM_ARGS
+      value: >-
+        -Dcom.sun.jndi.ldap.connect.pool.protocol="plain ssl"
+        -Dcom.sun.jndi.ldap.connect.pool.timeout=180000
+        -Dcom.sun.jndi.ldap.connect.pool.maxsize=50
+        -Dcom.sun.jndi.ldap.connect.pool.prefsize=10
+        -Dcom.sun.jndi.ldap.connect.pool.initsize=5

@@ -9,6 +9,16 @@ security:
     webEnginePassword: ""
     customWebEngineSecret: "web-engine-secret" # secret only is taken if previous values are empty.
 
+pod:
+    webEngine:
+    - name: JVM_ARGS
+      value: >-
+        -Dcom.sun.jndi.ldap.connect.pool.protocol="plain ssl"
+        -Dcom.sun.jndi.ldap.connect.pool.timeout=180000
+        -Dcom.sun.jndi.ldap.connect.pool.maxsize=50
+        -Dcom.sun.jndi.ldap.connect.pool.prefsize=10
+        -Dcom.sun.jndi.ldap.connect.pool.initsize=5
+
 # Logging & Trace configuration
 logging:
   webEngine:
@@ -46,6 +56,7 @@ configuration:
               baseDN="dc=europesip,dc=com"
               ldapType="Custom"
               sslEnabled="true"
+              sslRef="customSSLConfig"
               bindDN="${LDAP_USERNAME}"
               bindPassword="${LDAP_PASSWORD}">
 

@@ -66,9 +66,7 @@ peopleservice:
 networking:
   # Networking configurations specific to HAProxy
   haproxy:
-    # Configuration to set the type Service type for the HAProxy Service. Supported values are "ClusterIP", "LoadBalancer" and "NodePort"
     serviceType: "ClusterIP"
-  # TLS Certificate secret used for HAProxy
   tlsCertSecret: "dx-tls-cert"
   # Search middleware service name, needs to match the query service if you have deployed
   # OpenSearch and the search middleware
